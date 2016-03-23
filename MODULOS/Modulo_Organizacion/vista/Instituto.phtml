@@ -1,0 +1,416 @@
+<?php
+session_start();
+
+
+
+if(isset($_SESSION['id_perfil'])){
+$id_perfil=$_SESSION['id_perfil'];
+$nombre_perfil=$_SESSION['nombre_perfil'];
+$nombre_organizacion =  $_SESSION['nombre_instituto'];
+$nombre_persona = $_SESSION['persona'];
+}else { 
+$id_perfil=1;
+$nombre_perfil="Menú Principal";
+}
+?>
+  <!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pasantias</title>
+
+
+
+        <!--   Mensajes-->
+
+
+    <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
+    <link rel="stylesheet" href="../js/dist/css/animate.min.css">
+
+      <!--    MENU CUERPO-->
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+
+
+
+<script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+<script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+<script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+<script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+
+
+<link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+<script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+<script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+  </head>
+
+
+
+  <body  style="padding-top: 20px;">
+    
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+<!-- Fin De MENU-->
+
+<div align="center">
+    
+    <div style="width:60%">
+
+
+            <table class="table table-bordered">
+            <tr class="well">
+            <td><h4 align="center">Datos B&aacute;sicos</h4></td>
+            </tr>
+            </table>
+
+
+              <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs nav-justified">
+
+        <li class="active" data-target="#tab1" data-toggle="tab"><a  id="IDIPNEW" ><strong>Nueva Instituci&oacute;n Independiente</strong></a></li>
+        
+       
+        <li class="" data-target="#tab3" data-toggle="tab"><a  ><strong>Persona Encargada</strong></a></li>
+        
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+              <div class="tab-pane active" id="tab1">
+              <div class="row-fluid">
+
+              <table class="table table-bordered">
+              <tr class="well">
+              <td><h4 align="center">Registrar Instituto</h4></td>
+              </tr>
+              <tr>
+              <td>
+                        <center>
+                          
+                            <div class="row-fluid">
+                              <div class="span6">
+
+                                <strong>Nombre Instituto:</strong><br>
+                                <textarea id="nombreIn" value="" autocomplete="off" required maxlength="70"></textarea>
+                                <font color="red" size="2">*</font>   <br>
+                                <strong>Siglas:</strong><br>
+                                <input type="text" id="siglasIn"  autocomplete="off" required maxlength="15">
+                                <font color="red" size="2">*</font><br>     
+                               
+                                <strong>RIF:</strong><br>
+                                <input type="text" id="letra" name="letra" style=" width:50px" autocomplete="off" maxlength="1" required >
+                                <strong>-</strong>
+                                <input type="text" id="rifIn" name="rif" value="" autocomplete="off" maxlength="9" required style=" width:145px">
+                                <font color="red" size="2">*</font><br>
+                                    
+    
+
+                                <strong>Tipo de Organizaci&oacute;n:</strong><br>
+                                <select id="tipoIn" class="form-control" required >
+                                
+                                      <option value="">Seleccione..</option>
+
+                                </select>
+                                <font color="red" size="2">*</font><br><br>
+
+                                 <strong>Descripci&oacute;n:</strong><br>
+                            
+								<textarea  id="descripcion" name="descripcion"  autocomplete="off" required maxlength="150" ></textarea>
+                <font color="red" size="2">*</font>
+                                 <br>                                
+                                </div>
+
+
+                              <div class="span6">
+
+                                    <strong>Nro. Tel&eacute;fono:</strong><br>
+                                    <input type="text" id="telefonoIn" value="" autocomplete="off" maxlength="11" required>
+                                    <font color="red" size="2">*</font><br>
+                                    <strong>Correo:</strong><br>
+                                    <input type="email" id="coreoIn" value="" autocomplete="off"
+                                      required>
+                                     <font color="red" size="2">*</font><br>
+
+                                <strong>Estado:</strong><br>
+                                <select id="estadoIn" class="form-control" required >
+                                
+                                    <option value="">Seleccione..</option>
+                                          
+
+                                </select>
+                                <font color="red" size="2">*</font><br><br>
+
+                                <strong>Municipio:</strong><br>
+                                <select id="municipioIn" class="form-control" required >
+                                
+                                    <option value="">Esperando Estado</option>
+                                        
+                                </select>
+                                <font color="red" size="2">*</font><br><br>
+
+                                <strong>Direcci&oacute;n:</strong><br>
+          
+								<textarea  id="direccionIn" autocomplete="off" required maxlength="100"></textarea>
+                <font color="red" size="2">*</font>
+                                <br>  
+
+                            </div>
+                            </div><br>
+                  <center>
+
+                    <input type="button" id="RegistrarInstituto"  value="Registrar" class="btn btn-primary btn-large">
+                    <input type="button" id="cancelarInstituto"  value="Cancelar" class="btn btn-primary btn-large">        
+                  </center>
+
+                    </center>
+                <font color="red" size="2">(*) </font><font color="red" size="2">Campos Obligatorios... </font>                    
+                </td>
+                </tr>
+                </table>
+
+
+                </div>
+                  
+                </div>
+
+              
+
+
+                <div class="tab-pane " id="tab3">
+          <table class="table table-bordered">
+          <tr class="well">
+          <td><h4 align="center">Persona Contacto de Instituto :<p id="titlee" ></p> </h4></td>
+          </tr>
+          <tr>
+            <td>
+                  <center>
+                        
+                          
+              <div class="row-fluid">
+              <div class="span6">
+
+<form class="form-inline">
+  
+  <div class="form-group">
+    
+    <label class="sr-only" for="buscarRegistrios"></label>
+  
+    <div class="input-group">
+
+      <div  class="input-group-addon" style="cursor:pointer">Buscar Instituto Principal</div>
+
+      <button type="button" id="buscarRegistrios" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span></button>
+      
+    </div>
+  
+  </div>
+  
+</form>
+
+
+              <input type="hidden" id="superidOrganizacion" autocomplete="off" required> 
+        
+              <strong>C&eacute;dula:</strong><br>
+        
+              <input type="text" id="cedulaPE" name="cedula" value="" autocomplete="off" required maxlength="9" > 
+        
+              <font color="red" size="2">*</font><br> 
+        
+              <div id="cedula"></div> 
+        
+              <strong>Nombre:</strong><br>
+        
+              <input type="text" id="nombrePE" name="nombre" value="" autocomplete="off" required maxlength="15" >
+        
+              <font color="red" size="2">*</font><br>
+        
+              <strong>Apellido:</strong><br>
+        
+              <input type="text" id="apellidoPE" name="apellido" value="" autocomplete="off" required maxlength="15" >
+              
+              <font color="red" size="2">*</font><br>
+
+              <strong>Nro. Tel&eacute;fono:</strong><br> <span="telf">
+              
+                <input type="text" id="telefonoPE"  name="telefono" maxlength="11"  autocomplete="off" required>
+              
+                <font color="red" size="2">*</font><br>
+              
+              <strong> Descripci&oacute;n</strong><br>
+          
+              <textarea id="Dedica" autocomplete="off" placeholder="Me Dedíco a contratar empleados por ej." required maxlength="150"></textarea>
+
+
+        </div>
+        <div class="span6">
+
+                   
+          <strong>Correo:</strong><br>  <span="email">
+          <input type="email" id="correoPE" name="correoPE"  autocomplete="off" required>
+          <font color="red" size="2">*</font><br>  
+
+          <strong>Usuario:</strong><br>
+          <input type="text" id="usuarioP" name="usuarioP" autocomplete="off" maxlength="10" required >
+          <font color="red" size="2">*</font>
+          <div id="usuario"></div> 
+
+          <strong>Contraseña:</strong><br>  <span="clave">
+          <input type="password" id="contrasena_a" name="contrasena_a"  maxlength="15" autocomplete="off" required>
+          <font color="red" size="2">*</font><br>
+
+          <strong>Repita Contraseña:</strong><br>  <span="r_clave">
+          <input type="password"  id="contrasena_b" name="contrasena_b"   maxlength="15" autocomplete="off" required>
+          <font color="red" size="2">*</font><br>
+
+          <strong>Pregunta:</strong><br>
+          <select id="pregunta" name="pregunta" class="form-control" required>
+
+              <option value=""  >SELECCIONE...</option>
+              <option value="Nombre de tus Abuelos"  >Nombre de tus Abuelos</option>
+              <option value="Nombre de tu Primer Mascota"  >Nombre de tu Primer Mascota</option>
+              <option value="Nombre de tu Primer Amor"  >Nombre de tu Primer Amor</option>
+              <option value="Nombre del Liceo Donde Estudiaste"  >Nombre del Liceo Donde Estudiaste</option>
+
+          </select><font color="red" size="2"> *</font><br><br>
+
+          <strong>Respuesta:</strong><br>  
+          <input type="text" name="respuesta" id="respuesta"  maxlength="15" value="" autocomplete="off" >
+          <font color="red" size="2">*</font> 
+
+        </div  >
+                            </div  > <br>
+
+    <center>
+
+    <input id="PersonaEn" name="botRegistrar" type="reset" value="Registrar" class="btn btn-primary btn-large">
+    <input id="CancelarPersona" name="botRegistrar" type="reset" value="Cancelar" class="btn btn-primary btn-large">                          
+    </center>
+
+                            
+                             </center>  
+
+                                    
+                              
+                <font color="red" size="2">(*) </font><font color="red" size="2">Campos Obligatorios... </font>      
+                </td>
+          </tr>
+        </table>
+
+        </div>
+        </div>
+
+
+        
+
+    </div></div>
+      
+
+  
+
+
+    
+    
+  
+    <div id="tabla" class="modal fade" >
+
+      <div class="modal-dialog">
+            <div class="modal-content">
+    
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title"  align="center">Elije una Instituci&oacute;n</h4>
+
+    </div>
+    <div class="modal-body" align="center">
+
+            <!--TABLA DE LOS REGISTROS-->
+            <div class="table-responsive" >
+            <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable" style="cursor :pointer ; width : 100% " >
+
+              <thead><tr >                        
+                         <th>Siglas</th>
+                         <th>Estado</th>
+                         <th>Municipio</th>
+                  
+                         <th>Tipo</th>
+                         <th></th>
+                         
+                         </tr>
+              </thead>
+
+            </table>
+            </div>
+
+    </div>  
+    <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+    </button>
+  
+    </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  <!-- Estilo De Selects Very Good -->
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery-ui-1.8.23.custom.min.js" defer=""></script>  
+<link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-select/css/jquery.selectBoxIt.css">
+
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery.selectBoxIt.min.js" defer=""></script>  
+  <!-- Estilo De Selects Very Good -->
+
+ <!-- DATA TABLE -->
+
+<script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+<script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+<script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+<script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+  
+  <!-- JS de los Mensajes COOL Very Preatty -->
+
+
+
+  <!-- Esta es mi js  que  utiliza  todos los  que  estan alla  arriba ! XD -->
+  <!-- src="../js/PersonaEncargada.js" -->
+
+  <script src="../../Modulo_tipoOrganizacion/js/letrasNunmers.js"></script>
+  <script src="../js/dist/js/jquery.amaran.min.js"></script>
+  <script src="../js/dist/js/jquery.amaran.js"></script>
+  <script src="../js/institucion.js"></script>
+  <script src="../js/PersonaEncargada.js"></script>
+  <script src="../js/tablallena.js"></script>
+</body></html>

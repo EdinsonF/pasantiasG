@@ -1,0 +1,409 @@
+
+
+
+<div id="modal_rechazar_empresa" class="modal fade" tabindex="-1" role="dialog"  >
+
+  <div class="modal-dialog">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" align="center">Detalles de Temporada</h4>
+    </div>
+    <div class="modal-body" >
+
+    <div id="informaciontemporadaEncargado"></div>
+
+      <div class="panel-group" id="accoResumGene" role="tablist" aria-multiselectable="true">
+
+          <div  class="panel panel-info">
+
+              <div class="panel-heading" role="tab" id="RsmenEstude" data-toggle="collapse" data-parent="#accoResumGene" aria-expanded="true" aria-controls="EstudentsGene" data-target="#EstudentsGene" style="cursor:pointer">
+
+              <h4 class="panel-title"><span class="glyphicon glyphicon-education"></span>  Especialidades <span class="badge" id="totalespecialidades">0</span></h4></div>
+
+              <div id="EstudentsGene" class="panel-collapse collapse" role="tabpanel" aria-labelledby="RsmenEstude">
+                  <div class="panel-body" id="accoResum">
+                  </div>
+              
+
+              <div class="panel-footer" >
+                  <ul class="nav nav-pills " role="tablist">
+                  
+                  <li role="presentation" class="active" style=float:right><a >Total Estudiantes <span class="badge" id="TotalEspecialidadesGeneral" >0</span></a></li>  
+                  </ul>
+              </div>
+              </div>
+          </div> <!-- PANEL ESPECIALIDADES NO ACORDION -->
+
+
+
+          <div class="panel panel-info" id="medoi">  
+              <div class="panel-heading" role="tab" id="RsmenEntre" data-toggle="collapse" data-parent="#accoResumGene" aria-expanded="false" aria-controls="EntreRs" data-target="#EntreRs" style="cursor:pointer">
+                  
+                  <h4 class="panel-title" ><span class="glyphicon glyphicon-list-alt"></span>  Entregables <span class="badge" id='with2'></span></h4> 
+
+              </div>
+
+              <div id="EntreRs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="RsmenEntre">
+                  <div class="panel-body">
+                  <div id="ResumenEntregablesTemporada"></div>
+                     
+                  </div>
+
+              </div>
+          </div> <!-- Panel -Entregables Asignados-->
+
+      </div>
+
+    </div>  
+    <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong></button>
+    <button id="ReporteTEmporadaDetalles" class="btn btn-primary" ><span class="glyphicon glyphicon-download-alt"></span> Reporte</button>
+    
+  
+    </div>
+
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+
+    <!--Asignar Estudiantes A la temporada --> <!--Asignar Estudiantes A la temporada -->
+
+
+<div id="modal_estudiantes" class="modal fade" tabindex="-1" role="dialog"  >
+
+
+  <div class="modal-dialog">
+  <div class="modal-content">    
+
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     <h4 class="modal-title" align="center">Seleccione Los Estudiantes para esta Temporada</h4>
+   
+    </div>
+    <div class="modal-body" >
+    <div id="informacion"></div>
+    
+
+    <form class="form-inline">
+     
+        <label for="especialidadesTemporada" class="control-label" > Especialidades    : </label>
+        
+        <select id="especialidadesTemporada" class="form-control" onchange=AventoDElSelecTPeluo()><option >Seleccione...</option></select>
+        
+       
+    </form>
+
+                <div class="alert alert-info alert-dismissible" role="alert" id="alertdescente">
+                  <a class="close" data-dismiss="alert">×</a>
+                    <strong>¡Atención!</strong> Seleccione una de las especialidades .               
+                </div>
+
+        <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+
+        <li class="active" id="studparaasignar" data-target="#studparaasignartab" data-toggle="tab"><a >
+                  <strong>Estudiantes para Asignar
+                   <span class="burbuja" id='studparaasignarbur' style="display:none" ></span> </strong></a>
+
+        </li>
+
+        <li id="studasignados" data-target="#studasignadostab" data-toggle="tab"><a >
+                    <strong>Estudiantes Asignados
+                     <span class="burbuja" id='studasignadosbur' style="display:none" ></span></strong></a>
+        </li>                
+
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+              
+                  <div class="tab-pane active" id="studparaasignartab">
+                          <br>
+                          <input type="hidden" id="codigo_sucursal" style="display:none">
+                            <center>
+
+                            <div class="table-responsive">
+                              <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="tablaEstudiante" style="cursor:pointer ; width:99% ">
+                                
+                                <thead>
+                                    <tr> 
+                                    
+                                    <th><input name="select_all" value="1" type="checkbox"></th>
+                                    <th>Estudiante </th>
+                                    <th>Expediente </th>
+                                    <th>Cédula </th> 
+                                    <th hidden style="display:none"> CodigoEstudiante </th>
+
+                                    </tr>
+                                </thead>
+
+                              </table>
+                            </div>
+
+                            </center>
+                            <input type="hidden" id="temporada">
+
+                  </div>
+                  <div class="tab-pane " id="studasignadostab">
+                             <br>   
+
+                            <div class="table-responsive">                 
+                              <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="tablaEstudianteAsignados" style="cursor:pointer ; width:99%">
+                                <thead> <tr> 
+                                
+                                <th>Estudiante </th>
+                                <th>Expediente </th>
+                                <th>Cédula </th>           
+
+                                </tr> </thead>
+                              </table>
+                            </div> 
+                  </div>
+
+              </div>
+          </div>
+          </div>
+           <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" id="cancelar" aria-hidden="true"><strong>Cancelar</strong></button>
+    <button  class="btn btn-primary btn-large"  disabled="disabled" id="asignar"><strong>Listo</strong>
+    </button>
+  
+    </div>
+
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->      
+    </div>
+
+
+    <!-- ASIGNAR ESPECIALIDADS ASIGNAR ESPECIALIDADEs -->
+<div id="modal_especialidades_asignar" class="modal fade" tabindex="-1" role="dialog" >
+
+
+  <div class="modal-dialog">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" align="center">Seleccione Especialidades para la Temporada </h4>
+    
+     
+    </div>
+    <div class="modal-body" >
+    <div id="informacionTemporadaEspecialidades">
+      
+
+    </div>
+
+
+
+      <div class="tabbable" style="margin-bottom: 18px;">
+          <ul class="nav nav-tabs">
+
+                  <li class="active" id="agregar" data-target="#agregares" data-toggle="tab"><a >
+                            <strong>Especialidades para Asignar
+                             <span class="burbuja" id='numberwithout' ></span> </strong></a>
+
+                  </li>
+
+                  <li id="ver"  data-target="#veres" data-toggle="tab"><a >
+                                                          <strong>Especialidades Asignadas
+                                                            <span class="burbuja" id='numberwith' ></span></strong></a>
+                  </li>                
+
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+              
+              <div class="tab-pane active" id="agregares">
+                
+                  <center>
+                          <br>
+
+                      <div class="table-responsive">      
+                      <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="tablaEspecialidadesadd" style="cursor:pointer ; width:99% ">
+
+                      <thead> <tr> 
+                      <th ><input name="select_all" value="1" type="checkbox"></th>
+                      <th >Especialidad</th> 
+                      <th >Tipo</th>           
+
+                      <th hidden style="display:none"> Codigoespecialidad </th>
+                      </tr> </thead>
+
+                      </table>
+                      </div>
+
+                  </center>
+             
+              </div>
+              <div class="tab-pane " id="veres" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                
+                          <center>
+                          <br>
+                          <div class="table-responsive">      
+                            <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="tablaEspecialidadesshard" style="cursor:pointer ; width:99% ">
+
+                              <thead> <tr> 
+                              <th> Especialidad </th>  
+                              <th> Tipo </th>            
+
+                              </tr> </thead>
+                            </table>
+                          </div>
+                          </center>                
+              </div>
+              </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cancelar</strong></button>
+    <button  class="btn btn-primary btn-large" id="asignarEspecialidad"><strong>Asignar</strong>
+    
+    </button>
+  
+    </div>
+   
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+
+    </div>
+
+
+    <!-- El Ultimo Modal D laGestion de Temporadas De solicitudes Que espara Abrir La Temporada ETC Probando -->
+    <!-- LAST MODAL LAST MODAL LAST MODAL  ABRIR TEMPORADA -->
+
+<div id="modal_AbrirTEMPORADA" class="modal fade" tabindex="-1" role="dialog" >
+
+  <div class="modal-dialog">
+  <div class="modal-content">
+    
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" align="center">Temporada de Solicitud</h4>
+    </div>
+    <div class="modal-body" >
+
+     <div id="informacionTemporadaGeneral"></div>
+
+     <div class="panel-group" id="accoTemporada" role="tablist" aria-multiselectable="true">
+
+
+      <div  class="panel panel-info">  
+
+          <div class="panel-heading" role="tab" id="headingEstudents" data-toggle="collapse" data-parent="#accoTemporada" aria-expanded="false" aria-controls="collapsEstudents" data-target="#collapsEstudents" style="cursor:pointer">
+
+          <h4 class="panel-title"><span class="glyphicon glyphicon-education"></span>  Especialidades <span class="badge" id="totalEspecialidades"></span></h4></div>
+
+
+          <div id="collapsEstudents" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEstudents">
+
+
+                  <div class="panel-body" id="informacionEspecialidadesAsignadas">
+                  </div>
+
+          
+
+          <div class="panel-footer">
+              <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active"><a >Total Estudiantes<span class="badge" id="totalEstudiantes" >0</span></a></li>
+                <div align="right">
+                    <button class="btn btn-primary" type="button" id="ReporteGeneral">
+                    <span class="glyphicon glyphicon-download-alt"></span> Reporte
+                    </button>
+                </div>
+              </ul>
+          </div>
+
+          </div>
+      </div> <!-- PANEL ESPECIALIDADES NO ACORDION -->
+
+      <div  class="panel panel-info">  
+          
+          <div class="panel-heading" role="tab" id="headingEntregable" data-toggle="collapse" data-parent="#accoTemporada" aria-expanded="false" aria-controls="collapsEntregable" data-target="#collapsEntregable" style="cursor:pointer">
+
+          <h4 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>  Entregables <span class="badge" id="totalEntregables"></span></h4></div>
+
+          <div id="collapsEntregable" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEntregable">
+          <div class="panel-body" id="">
+
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+              <div class="panel panel-info">  
+                  <div class="panel-heading " role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne" data-target="#collapseOne" style="cursor:pointer">
+                      
+                      <h4 class="panel-title" >Asignados <span class="badge" id='entregableCount'></span></h4> 
+
+                  </div>
+
+                  <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+
+                          <div id="informacionEntregables"></div>
+
+                      </div> <!-- CIERRO PANEL BODY -->
+                  </div>
+              </div> <!-- Panel -Entregables Asignados-->
+
+              <div class="panel panel-info">  
+                  <div class="panel-heading" role="tab" id="headingtwo" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseTwo" data-target="#collapseTwo" style="cursor:pointer">
+                      
+                      <h4 class="panel-title" >No Asignados <span class="badge" id='entregablenoCount'></span></h4> 
+
+                  </div>
+
+                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingtwo">
+                      <div class="panel-body">
+
+                          <div id="informacionEntregableNoAsignados"></div>
+                      </div>
+
+                  </div>
+              </div> <!-- Panel -NO Asignados-->
+
+              <div class="panel panel-info">  
+
+                  <div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseThree" data-target="#collapseThree" style="cursor:pointer">
+
+                      <h4 class="panel-title">Nuevo</h4>
+                  </div>
+
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                          
+                          
+                                  <div class="typeahead-container">
+                                   <span class="typeahead-query">   
+                                        
+                                    <input type="text" class="form-control"  id="entregabletxt" maxlength="30" placeholder="Entregable">
+                                      
+                                  </span>
+                                    
+                                  </div>
+                                  <input type="button" id="Agregarentregable" class="btn btn-primary btn-block" value="Agregar">
+
+                      </div>
+                  </div>
+              </div> <!-- Panel Registrar-->   
+
+            </div>
+
+          </div> <!-- PANEL Body Entregables General -->
+         </div>
+      </div> <!-- PANEL Entregables General -->
+
+
+      </div>
+
+    </div>  <!-- modal-body-->
+    <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cancelar</strong></button>
+    <button  id="Abrirsesson" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ><strong>Abrir Temporada</strong></button>
+  
+    </div>
+
+
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+

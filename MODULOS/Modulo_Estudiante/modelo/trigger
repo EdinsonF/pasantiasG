@@ -1,0 +1,57 @@
+-- Function: pasantias.mosck_audit()
+
+-- DROP FUNCTION pasantias.mosck_audit();
+
+CREATE OR REPLACE FUNCTION pasantias.mosck_audit()
+  RETURNS trigger AS
+$BODY$
+    
+    BEGIN
+        --
+        -- Create a row in emp_audit to reflect the operation performed on emp,
+        -- make use of the special variable TG_OP to work out the operation.
+        --
+    IF (TG_OP = 'UPDATE'  ) THEN
+        IF (TG_TABLE_NAME= 'usuario'  ) THEN
+        IF( NEW.en_ejecucion !=OLD.en_ejecucion AND NEW.en_ejecucion = 'SI' ) THEN
+        INSERT INTO pasantias.bitacora ( usuario,id_usuario,operacion,nombre_tabla,fecha , hora  ) VALUES
+        ( user ,NEW.id_usuario,'INICIO SESION',TG_TABLE_NAME, now(),(SELECT   current_time));
+        
+
+              RETURN NEW;
+       ELSIF( NEW.en_ejecucion !=OLD.en_ejecucion AND NEW.en_ejecucion = 'NO' ) THEN
+        INSERT INTO pasantias.bitacora ( usuario,id_usuario,operacion,nombre_tabla,fecha , hora  ) VALUES
+        ( user ,NEW.id_usuario,'CERRO SESION',TG_TABLE_NAME, now(),(SELECT   current_time));
+        
+
+              RETURN NEW;
+              ELSIF ( NEW.estatus != OLD.estatus AND  NEW.estatus='APROBADO' ) THEN
+  INSERT INTO pasantias.bitacora ( usuario,id_usuario,operacion,nombre_tabla,fecha , hora  ) VALUES
+        ( user ,NEW.id_usuario,'USUARIO APROBADO',TG_TABLE_NAME, now(),(SELECT   current_time));
+        
+
+              RETURN NEW;
+              ELSIF ( NEW.estatus != OLD.estatus AND  NEW.estatus='PENDIENTE' ) THEN
+  INSERT INTO pasantias.bitacora ( usuario,id_usuario,operacion,nombre_tabla,fecha , hora  ) VALUES
+        ( user ,NEW.id_usuario,'USUARIO EN CUARENTENA',TG_TABLE_NAME, now(),(SELECT   current_time));
+        
+
+              RETURN NEW;
+      END IF;           
+  
+        END IF; 
+  
+        INSERT INTO pasantias.bitacora ( usuario,id_usuario,operacion,nombre_tabla,fecha , hora  ) VALUES
+        ( user ,NEW.id_usuario,'DATOS MODIFICADOS',TG_TABLE_NAME, now(),(SELECT   current_time));
+        
+
+              RETURN NEW;
+                             
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION pasantias.mosck_audit()
+  OWNER TO postgres;

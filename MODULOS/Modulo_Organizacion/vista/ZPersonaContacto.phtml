@@ -1,0 +1,119 @@
+                <div class="tab-pane " id="tab3">
+                      <table class="table table-bordered">
+          <tr class="well">
+
+              <td><h4 align="center">Persona Contacto de Organizaci&oacute;n Asociada:<p id="titlee_pepple" ></p></h4></td>
+            </tr>
+          <tr>
+            <td>
+                  <center>
+                        
+              
+              <div class="row-fluid">
+               <!--  <div class="col-md-6">-->           
+              <div class="span6">
+
+
+<form class="form-inline">
+  
+  <div class="form-group">
+    
+    <label class="sr-only" for="tablaInstitutoConvenio"></label>
+  
+    <div class="input-group">
+
+      <div  class="input-group-addon" style="cursor:pointer">Buscar Organizaci&oacute;n</div>
+
+      <button type="button" id="tablaInstitutoConvenio" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span></button>
+      
+    </div>
+  
+  </div>
+  
+</form>
+
+           
+                         
+            <strong>C&eacute;dula:</strong><br>
+
+            <div class="typeahead-container">
+            <span class="typeahead-query">                     
+            <input type="text"  id="cedulaPE" name="rif" value="" autocomplete="off" maxlength="9" required >
+            </span> 
+            <font color="red" size="2">*</font>
+            
+            </div>
+
+            <strong>Nombre:</strong><br>
+            <input type="text" id="nombrePE"  autocomplete="off" required  maxlength="25">
+            <font color="red" size="2">*</font><br>
+            <strong>Apellido:</strong><br>
+            <input type="text" id="apellidoPE"  autocomplete="off" required maxlength="25" >
+            <font color="red" size="2">*</font><br>
+
+            <strong>Nro. Tel&eacute;fono:</strong><br> 
+              <input type="text" id="telefonoPE"  maxlength="11" autocomplete="off" required>
+              <font color="red" size="2">*</font><br>
+
+            <strong> Descripci&oacute;n</strong><br>
+            <textarea id="Dedica" value="" autocomplete="off" maxlength="100" placeholder="Me Dedíco a contratar empleados por ej." required></textarea>
+            <font color="red" size="2">*</font>
+ 
+              
+
+                      <!-- </div><br>   -->
+        </div>
+
+              <div class="span6">
+              <strong>Correo:</strong><br>  <span="email">
+              <input type="email" id="correoPE" name="correoPE" value="" autocomplete="off"   required>
+              <font color="red" size="2">*</font><br>  
+              </span="email">
+              <strong>Usuario:</strong><br>
+             <input type="text" id="usuarioP" name="usuarioP" value="" autocomplete="off" required maxlength="10" >
+             <font color="red" size="2">*</font>
+              <div id="usuario"></div> 
+          
+              <strong>Contraseña:</strong><br>  
+              <input type="password" id="contrasena_a" name="contrasena_a"  maxlength="15" value="" autocomplete="off" required>
+              <font color="red" size="2">*</font><br>
+             
+
+            <strong>Repita Contraseña:</strong><br> 
+             <input type="password"  id="contrasena_b" name="contrasena_b"   maxlength="15" value="" autocomplete="off" required>
+             <font color="red" size="2">*</font><br>
+            
+            <strong>Pregunta:</strong><br>
+
+            <select id="pregunta" name="pregunta"  class="form-control" required>
+                      
+              <option value=""  >SELECCIONE...</option>
+               <option value="Nombre de tus Abuelos"  >Nombre de tus Abuelos </option>
+                <option value="Nombre de tu Primer Mascota"  >Nombre de tu Primer Mascota </option>
+                 <option value="Nombre de tu Primer Amor"  >Nombre de tu Primer Amor </option>
+                  <option value="Nombre del Liceo Donde Estudiaste"  >Nombre del Liceo Donde Estudiaste</option>
+                           
+            </select>
+            <font color="red" size="2">*</font> <br>
+            <strong>Respuesta:</strong><br>  
+            <input type="text" name="respuesta" id="respuesta"  maxlength="15" value="" autocomplete="off" >
+              <font color="red" size="2">*</font>
+              
+              </div>
+
+              </div>
+                    <center> 
+                      <br>
+                    <input id="PersonaEn" name="botRegistrar" type="submit" value="Registrar" class="btn btn-primary ">
+                    <input id="LimpiarCampos" name="botRegistrar" type="submit" value="Cancelar" class="btn btn-primary ">
+                    </center>              
+
+              </center>              
+
+                       <label hidden id="codigosucursal"></label>            
+                <font color="red" size="2" >(*) </font><font color="red" size="2">Campos Obligatorios... </font>
+                </td>
+          </tr>
+        </table>
+
+        </div>

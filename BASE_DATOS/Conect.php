@@ -7,9 +7,9 @@ function Conectar(){
 
 $servidor	="localhost";
 $usuario	="postgres";
-$clave		="psql";
+$clave		="root";
 $bd			="pasantias";
-$port 		="5498";
+$port 		="5432";
 
     $cadenaConexion="host=$servidor port=$port dbname=$bd user=$usuario password=$clave";
 

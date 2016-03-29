@@ -653,7 +653,7 @@ $persona= new usuarios();
 
 			    <div class="modal-footer">			    
 			    <input   type="button" id="ModificarTemporada" name="botRegistrar2 " value="Modificar"  class="btn btn-primary btn-large" disabled="disabled">
-			    <button  class="btn" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+			    <button  data-dismiss="modal" id="cerrar2" class="btn btn-default" aria-hidden="true"><strong>Cerrar</strong>
 			    </button>
 			  	</div>  
 			    </div>

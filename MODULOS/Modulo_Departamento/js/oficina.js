@@ -1,8 +1,39 @@
+        
+        $(document).ready(function(){
+            
+            var SelectOtimizado = {autoWidth:false ,
+
+            // Uses the jQuery 'fadeIn' effect when opening the drop down
+            showEffect: "fadeIn",
+
+            // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+            showEffectSpeed: 400,
+
+            // Uses the jQuery 'fadeOut' effect when closing the drop down
+            hideEffect: "fadeOut",
+
+            // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+            hideEffectSpeed: 400
+         };
+
+        $("#estatus").selectBoxIt(SelectOtimizado);
+
+        Renderidng_select();
+
         showselectOficina('');
         showselectOFICINA_AsignarPersonas('');
         showselect_PersonasAsignadas_OFICINAS('');
         Autocomplete();
         Autocomplete_personasCedula();
+        });
+
+    function Renderidng_select(){
+
+        $(".selectboxit-container .selectboxit").css({"min-width": "206px" , "width": "206px" ,  "height": "35px"});
+}
+
+
+
 // CUANDO SE HACE  CLICK  EN EL BOTON MODIFICAR
     // Bloqueam
     $(document).ready(function() {
@@ -86,6 +117,7 @@ function restablecerForm()
 {
         $("#nombre").val("");
         $("#estatus").val("");
+        $("#estatus").data("selectBoxIt").refresh();
         $("#descripcion").val("");
 
         //PERSONA
@@ -110,7 +142,8 @@ function restablecerForm()
         Autocomplete();
         Autocomplete_personasCedula();
 
-        
+        Renderidng_select();
+    
 }
 
 
@@ -628,14 +661,18 @@ function seleccionarfila(tr){
                   
 
                   });
+
           $("#id_oficina").val(id_oficina); 
           $("#nombre").val(nombre); 
-          $("#estatus option[value="+ estatus +"]").attr("selected",true);
+          $("#estatus").val(estatus);
+          $("#estatus").data("selectBoxIt").refresh();
           $("#descripcion").val(descripcion); 
        
-        $("#Registrar").attr("disabled",true);
-        $("#Modificar").attr("disabled",false);
-        $("#Cancelar").attr("disabled",false);
+            $("#Registrar").attr("disabled",true);
+            $("#Modificar").attr("disabled",false);
+            $("#Cancelar").attr("disabled",false);
+
+        Renderidng_select();
 } 
 
 

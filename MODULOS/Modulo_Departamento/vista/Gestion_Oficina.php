@@ -110,7 +110,7 @@ $persona= new usuarios();
 
 
 <div align="center">
-    <div style="width:70%">
+    <div style="width:60%">
 
 
         <table class="table table-bordered">
@@ -176,7 +176,7 @@ $persona= new usuarios();
 					                                   
 	
 					                                    <strong>Estatus:</strong> &nbsp;<br>
-					                                        <select id="estatus" name="estatus"  required>
+					                                        <select id="estatus" name="estatus" class="form-control" required>
 					                                        
 					                                            <option value="" >SELECCIONE...</option>
 					                                            <option value="ACTIVO">ACTIVO</option>
@@ -229,14 +229,15 @@ $persona= new usuarios();
 					            </table>
                    
 					            <!--TABLA DE LOS REGISTROS-->
-					            <table class="display dataTable" id="mYTable" width="100%">
+					            <div class="table-responsive">
+					            <table class="table table-striped table-hover dt-responsive nowrap compact" id="mYTable" width="100%">
 					              <?php 
 					              /*require_once("../controlador/Gestion_Oficina_Controller.php");
 					              $Control=new Gestion_Oficina_Controller();
 					              $Control->CargarCatalago_Oficina($id_sucursal);*/
 					              ?>
 					              <thead>
-	                                <tr class="well">
+	                                <tr >
 	                                    <td hidden><strong ><center>ID</center></strong></td>
 	                                    <td><strong><center>Nombre</center></strong></td>
 	                                    
@@ -247,6 +248,7 @@ $persona= new usuarios();
 	                                 </tr>
 	                       		  </thead>
 					            </table>
+					            </div>
 					    </td>
 					    </tr>
 					  </table>
@@ -276,15 +278,15 @@ $persona= new usuarios();
 
 
 					                 <!--TABLA CATALAGO-->
-					                    <table class="display dataTable" id="myTable3"  width="100%">
+					                 <div class="table-responsive">
+					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable3"  width="100%">
 					                      <?php
 					                     //$Control->CargarCatalago_Oficina_AsignarPersonas($id_sucursal);
 					                      ?>
 					                      <thead>
-			                                <tr class="well">
+			                                <tr >
 			                                    <td hidden><strong ><center>ID</center></strong></td>
 			                                    <td><strong><center>Nombre</center></strong></td>
-			                                    
 			                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
 			                                    <td><strong><center>Estado</center></strong></td>
 			                                    <td><strong><center>Opción</center></strong></td>
@@ -292,6 +294,7 @@ $persona= new usuarios();
 			                                 </tr>
 			                        	  </thead>
 					                    </table>
+					                    </div>
 
 									    </td>
 									    </tr>
@@ -325,7 +328,8 @@ $persona= new usuarios();
 
 
 					                 <!--TABLA CATALAGO-->
-					                    <table class="display dataTable" id="myTable2"  width="100%">
+					                 <div class="table-responsive">
+					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable2"  width="100%">
 					                      <?php
 					                      //$Control->CargarCatalogo_Personas_OficinasOrganizacion($id_sucursal);
 					                      ?>
@@ -334,7 +338,7 @@ $persona= new usuarios();
 		                                    <td colspan="4"><strong ><center>Oficina</center></strong></td>
 		                                    <td colspan="5"><strong ><center>Personas</center></strong></td>
 		                                    </tr>
-		                                    <tr class="well">
+		                                    <tr >
 		                                        <td hidden><strong ><center>ID</center></strong></td>
 		                                        <td><strong><center>Nombre Oficina</center></strong></td>
 		                                        <td><strong><center>Descripci&oacute;n</center></strong></td>
@@ -347,6 +351,7 @@ $persona= new usuarios();
 		                                    </tr>
 		                            	  </thead>
 					                    </table>
+					                    </div>
 
 									    </td>
 									    </tr>
@@ -512,7 +517,13 @@ $persona= new usuarios();
     <!-- ----------------------------------- FIN TABLA2 MODAL DEPARTAMENTOS-->
 
 
+<!-- Estilo De Selects Very Good -->
 
+<link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-select/css/jquery.selectBoxIt.css">
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery-ui-1.8.23.custom.min.js" defer=""></script> 
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery.selectBoxIt.min.js" defer=""></script>
+
+  <!-- Estilo De Selects Very Good -->
 
 
     <!--   Mensajes-->
@@ -534,12 +545,17 @@ $persona= new usuarios();
 
  <!--PAGINADOR - T A B L A S-->
     
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
     <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
 
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
     <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+
 
  <!--PAGINADOR - T A B L A S-->
     

@@ -1,13 +1,43 @@
 
 
-    showselectESPECIALIDAD('');
-    showselectESPECIALIDAD_AsignarPersonas('');
-    showselect_PersonasAsignadas('');
-    Autocomplete();
-    Autocomplete_personasCedula();
-    Autocomplete_personasExpediente();
-    Autocomplete_personasCedulaTutor();
-    Autocomplete_personasCodigo();  
+    $(document).ready(function(){
+
+        var SelectOtimizado = {autoWidth:false ,
+
+        // Uses the jQuery 'fadeIn' effect when opening the drop down
+        showEffect: "fadeIn",
+
+        // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+        showEffectSpeed: 400,
+
+        // Uses the jQuery 'fadeOut' effect when closing the drop down
+        hideEffect: "fadeOut",
+
+        // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+        hideEffectSpeed: 400
+     };
+
+        $("#estatus").selectBoxIt(SelectOtimizado);
+        $("#tipo_e").selectBoxIt(SelectOtimizado);
+
+      Renderidng_select();
+
+        showselectESPECIALIDAD('');
+        showselectESPECIALIDAD_AsignarPersonas('');
+        showselect_PersonasAsignadas('');
+        Autocomplete();
+        Autocomplete_personasCedula();
+        Autocomplete_personasExpediente();
+        Autocomplete_personasCedulaTutor();
+        Autocomplete_personasCodigo(); 
+    
+
+    }) ;
+
+    function Renderidng_select()
+{
+  $(".selectboxit-container .selectboxit").css({"min-width": "206px" , "width": "206px" ,  "height": "35px"});
+}
 
 
 // CUANDO SE HACE  CLICK  EN EL BOTON ASIGNAR
@@ -132,7 +162,9 @@ function restablecerForm()
 
         $("#nombre").val("");
         $("#estatus").val("");
+        $("#estatus").data("selectBoxIt").refresh();
         $("#tipo_e").val("");
+        $("#tipo_e").data("selectBoxIt").refresh();
         $("#descripcion").val("");
 
         //ESTUDIENTE
@@ -169,7 +201,9 @@ function restablecerForm()
         Autocomplete_personasCedula();
         Autocomplete_personasExpediente();
         Autocomplete_personasCedulaTutor();
-        Autocomplete_personasCodigo();   
+        Autocomplete_personasCodigo();
+
+        Renderidng_select();   
 
 
 }
@@ -1190,15 +1224,17 @@ function seleccionarfila(tr){
                   });
           $("#id_especialidad").val(id_especialidad); 
           $("#nombre").val(nombre); 
-          $("#tipo_e option[value="+ tipo_e +"]").attr("selected",true);
-          $("#estatus option[value="+ estatus +"]").attr("selected",true);
+          $("#tipo_e").val(tipo_e);
+          $("#tipo_e").data("selectBoxIt").refresh();
+          $("#estatus").val(estatus);
+          $("#estatus").data("selectBoxIt").refresh();
           $("#descripcion").val(descripcion); 
        
         $("#Registrar").attr("disabled",true);
         $("#Modificar").attr("disabled",false);
         $("#Cancelar").attr("disabled",false);
         
-
+        Renderidng_select();
 
 
 } 
@@ -2045,34 +2081,34 @@ function showselectESPECIALIDAD(str){
           { "bSortable": false },
           null, null, null , null ,null
           ],
-
-            "language": {
-        "sProcessing":    "Procesando...",
-        "sLengthMenu":    '',
-        "sZeroRecords":   "No se encontraron Resultados",
-        "sEmptyTable":    "Ningún dato disponible en esta tabla",
-        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":   "",
-        "sSearch":        "Buscar:",
-        "sUrl":           "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
+            
+            "language"     : {
+            "sProcessing"  :    "Procesando...",
+            "sLengthMenu"  :    '',
+            "sZeroRecords" :   "No se encontraron Resultados",
+            "sEmptyTable"  :    "Ningún dato disponible en esta tabla",
+            "sInfo"        :          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty"   :     "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix"   :   "",
+            "sSearch"        :        "Buscar:",
+            "sUrl"           :           "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
             "sFirst":    "Primero",
             "sLast":    "Último",
             "sNext":    "Siguiente",
             "sPrevious": "Anterior"
-        },
-        "oAria": {
+            },
+            "oAria": {
             "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-        },
-        "aLengthMenu": [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
-        "iDisplayLength": 5,
-        'order': [1, 'asc']
+            }
+            },
+            "aLengthMenu": [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
+            "iDisplayLength": 5,
+            'order': [1, 'asc']
         }); 
                      
       }
@@ -3083,62 +3119,62 @@ $('#Table').dataTable({
 
 $('#myTable').dataTable({  
 
-            "language": {
-        "sProcessing":    "Procesando...",
-        "sLengthMenu":    'Mostrando _MENU_ Registros',
-        "sZeroRecords":   "No se encontraron Resultados",
-        "sEmptyTable":    "Ningún dato disponible en esta tabla",
-        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":   "",
-        "sSearch":        "Buscar:",
-        "sUrl":           "",
-        "sInfoThousands":  ",",
+        "language"       : {
+        "sProcessing"    : "Procesando...",
+        "sLengthMenu"    : 'Mostrando _MENU_ Registros',
+        "sZeroRecords"   : "No se encontraron Resultados",
+        "sEmptyTable"    : "Ningún dato disponible en esta tabla",
+        "sInfo"          : "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty"     : "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered"  : "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix"   : "",
+        "sSearch"        : "Buscar:",
+        "sUrl"           : "",
+        "sInfoThousands" : ",",
         "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":    "Último",
-            "sNext":    "Siguiente",
-            "sPrevious": "Anterior"
+        "oPaginate"      : {
+        "sFirst"         : "Primero",
+        "sLast"          : "Último",
+        "sNext"          : "Siguiente",
+        "sPrevious"      : "Anterior"
         },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        "oAria"          : {
+        "sSortAscending" :  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
         }
         },
-        "aLengthMenu": [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
-        "iDisplayLength": 5
+        "aLengthMenu"    : [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
+        "iDisplayLength" : 5
         });
 
 $('#myTable2').dataTable({  
 
-            "language": {
-        "sProcessing":    "Procesando...",
-        "sLengthMenu":    'Mostrando _MENU_ Registros',
-        "sZeroRecords":   "No se encontraron Resultados",
-        "sEmptyTable":    "Ningún dato disponible en esta tabla",
-        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":   "",
-        "sSearch":        "Buscar:",
-        "sUrl":           "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":    "Último",
-            "sNext":    "Siguiente",
-            "sPrevious": "Anterior"
-        },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "language"       : {
+            "sProcessing"    : "Procesando...",
+            "sLengthMenu"    : 'Mostrando _MENU_ Registros',
+            "sZeroRecords"   : "No se encontraron Resultados",
+            "sEmptyTable"    : "Ningún dato disponible en esta tabla",
+            "sInfo"          : "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty"     : "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered"  : "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix"   : "",
+            "sSearch"        : "Buscar:",
+            "sUrl"           : "",
+            "sInfoThousands" : ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate"      : {
+            "sFirst"         : "Primero",
+            "sLast"          : "Último",
+            "sNext"          : "Siguiente",
+            "sPrevious"      : "Anterior"
+            },
+            "oAria"          : {
+            "sSortAscending" : ": Activar para ordenar la columna de manera ascendente",
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-        },
-        "aLengthMenu": [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
-        "iDisplayLength": 5
+            }
+            },
+            "aLengthMenu"    : [[5,10,15,25, 50, 75, -1], [5,10,15,25, 50, 75, "Todos"]],
+            "iDisplayLength" : 5
         });
 
 

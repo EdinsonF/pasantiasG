@@ -179,7 +179,7 @@ $persona= new usuarios();
 				                    
 												
 												<strong>Tipo Especialidad:</strong> &nbsp;<br>
-				                                <select id="tipo_e" name="tipo_especialidad" required>
+				                                <select id="tipo_e" name="tipo_especialidad" class="form-control" required>
 				                                <option value="">SELECCIONE...</option>
 
 						                               <?php
@@ -196,7 +196,7 @@ $persona= new usuarios();
 					                                <br>    
 				                                <br> 
 				                                <strong>Estatus:</strong> &nbsp;<br>
-				                                    <select id="estatus" name="estatus" required>
+				                                    <select id="estatus" name="estatus" class="form-control" required>
 				                                      
 				                                      <option value="" >SELECCIONE...</option>
 				                                      <option value="ACTIVO" >ACTIVO</option>
@@ -247,12 +247,13 @@ $persona= new usuarios();
 
 
 					                 <!--TABLA CATALAGO-->
-					                    <table class="display dataTable" id="Table"  >
+					                 <div class="table-responsive">
+					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="Table"  >
 					                      <?php
 					                      //$Control->CargarCatalago_Especialidad($ID_INSTITUCION);
 					                      ?>
 					                      <thead>
-			                                <tr class="well" >
+			                                <tr>
 			                                    <td hidden><strong ><center>ID</center></strong></td>
 			                                    <td><strong><center>Nombre</center></strong></td>
 			                                    <td><strong><center>Tipo</center></strong></td>
@@ -263,6 +264,7 @@ $persona= new usuarios();
 			                        	 </thead>
 			                        
 					                    </table>
+					                    </div>
 
 									    </td>
 									    </tr>
@@ -293,12 +295,13 @@ $persona= new usuarios();
 
 
 					                 <!--TABLA CATALAGO-->
-					                    <table class="display dataTable" id="myTable"  width="100%">
+					                 <div class="table-responsive">
+					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable"  width="100%">
 					                      <?php
 					                      //$Control->CargarCatalago_Especialidad_AsignarPersonas($ID_INSTITUCION);
 					                      ?>
 					                      <thead>
-			                                <tr class="well" >
+			                                <tr >
 			                                
 			                                    <td hidden><strong ><center>ID</center></strong></td>
 			                                    <td><strong><center>Nombre</center></strong></td>
@@ -311,6 +314,7 @@ $persona= new usuarios();
 			                        
 					                      
 					                    </table>
+					                    </div>
 
 									    </td>
 									    </tr>
@@ -336,7 +340,8 @@ $persona= new usuarios();
 
 
 					                 <!--TABLA CATALAGO-->
-					                    <table class="display dataTable" id="myTable2"  width="100%">
+					                 <div class="table-responsive">
+					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable2"  width="100%">
 					                      <?php
 					                      //$Control->CargarCatalago_PersonasEspecialidad_Instituto();
 					                      ?>
@@ -346,7 +351,7 @@ $persona= new usuarios();
 			                                <td colspan="5"><strong ><center>Especialidad</center></strong></td>
 			                                <td colspan="6"><strong ><center>Personas</center></strong></td>
 			                                </tr>
-			                                <tr class="well">
+			                                <tr >
 			                                    <td hidden><strong ><center>ID</center></strong></td>
 			                                    <td><strong><center>Nombre Especialidad</center></strong></td>
 			                                    <td><strong><center>Tipo</center></strong></td>
@@ -360,6 +365,7 @@ $persona= new usuarios();
 			                                </tr>
 			                        	  </thead>
 					                    </table>
+					                    </div>
 
 									 
 	
@@ -631,7 +637,8 @@ $persona= new usuarios();
 
 
 		                 			<!--TABLA CATALAGO-->
-				                    <table class="display dataTable" id="Temporadas">
+		                 			<div class="table-responsive">
+				                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="Temporadas" style="width: 100%">
 				                      
 				                       <thead>
 			                                <tr class="well" >
@@ -646,6 +653,7 @@ $persona= new usuarios();
 		                        
 				                      
 				                    </table>
+				                    </div>
 
 					    		
 			                
@@ -653,7 +661,7 @@ $persona= new usuarios();
 
 			    <div class="modal-footer">			    
 			    <input   type="button" id="ModificarTemporada" name="botRegistrar2 " value="Modificar"  class="btn btn-primary btn-large" disabled="disabled">
-			    <button  data-dismiss="modal" id="cerrar2" class="btn btn-default" aria-hidden="true"><strong>Cerrar</strong>
+			    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
 			    </button>
 			  	</div>  
 			    </div>
@@ -667,6 +675,14 @@ $persona= new usuarios();
     <!-- ----------------------------------- FIN TABLA2 MODAL DEPARTAMENTOS-->
 
 
+
+<!-- Estilo De Selects Very Good -->
+
+<link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-select/css/jquery.selectBoxIt.css">
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery-ui-1.8.23.custom.min.js" defer=""></script> 
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery.selectBoxIt.min.js" defer=""></script>
+
+  <!-- Estilo De Selects Very Good -->
 
        <!--   Mensajes-->
  <script src="../js/dist/js/jquery.amaran.min.js"></script>
@@ -692,14 +708,19 @@ $persona= new usuarios();
   </script>
    
 
- <!--PAGINADOR - T A B L A S-->
+<!--PAGINADOR - T A B L A S-->
     
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
     <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
 
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
     <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+
 
  <!--PAGINADOR - T A B L A S-->
     <!-- AUTOCOMPLETE-->

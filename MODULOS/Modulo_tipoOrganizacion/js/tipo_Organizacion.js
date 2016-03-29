@@ -47,8 +47,26 @@ $("#Registrar").click(function(){
       
     }
   
+
+
 });
 
+$(document).on('ready', function(){
+
+         $("#Estatus").selectBoxIt({autoWidth:false , 
+        // Uses the jQuery 'fadeIn' effect when opening the drop down
+        showEffect: "fadeIn",
+
+        // Sets the jQuery 'fadeIn' effect speed to 400 milleseconds
+        showEffectSpeed: 400,
+
+        // Uses the jQuery 'fadeOut' effect when closing the drop down
+        hideEffect: "fadeOut",
+
+        // Sets the jQuery 'fadeOut' effect speed to 400 milleseconds
+        hideEffectSpeed: 400       });
+        Renderidng_select();
+});
 
 $("#Modificar").click(function(){
 

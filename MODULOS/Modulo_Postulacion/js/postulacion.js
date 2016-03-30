@@ -1,4 +1,23 @@
 
+
+$(document).ready(function() {
+
+    
+
+    $("#temporadas").on('shown.bs.modal', function(){
+
+      $(this).find('table').DataTable().columns.adjust().responsive.recalc();
+      
+    });
+
+    hacerTabla();
+
+    informacion();
+});
+
+
+
+
 	function seleccionarfila(tr){
 
 		var nombre_organizacion=$(tr).closest("tr").find('td').eq(1).text();
@@ -479,15 +498,6 @@ $(idTabla).DataTable({
 
 }
 
-$(document).ready(function() {
-
-    informacion();
-
-    $("#temporadas").on('shown.bs.modal', function(){
-
-      $(this).find('table').DataTable().columns.adjust().responsive.recalc();
-    });
-});
 
 
 function informacion()
@@ -621,3 +631,46 @@ function haceresponsiveporclick( autoclicked ){
   });
 
 } 
+
+
+
+
+function hacerTabla()
+{
+
+
+
+  
+$('#tabla-temporadas').dataTable({
+
+  "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    '_MENU_ Registros', // Mostrar _MENU_ registros
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+    }
+
+      
+
+  });
+
+
+}

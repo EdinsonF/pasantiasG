@@ -2,16 +2,20 @@
 session_start();
 
 if(isset($_SESSION['id_perfil'])){
-$id_perfil=$_SESSION['id_perfil'];
-$nombre_perfil=$_SESSION['nombre_perfil'];
 
+    $id_perfil           = $_SESSION['id_perfil'];
 
-$nombre_organizacion =  $_SESSION['codigo_sucursal'];
-$nombre_persona = $_SESSION['persona'];
+    $nombre_perfil       = $_SESSION['nombre_perfil'];
+
+    $nombre_organizacion = $_SESSION['codigo_sucursal'];
+
+    $nombre_persona      = $_SESSION['persona'];
 
 }else { 
-$id_perfil=1;
-$nombre_perfil="Menu Principal";
+  
+    $id_perfil     =1;
+    
+    $nombre_perfil ="Menu Principal";
 }
 ?>
 
@@ -120,7 +124,7 @@ $persona= new usuarios();
            </div>               
 </div >
 
-<?php include('ModalsS.phtml') ?>
+<?php include('ModalsS.html') ?>
 
      <!--PAGINADOR-->
          <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>

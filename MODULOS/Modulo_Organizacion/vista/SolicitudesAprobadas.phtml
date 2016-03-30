@@ -2,15 +2,18 @@
 session_start();
 
 if(isset($_SESSION['id_perfil'])){
-$id_perfil=$_SESSION['id_perfil'];
-$nombre_perfil=$_SESSION['nombre_perfil'];
-$nombre_organizacion =  $_SESSION['nombre_instituto'];
-$nombre_persona = $_SESSION['persona'];
-$id_instituto = $_SESSION['ID_INSTITUCION'];
+
+  $id_perfil           = $_SESSION['id_perfil'];
+  $nombre_perfil       = $_SESSION['nombre_perfil'];
+  $nombre_organizacion = $_SESSION['nombre_instituto'];
+  $nombre_persona      = $_SESSION['persona'];
+  $id_instituto        = $_SESSION['ID_INSTITUCION'];
 
 }else {
 
-
+    $id_perfil     =1;
+    
+    $nombre_perfil ="Menu Principal";
 } 
 ?>
 
@@ -70,9 +73,14 @@ $conexionBD->Conectar();
 include("../../Modulo_Usuario/modelo/mod_usuario.php");
 $persona= new usuarios();
 
-        
-     $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
-    
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    { 
+      
+      $persona->menu($id_perfil , $nombre_perfil , $_SESSION['nombre_organizacion'] ,$nombre_persona );
+    }
 ?>
 
 

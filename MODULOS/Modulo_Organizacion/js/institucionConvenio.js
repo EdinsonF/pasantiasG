@@ -653,7 +653,7 @@ success: function(data){
 
 
 
-function  ArmarTablaSucursal( tabla , contenido)
+function  ArmarTablaSucursal( tabla , contenido , siglas)
 {
         $(tabla).empty();
         $(tabla).append(contenido);
@@ -701,10 +701,14 @@ function  ArmarTablaSucursal( tabla , contenido)
         $("select.form-control").selectBoxIt();
 
       $(tabla+" tbody").on('click','tr',function(){
-
-        var codigo= $(this).find('td').eq(5).text();
-        $("#codigosucursal").html(codigo);
           
+           codigo_sucursal = $(this).find(".codesuccursel").html();
+
+          $("#codigosucursal").html(codigo_sucursal);
+     
+          $("#titlee_pepple").html(siglas);
+          $(' #tabla_sucursales').modal('hide');         //MUESTRO MODAL  CON TABLA  LLENA
+
       });
 
 } // fin de  function armartabla  sucursal
@@ -1044,7 +1048,7 @@ success: function(data){
               $.each(resul, function(index, value){
 
                     
-                   contenido +="<tr class=sucursaltable  id="+"'cursal"+index+"'"+"  onclick=SeleccionaSucursal(this,"+"'"+value.siglas+"'"+") >"+
+                   contenido +="<tr class=sucursaltable  id="+"'cursal"+index+"'"+"  >"+
                     
                     "<td>" + value.nombre_estado +  "</td> "+
 
@@ -1058,10 +1062,10 @@ success: function(data){
                     
                     "<label hidden style=display:none class=codesuccursel >" +value.codigo_sucursal+ "</label></td> </tr>";
 
-
+                    value.siglas;
                 });
 
-                  ArmarTablaSucursal(  '#sucursales', '<tbody>'+contenido+'</tbody>'); // ACTUALIZO LA  TABLA
+                  ArmarTablaSucursal(  '#sucursales', '<tbody>'+contenido+'</tbody>' , resul[0].siglas ); // ACTUALIZO LA  TABLA
                  $(' #tabla_sucursales').modal('show');         //MUESTRO MODAL  CON TABLA  LLENA
                 
 
@@ -1082,25 +1086,7 @@ success: function(data){
 
 function SeleccionaSucursal( tr , nombre_organizacion )
 {                  
-          
-                var codigo_sucursal = "";
-                var Estado          = "";
-                var Municipio       = "";
-                var direccion       = "";
-                var sede            = "";
 
-                  codigo_sucursal = $(tr).find(".codesuccursel").html();
-                  Estado          = $(tr).find("td").eq(0).text();
-                  Municipio       = $(tr).find("td").eq(1).text();
-                  direccion       = $(tr).find("td").eq(2).text();
-                  sede            = $(tr).find("td").eq(3).text();
-
-
-            
-          $("#codigosucursal").html(codigo_sucursal);
-          $("#titlee_pepple").html(nombre_organizacion);
-          $(' #tabla_sucursales').modal('hide');         //MUESTRO MODAL  CON TABLA  LLENA
-          MensajeInformacionOrganizacion(nombre_organizacion ,sede ,Estado ,Municipio,direccion);
 
 
 }

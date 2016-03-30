@@ -70,6 +70,7 @@ success: function(data){
 function ValidarCampos()
 {
 			// Obtengo las  values de los  campos del formulario de la persona encargada
+      
 var Instituto =  $("#codigosucursal").html();
 var Cedula    =  $("#cedulaPE").val();
 var nombre    =  $("#nombrePE").val();

@@ -75,7 +75,7 @@ success: function(data){
                     
                     "<img src=../../../img/iconos/ok.png alt=Ginger class=left width=20 ./>"+
 
-                    "<label hidden style=display:none>"+value.codigo_sucursal +"</label></td></tr>";
+                    "<label hidden style=display:none class=CodigoSucursale>"+value.codigo_sucursal +"</label></td></tr>";
 
 
                 });

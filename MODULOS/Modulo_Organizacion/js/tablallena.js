@@ -36,8 +36,8 @@ function seleccionarfila(tr){
 function seleccionarPrincipal(tr){
     
     NombreOrganizacion = $(tr).find("td").eq(0).html();
-    codigoSucursal     = $(tr).find("td").eq(5).text();
-
+    codigoSucursal     = $(tr).find(".CodigoSucursale").text();
+    
     $("#superidOrganizacion").val(codigoSucursal); //IMPRIMIR  EN EL CAMPO OCULTO
     $("#titlee").html(NombreOrganizacion);
     $('#tabla').modal('hide');

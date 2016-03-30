@@ -418,7 +418,10 @@ function styleTabla( id_tabla){
         }
             if ($("#posiblesModals").val()=='')
             {
-              $("#posiblesModals").load('PosiblesModalsEncurso.phtml');
+              
+              $("#posiblesModals").load('PosiblesModalsEncurso.html');
+              $("#Modalt").load('ModalTutores.html');
+
             }
 
             $('select').selectBoxIt();

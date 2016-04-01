@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-
+//holaaaaaaaaaaaaa------>>>>
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];
 $ID_ORGANIZACION=$_SESSION['codigo_sucursal'];

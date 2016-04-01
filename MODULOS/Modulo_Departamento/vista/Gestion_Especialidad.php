@@ -1,7 +1,11 @@
 <?php
 session_start();
+<<<<<<< HEAD
 
 //--- Esta es otra modificacion---
+=======
+//---holaaaaa soy edinson
+>>>>>>> origin
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];
 $ID_INSTITUCION=$_SESSION['ID_INSTITUCION'];

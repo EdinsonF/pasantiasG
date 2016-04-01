@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-
+// la tercera  linea creando conflictos de concurrencia
 
 
 

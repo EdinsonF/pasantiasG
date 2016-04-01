@@ -2,9 +2,11 @@
 session_start();
 
 
-//--- Esta es otra modificacion---
 
-//---holaaaaa soy edinson
+
+
+
+// ok la venganza del push
 
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];

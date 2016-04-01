@@ -107,7 +107,7 @@ function showselect_PersonasAsignadas_OFICINAS(str){
                                         perfil='TUTOR EMPRESARIAL';
                                   }
                     html +="<tr class='modificar' style='cursor:pointer' onclick='seleccionarfila_ParaModificar(this)'>"+
-                    " <td ><center>"+Variable[index].id_oficina+"</center></td>"+
+                    " <td hidden><center>"+Variable[index].id_oficina+"</center></td>"+
                     " <td ><center>"+Variable[index].nombre_oficina+"</center></td>"+
                     " <td ><center>"+Variable[index].cedula+"</center></td>"+
                     " <td ><center>"+Variable[index].nombre+"</center></td>"+

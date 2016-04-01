@@ -7,7 +7,7 @@ function Conectar(){
 
 $servidor	="localhost";
 $usuario	="postgres";
-$clave		="psql";
+$clave		="root";
 $bd			="pasantias";
 $port 		="5432";
 

@@ -21,7 +21,7 @@ class Control_Reportes{
 
 
 
-function ReporteGeneralPostulados($id_organizacion){
+function ReporteGeneralPostulados($codigo_sucursal){
 
 	$obj= new reportes();
 
@@ -73,17 +73,16 @@ $pdf->AddPage();
   ob_end_clean();//rompimiento de pagina
 //************* 
 
-$html = $obj->GenerarReporte_Postulados($id_organizacion);
+$html = $obj->GenerarReporte_Postulados($codigo_sucursal);
 $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='center', $autopadding=true);
 
-$pdf->Output('Reporte_PersonasAsignadas_MisOficinas.pdf', 'I');
+$pdf->Output('Reporte_GeneralPostulados.pdf', 'I');
 }
 
 
 
 
-
-function Reporte_PersonasAsignas_MisOficinas_Fecha($id_organizacion, $fecha_i, $fecha_f){
+function Reporte_PostuladosAceptados($codigo_sucursal){
 
 	$obj= new reportes();
 
@@ -135,12 +134,11 @@ $pdf->AddPage();
   ob_end_clean();//rompimiento de pagina
 //************* 
 
-$html = $obj->GenerarReporte_PersonasAsignadas_MisOficinasFecha($id_organizacion, $fecha_i, $fecha_f);
+$html = $obj->Generar_PostuladosAceptados($codigo_sucursal);
 $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='center', $autopadding=true);
 
-$pdf->Output('Reporte_PersonasAsignadas_MisOficinas.pdf', 'I');
+$pdf->Output('Reporte_PostuladosAceptados.pdf', 'I');
 }
-
 
 
 

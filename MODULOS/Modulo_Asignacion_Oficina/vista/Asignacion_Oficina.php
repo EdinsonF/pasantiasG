@@ -191,11 +191,12 @@ $persona= new usuarios();
                                                   </tr>
                                               </table>
                                                     
+                                                  <div class="table-responsive">   
                                                   <!--TABLA DE LOS REGISTROS ASIGNADOS-->
-                                                  <table class="display dataTable" id="myTable" width="100%" >
+                                                  <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable" width="100%" >
                                            
                                                   <thead>
-                                                      <tr class="well">
+                                                      <tr >
                                                         <td hidden><strong ><center>ID</center></strong></td>
                                                         <td><strong><center>Nombre Oficina</center></strong></td>
                                                         
@@ -205,6 +206,7 @@ $persona= new usuarios();
                                                       </tr>
                                                   </thead>
                                                 </table>
+                                                </div>
                                                 </td>
                                                 </tr>
                                               </table>
@@ -231,12 +233,12 @@ $persona= new usuarios();
                                 </tr>
                           </table>
 
-
+                           <div class="table-responsive">
                            <!--TABLA CATALAGO-->
-                              <table class="display dataTable" id="myTable3"  width="100%">
+                              <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable3"  width="100%">
                                 
                                 <thead>
-                                  <tr class="well">
+                                  <tr >
                                     <td hidden><strong ><center>ID</center></strong></td>
                                     <td><strong><center>Nombre Oficina</center></strong></td>
                                     
@@ -246,6 +248,7 @@ $persona= new usuarios();
                                   </tr>
                                 </thead>
                               </table>
+                          </div>
 
                       </td>
                       </tr>
@@ -277,9 +280,9 @@ $persona= new usuarios();
                                 </tr>
                           </table>
 
-
+                            <div class="table-responsive">
                            <!--TABLA CATALAGO-->
-                              <table class="display dataTable" id="myTable4"  width="100%">
+                              <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable4"  width="100%">
                                 <thead>
                                     <tr class="well" >
                                     <td colspan="4"><strong ><center>Oficina</center></strong></td>
@@ -296,9 +299,10 @@ $persona= new usuarios();
                                         <td><strong><center>Perfil</center></strong></td>
                                         <td><strong><center>Opción</center></strong></td>  
                                     </tr>
-                            </thead>
-                            <tbody >
+                                </thead>
                               </table>
+                            </div>
+
 
                       </td>
                       </tr>
@@ -483,11 +487,12 @@ $persona= new usuarios();
           <tr>
           	<td>
             	<br>
+
+                <div class="table-responsive">
                   <!--TABLA DE LOS REGISTROS A ASIGNAR-->
-                  <table class="display dataTable" id="myTable2" width="100%">
-                    
+                  <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable2" width="100%">
                       <thead>
-                          <tr class="well">
+                          <tr>
                             <td hidden><strong ><center>ID</center></strong></td>
                             <td><strong><center>Nómbre</center></strong></td>
                             <td><strong><center>Descripci&oacute;n</center></strong></td>
@@ -495,6 +500,7 @@ $persona= new usuarios();
                           </tr>
                       </thead>
                   </table>
+                </div>
           	</td>
           </tr>
           </table>
@@ -531,35 +537,32 @@ $persona= new usuarios();
           <table width="100%">
           		<tr>
           				<td>
+                    <center>                        
+                      <div class="row-fluid">
+                      <div class="span12">
+                                 
+                           <strong>Nombre oficina:</strong><br>
+                           <div class="typeahead-container">
+      					           <span class="typeahead-query"> 
+                           <input type="text" id="nombre_o" class="input-large2" name="nombre_o" placeholder="NOMBRE"  value="" autocomplete="off" required  onkeyup="this.value=this.value.toUpperCase();" ><br>  
+                           </span>
+                           </div>
 
-                            <center>
-                                                          
-                            <div class="row-fluid">
-                            <div class="span12">
+                             <strong>Estatus:</strong><br>
+                             <select id="estatus_o" name="estatus" required>
+                                  
+                                 <option value="" >SELECCIONE...</option>
+                                  <option value="ACTIVO" selected="selected">ACTIVO</option>
+                              </select><br><br>   
                                        
-                                 <strong>Nombre oficina:</strong><br>
-                                 <div class="typeahead-container">
-            					<span class="typeahead-query"> 
-                                 <input type="text" id="nombre_o" class="input-large2" name="nombre_o" placeholder="NOMBRE"  value="" autocomplete="off" required  onkeyup="this.value=this.value.toUpperCase();" ><br>  
-                                 </span>
-                                 </div>
 
-	                                 <strong>Estatus:</strong><br>
-	                                 <select id="estatus_o" name="estatus" required>
-	                                      
-	                                     <option value="" >SELECCIONE...</option>
-	                                      <option value="ACTIVO" selected="selected">ACTIVO</option>
-	                                  </select><br>   
-	                                           
-	   
-	                                  <strong>Descripción Oficina:</strong><br>
-	                                  <textarea id="descripcion_o" name="descripcion" class="large" placeholder="BREVE DESCRIPCIÓN DE LA OFICINA..." value="" autocomplete="off" onkeyup="this.value=this.value.toUpperCase()" required></textarea><br>  
-	                                          
-                             </div>
+                              <strong>Descripción Oficina:</strong><br>
+                              <textarea id="descripcion_o" name="descripcion" class="large" placeholder="BREVE DESCRIPCIÓN DE LA OFICINA..." value="" autocomplete="off" onkeyup="this.value=this.value.toUpperCase()" required></textarea><br>  
+                                      
+                       </div>
+                       </div>
+                      </center>
 
-                             </div>
-
-                 
           			</td>
           		</tr>
           </table>
@@ -592,12 +595,15 @@ $persona= new usuarios();
 
  <!--PAGINADOR - T A B L A S-->
     
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
     <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
 
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
     <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
 
  <!--PAGINADOR - T A B L A S-->
     

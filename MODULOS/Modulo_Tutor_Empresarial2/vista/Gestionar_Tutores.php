@@ -152,25 +152,24 @@ $persona= new usuarios();
 
 
                           <table width="100%">
-
                           <tr>
                           <td>
 
-                          <table class="table table-bordered"  >
-                                <tr class="well">
-                                <td>
-                                            <center><strong>Tutores Asignados</strong></center>
-                                </td>
-                                </tr>
-                          </table>
+                            <table class="table table-bordered"  >
+                                  <tr class="well">
+                                  <td>
+                                      <center><strong>Tutores Asignados</strong></center>
+                                  </td>
+                                  </tr>
+                            </table>
 
-
+                            <div class="table-responsive">
                            <!--TABLA CATALAGO-->
-                              <table class="display data-table" id="myTable"  width="100%">
+                              <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable"  cellspacing="0" style="cursor:pointer; width:100%">
                                 <thead>
                                    
-                                    <tr class="well">
-                                        <td ><strong ><center>ID</center></strong></td>
+                                    <tr>
+                                        <td hidden><strong ><center>ID</center></strong></td>
                                         <td><strong><center>Nombre Oficina</center></strong></td>
                                         <td><strong><center>Cédula</center></strong></td>
                                         <td><strong><center>Nombre</center></strong></td>
@@ -179,9 +178,9 @@ $persona= new usuarios();
                                         <td><strong><center>Observación</center></strong></td>
                                         <td><strong><center>Opción</center></strong></td>  
                                     </tr>
-                            </thead>
-                            <tbody >
+                                </thead>
                               </table>
+                            </div>
 
                       </td>
                       </tr>
@@ -213,14 +212,17 @@ $persona= new usuarios();
 
 
 
- <!--PAGINADOR - T A B L A S-->
+   <!--PAGINADOR - T A B L A S-->
     
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
     <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
 
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
     <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
 
  <!--PAGINADOR - T A B L A S-->
 

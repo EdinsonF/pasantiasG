@@ -231,43 +231,41 @@ $persona= new usuarios();
 					                    </table>
 
 					                       
-                    				
 			                    		<table  width="100%">
+								            <tr>
+								            <td>
 
-							            <tr>
-							            <td>
-
-							            <table class="table table-bordered"  >
-					                      <tr class="well">
-					                      <td>
-					                                  <center><strong> Especialidades  Registradas</strong></center>
-					                      </td>
-					                      </tr>
-							            </table>
+									            <table class="table table-bordered"  >
+							                      <tr class="well">
+							                      <td>
+							                                  <center><strong> Especialidades  Registradas</strong></center>
+							                      </td>
+							                      </tr>
+									            </table>
 
 
-					                 <!--TABLA CATALAGO-->
-					                 <div class="table-responsive">
-					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="Table"  >
-					                      <?php
-					                      //$Control->CargarCatalago_Especialidad($ID_INSTITUCION);
-					                      ?>
-					                      <thead>
-			                                <tr>
-			                                    <td hidden><strong ><center>ID</center></strong></td>
-			                                    <td><strong><center>Nombre</center></strong></td>
-			                                    <td><strong><center>Tipo</center></strong></td>
-			                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
-			                                    <td><strong><center>Estado</center></strong></td>
-			                                    <td><strong><center>Opción</center></strong></td>  
-			                                </tr>
-			                        	 </thead>
-			                        
-					                    </table>
-					                    </div>
+							                 <!--TABLA CATALAGO-->
+							                 	<div class="table-responsive">
+							                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="Table" cellspacing="0" style="cursor : pointer; width:100%">
+							                      <?php
+							                      //$Control->CargarCatalago_Especialidad($ID_INSTITUCION);
+							                      ?>
+							                        <thead>
+					                                <tr>
+					                                    <td hidden><strong ><center>ID</center></strong></td>
+					                                    <td><strong><center>Nombre</center></strong></td>
+					                                    <td><strong><center>Tipo</center></strong></td>
+					                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
+					                                    <td><strong><center>Estado</center></strong></td>
+					                                    <td><strong><center>Opción</center></strong></td>  
+					                                </tr>
+					                        	 	</thead>
+					                        
+							                    </table>
+							                    </div>
 
-									    </td>
-									    </tr>
+										    </td>
+										    </tr>
 									    </table>
 
 
@@ -280,10 +278,10 @@ $persona= new usuarios();
 					             <!-- PANEL 2 Asignacion de Especialidad-->
 					            <div class="tab-pane " id="tab2">
 
-				            			<table width="100%">
+			            			<table width="100%">
 
-							            <tr>
-							            <td>
+						            <tr>
+						            <td>
 
 							            <table class="table table-bordered"  >
 					                      <tr class="well">
@@ -294,31 +292,30 @@ $persona= new usuarios();
 							            </table>
 
 
-					                 <!--TABLA CATALAGO-->
-					                 <div class="table-responsive">
-					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable"  width="100%">
-					                      <?php
-					                      //$Control->CargarCatalago_Especialidad_AsignarPersonas($ID_INSTITUCION);
-					                      ?>
-					                      <thead>
-			                                <tr >
-			                                
-			                                    <td hidden><strong ><center>ID</center></strong></td>
-			                                    <td><strong><center>Nombre</center></strong></td>
-			                                    <td><strong><center>Tipo</center></strong></td>
-			                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
-			                                    <td><strong><center>Estado</center></strong></td>
-			                                    <td><strong><center>Opción</center></strong></td>  
-			                                </tr>
-			                        </thead>
-			                        
-					                      
-					                    </table>
-					                    </div>
+						                 <!--TABLA CATALAGO-->
+						                 <div class="table-responsive">
+						                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable"  cellspacing="0" style="cursor : pointer; width:100%">
+						                      <?php
+						                      //$Control->CargarCatalago_Especialidad_AsignarPersonas($ID_INSTITUCION);
+						                      ?>
+						                        <thead>
+				                                <tr >
+				                                
+				                                    <td hidden><strong ><center>ID</center></strong></td>
+				                                    <td><strong><center>Nombre</center></strong></td>
+				                                    <td><strong><center>Tipo</center></strong></td>
+				                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
+				                                    <td><strong><center>Estado</center></strong></td>
+				                                    <td><strong><center>Opción</center></strong></td>  
+				                                </tr>
+				                        		</thead>
 
-									    </td>
-									    </tr>
-									    </table>
+						                    </table>
+						                 </div>
+
+								    </td>
+								    </tr>
+								    </table>
 	
 						        <!-- FIN DEL PANEL 2 -->
 						        </div>
@@ -329,7 +326,10 @@ $persona= new usuarios();
 					            <div class="tab-pane " id="tab3">
 
 				            			
+					            <table width="70%">
 
+						            <tr>
+						            <td>
 							            <table class="table table-bordered"  >
 					                      <tr class="well">
 					                      <td>
@@ -339,33 +339,34 @@ $persona= new usuarios();
 							            </table>
 
 
-					                 <!--TABLA CATALAGO-->
-					                 <div class="table-responsive">
-					                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable2"  width="100%">
-					                      <?php
-					                      //$Control->CargarCatalago_PersonasEspecialidad_Instituto();
-					                      ?>
+						                 <!--TABLA CATALAGO-->
+						                 <div class="table-responsive">
+						                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="myTable2"  cellspacing="0" style="cursor : pointer; width:100%">
 
-					                      <thead>
-			                                <tr class="well" >
-			                                <td colspan="5"><strong ><center>Especialidad</center></strong></td>
-			                                <td colspan="6"><strong ><center>Personas</center></strong></td>
-			                                </tr>
-			                                <tr >
-			                                    <td hidden><strong ><center>ID</center></strong></td>
-			                                    <td><strong><center>Nombre Especialidad</center></strong></td>
-			                                    <td><strong><center>Tipo</center></strong></td>
-			                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
-			                                    <td><strong><center>Estado</center></strong></td>
-			                                    <td><strong><center>Cédula</center></strong></td>
-			                                    <td><strong><center>Nombre</center></strong></td>
-			                                    <td><strong><center>Apellido</center></strong></td>
-			                                    <td><strong><center>Perfil</center></strong></td>
-			                                    <td><strong><center>Opción</center></strong></td>  
-			                                </tr>
-			                        	  </thead>
-					                    </table>
-					                    </div>
+						                      <thead>
+				                                <tr class="well" >
+				                                <td colspan="5"><strong ><center>Especialidad</center></strong></td>
+				                                <td colspan="6"><strong ><center>Personas</center></strong></td>
+				                                </tr>
+				                                <tr >
+				                                    <td hidden><strong ><center>ID</center></strong></td>
+				                                    <td><strong><center>Nombre Especialidad</center></strong></td>
+				                                    <td><strong><center>Tipo</center></strong></td>
+				                                    <td><strong><center>Descripci&oacute;n</center></strong></td>
+				                                    <td><strong><center>Estado</center></strong></td>
+				                                    <td><strong><center>Cédula</center></strong></td>
+				                                    <td><strong><center>Nombre</center></strong></td>
+				                                    <td><strong><center>Apellido</center></strong></td>
+				                                    <td><strong><center>Perfil</center></strong></td>
+				                                    <td><strong><center>Opción</center></strong></td>  
+				                                </tr>
+				                        	  </thead>
+						                    </table>
+						                 </div>
+						            </td>
+						            </tr>
+						        </table>
+
 
 									 
 	
@@ -675,6 +676,19 @@ $persona= new usuarios();
     <!-- ----------------------------------- FIN TABLA2 MODAL DEPARTAMENTOS-->
 
 
+<!--PAGINADOR - T A B L A S-->
+    
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+ <!--PAGINADOR - T A B L A S-->
 
 <!-- Estilo De Selects Very Good -->
 
@@ -708,21 +722,7 @@ $persona= new usuarios();
   </script>
    
 
-<!--PAGINADOR - T A B L A S-->
-    
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
-    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
 
-    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
-
-
-
- <!--PAGINADOR - T A B L A S-->
     <!-- AUTOCOMPLETE-->
 
     <!-- FIN AUTOCOMPLETE-->

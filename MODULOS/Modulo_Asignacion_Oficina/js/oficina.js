@@ -1,6 +1,14 @@
 Autocomplete();
 Autocomplete_personasCedula();
 
+$(document).ready(function(){
+
+    showselect_PersonasAsignadas_OFICINAS('');
+    showselectOficinaAsignadas('');
+    showselectOFICINASasignarPersonas('');
+    showselectOficinaAsignadar('');
+});
+
 //-----RECARGAR BODY--->>>
 function restablecerForm()
 {
@@ -12,7 +20,9 @@ function restablecerForm()
 
         $("#cedula").val("");
         $("#nombre_p").val("");
+        $("#nombre_p").attr("disabled", false);
         $("#apellido_p").val("");
+        $("#apellido_p").attr("disabled", false);
         $("#observacion_p").val("");
         $("#perfil").val("");
         $("#nombre_oficina_asignarP").val("");
@@ -32,7 +42,7 @@ function restablecerForm()
         Autocomplete();
         
 
-        
+  
 }
 
 
@@ -53,18 +63,32 @@ function restablecerForm()
             modificarOficina();
        }
         
+    });
+
+
+
+    $("#Cancelar").click(function(){
+
+ 
+            restablecerForm();
     }); 
+
+
+    $("#cerrar").click(function(){
+
+ 
+            restablecerForm();
+    }); 
+
+
+
 });
 
 
 
 //---CUANDO SE HACE CLIC EN EL BOTON DE CANCELAR--->>>
     $(document).ready(function() {
-    $("#Cancelar").click(function(){
-
- 
-            restablecerForm();
-    }); 
+    
 });
 
 
@@ -931,13 +955,6 @@ function seleccionarfila(tr){
 } 
 
 
-
-
-
-showselect_PersonasAsignadas_OFICINAS('');
-showselectOficinaAsignadas('');
-showselectOFICINASasignarPersonas('');
-showselectOficinaAsignadar('');
 
 
 //-------RECARGAR TABLA OFICINA--->>>>

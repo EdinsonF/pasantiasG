@@ -41,3 +41,12 @@ hola... Todo me funciona bien.
 			- asi el codigo es mas profesional! 
 
 			- eso nos llevaria estructurar un codigo js en unas 3 o mas capas
+
+
+
+#Hoy Viernes 01 de Abril, 2016
+------------------------Usando Branch ----Edinson, Jesus----.    --------------------
+
+
+	----PUEDES ACTUALIZAR TU BRANCH, HICE EL PULL DE TU VERSION Y ME HIZO UN AUTOMERGE CON LO MIO.
+	(Y).........................................

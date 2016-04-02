@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//EDINSON
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];
 $ID_INSTITUCION=$_SESSION['ID_INSTITUCION'];

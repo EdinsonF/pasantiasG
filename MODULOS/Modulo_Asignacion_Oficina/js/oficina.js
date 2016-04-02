@@ -1,7 +1,8 @@
-Autocomplete();
-Autocomplete_personasCedula();
+
 
 $(document).ready(function(){
+    Autocomplete();
+    Autocomplete_personasCedula();
 
     showselect_PersonasAsignadas_OFICINAS('');
     showselectOficinaAsignadas('');
@@ -1712,13 +1713,8 @@ $.amaran({
                           var cadena = $("#cedula").val();
 
                           var ultimocaracter =cadena.substring($("#cedula").val().length-1);
-                          if(cadena != 0 && ultimocaracter != 1 &&
-                             ultimocaracter != 2 && ultimocaracter != 3 &&
-                             ultimocaracter != 4 && ultimocaracter != 5 &&
-                             ultimocaracter != 6 && ultimocaracter != 7 &&
-                             ultimocaracter != 8 && ultimocaracter != 9 ) {
-                             $("#cedula").val(cadena.substring(0,$("#cedula").val().length-1));}
                           
+
                                 //Comprobamos la longitud de caracteres
                                 if (cadena.length<10){
                                     

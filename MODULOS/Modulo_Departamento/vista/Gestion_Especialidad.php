@@ -2,7 +2,6 @@
 session_start();
 
 //EDINSON
-=======
 
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];
@@ -22,7 +21,7 @@ $nombre_organizacion =  $_SESSION['nombre_instituto'];
 
     <title>Especialidad</title>
 
-    	 <!--   Mensajes validaciones-->
+   	<!--   Mensajes validaciones-->
 
     <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
     <link rel="stylesheet" href="../js/dist/css/animate.min.css">

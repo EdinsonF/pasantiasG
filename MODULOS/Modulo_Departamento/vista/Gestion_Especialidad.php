@@ -1,10 +1,9 @@
 <?php
 session_start();
-<<<<<<< HEAD
+
 //EDINSON
 =======
-//---holaaaaa soy edinson
->>>>>>> 6237fef418faa69aa0fcb8db9782d0dc516a5ed0
+
 $id_perfil=$_SESSION['id_perfil'];
 $nombre_perfil=$_SESSION['nombre_perfil'];
 $ID_INSTITUCION=$_SESSION['ID_INSTITUCION'];

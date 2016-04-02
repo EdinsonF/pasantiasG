@@ -1039,22 +1039,7 @@ function CargarPreparadasParaCurso()
   });
 
 
-function MensajeCamposVacios()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Por Favor Seleccione una opción Válida'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'bottom right'
-                });
 
-}
 
 $("#Abrirsesson").click(function(){
               
@@ -1402,14 +1387,29 @@ function Mensajes(txt)
         message        :txt
         },
         theme          :'colorful',
-        position       :'bottom right',
-        
+        position       :'bottom right',        
         cssanimationIn : 'bounceIn',
         cssanimationOut: 'bounceOut',
-        'clearAll'     : true
+        clearAll       : true
 		});
 }
+ 
+function MensajeCamposVacios()
+{
+$.amaran({
+           content        :{
+           bgcolor        :'#0066CC',
+           color          :'#fff',
+           message        :'Por Favor Seleccione una opción Válida'
+           },
+           theme          :'colorful',           
+           cssanimationIn :'bounceIn',
+           cssanimationOut:'rollOut',
+           position       :'bottom right',
+           clearAll       : true
+        });
 
+}
 
 
 function BuscarLosEntregablesBD()

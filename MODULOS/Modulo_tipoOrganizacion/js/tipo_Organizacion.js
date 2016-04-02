@@ -473,24 +473,17 @@ function BuscarEistencia()
 
 function seleccionarfila(tr){
 
-  
-                var id_municipio ="";
-                var nombre       ="";
-                var estatus      ="";
-                var descripcion  = "";
-                
-
-                  nombre      = $(tr).find("td").eq(0).text();
-                  estatus     = $(tr).find("td").eq(2).text();
-                  descripcion = $(tr).find("td").eq(1).text();
+    nombre      = $(tr).find("td").eq(0).text();
+    estatus     = $(tr).find("td").eq(2).text();
+    descripcion = $(tr).find("td").eq(1).text();
 
           $("#nombre").val(nombre); 
           $('#Estatus').val(estatus);
-         
+          $("#descripcion").val(descripcion);         
             
           $("#Estatus").data("selectBoxIt").refresh();
-          Renderidng_select();
-          $("#descripcion").val(descripcion); 
+
+          Renderidng_select();           
 
          $("#Registrar").attr("disabled", true);
          $("#Modificar").attr("disabled",false);
@@ -503,6 +496,7 @@ function seleccionarfila(tr){
 
 
 } 
+
 function Renderidng_select()
 {
   $(".selectboxit-container .selectboxit").css({"width": "206px" ,  "height": "35px"});
@@ -511,16 +505,17 @@ function Renderidng_select()
 function MensajeCamposVacios()
 {
     $.amaran({
-            content        :{
-            bgcolor        :'#0066CC',
-            color          :'#fff',
-            message        :'Campos Vacios'
-            },
-            theme          :'colorful',
-            position       :'bottom right',
+    content :{
             
-            cssanimationIn : 'swing',
-            cssanimationOut: 'bounceOut'
+                bgcolor        :'#0066CC',
+                color          :'#fff',
+                message        :'Campos Vacios'
+            },
+    theme          : 'colorful',
+    position       : 'bottom right',            
+    cssanimationIn : 'swing',
+    cssanimationOut: 'bounceOut',
+    clearAll       :true
             
     });
 
@@ -529,16 +524,17 @@ function MensajeCamposVacios()
 function MensajeSeleccioneEstatus()
 {
     $.amaran({
-            content        :{
-            bgcolor        :'#0066CC',
-            color          :'#fff',
-            message        :'Seleccione Estatus'
-            },
-            theme          :'colorful',
-            position       :'bottom right',
+    content :{
             
-            cssanimationIn : 'swing',
-            cssanimationOut: 'bounceOut'
+                bgcolor        :'#0066CC',
+                color          :'#fff',
+                message        :'Seleccione Estatus'
+            },
+    theme          : 'colorful',
+    position       : 'bottom right',            
+    cssanimationIn : 'swing',
+    cssanimationOut: 'bounceOut',
+    clearAll       : true
      
     });
 

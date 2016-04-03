@@ -640,9 +640,9 @@ END as calculo_tiempo ,
 				AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
 				AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
 			INNER JOIN pasantias.organizacionmunicipio
-				ON organizacionmunicipio .codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+				ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
 			INNER JOIN pasantias.organizacion
-				ON organizacionmunicipio . id_organizacion = organizacion.id_organizacion
+				ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion
 			INNER JOIN pasantias.instituto_principal
 				ON instituto_principal.id_organizacion = organizacion.id_organizacion
 			INNER JOIN pasantias.especialidad_instituto_principal
@@ -658,15 +658,76 @@ END as calculo_tiempo ,
 		return $sql;
 	}
 
-	function BuscarEstudiantesEspecialidadTemporadaEnCurso($codigo_temporada_especialidad) {
-		return array('EstudiantesSinTutores' => $this->VerificarEstudiantesSinTutores ($codigo_temporada_especialidad),
-			'AprobadosOrganizacionR'         => $this->VerificarAprobadosOrganizacion ($codigo_temporada_especialidad),
-			'PostuladosR'                    => $this->VerificarPostulados            ($codigo_temporada_especialidad),
-			'No PostuladosR'                 => $this->VerificarNoPostulados          ($codigo_temporada_especialidad),
-			'EstudiantesConTutores'          => $this->VerificarEstudiantesConTutores ($codigo_temporada_especialidad),
-			'No Solventes'                   => $this->VerificarEstudiantesNoSolventes($codigo_temporada_especialidad),
-			'Solventes'                      => $this->VerificarEstudiantesSolventes  ($codigo_temporada_especialidad)
-		);
+	function BuscarEstudiantesEspecialidadTemporadaEnCurso($codigo) {
+		
+		$vert = self::VerificarRequiereTutores       ($codigo);
+
+		// Intentando hacer codigo Sofisticado..($codigo ==== Codigo_temporada_especialidad)
+
+		return 
+		($vert['descripcion']=='true') ? self::with_RT($codigo) : self::without_RT($codigo);
+	}
+
+	function with_RT($codigo_temporada_especialidad){ 
+
+	return 		
+
+		array(
+			'Aprobados'    => 
+			array( self::VerificarAprobadosOrganizacion ($codigo_temporada_especialidad),BuscarEstudiantesAprobados)
+			,
+			
+			'Postulados'   => 
+			array( self::VerificarPostulados($codigo_temporada_especialidad),             BuscarEstudiantesPostulados )
+			,
+
+			'NoPostulados' => 
+			array( self::VerificarNoPostulados($codigo_temporada_especialidad),           BuscarEstudiantesNoPostulados )
+			,
+
+			'ConTutores'   => 
+			array(self::VerificarEstudiantesConTutores ($codigo_temporada_especialidad),  BuscarEstudiantesConTutores  )
+			,
+
+			'SinTutores'   => 
+			array(self::VerificarEstudiantesSinTutores ($codigo_temporada_especialidad),  BuscarEstudiantesSinTutores  )
+			,
+			
+			'NoSolventes'  => 
+			array( self::VerificarEstudiantesNoSolventes($codigo_temporada_especialidad), BuscarEstudiantesNoSolventes )
+			,
+			'Solventes'    => 
+			array( self::VerificarEstudiantesSolventes($codigo_temporada_especialidad),   BuscarEstudiantesSolventes )
+			,
+			'Ejecutar'	   => 
+			array( $codigo_temporada_especialidad )
+			);		
+	}
+
+	function without_RT($codigo_temporada_especialidad){ 
+	return 
+		array(
+			'Aprobados'    => 
+			array( self::VerificarAprobadosOrganizacion ($codigo_temporada_especialidad) , BuscarEstudiantesAprobados)
+			,
+			
+			'Postulados'   => 
+			array( self::VerificarPostulados($codigo_temporada_especialidad) ,BuscarEstudiantesPostulados)
+			,
+
+			'NoPostulados' => 
+			array( self::VerificarNoPostulados($codigo_temporada_especialidad) ,BuscarEstudiantesNoPostulados)
+			,
+			
+			'NoSolventes'  => 
+			array( self::VerificarEstudiantesNoSolventes($codigo_temporada_especialidad) ,BuscarEstudiantesNoSolventes) 
+			,
+			'Solventes'    => 
+			array( self::VerificarEstudiantesSolventes($codigo_temporada_especialidad) ,BuscarEstudiantesSolventes)  
+			,
+			'Ejecutar'	   => 
+			array( $codigo_temporada_especialidad )
+			);
 	}
 
 	function VerificarNoPostulados($codigo_temporada_especialidad) {
@@ -988,6 +1049,35 @@ END as calculo_tiempo ,
 				WHERE estudiantes_entregables.id_entregable IS NOT NULL ;");
 
 		return pg_num_rows($sql);
+	}
+
+	function VerificarRequiereTutores($codigo_temporada_especialidad){
+
+		return pg_fetch_assoc( pg_query(" SELECT ets.descripcion 
+
+			FROM pasantias.temporadas_solicitud tem_s 
+
+				Inner Join pasantias.temporadas_especialidad tem_e
+
+					On tem_e.codigo_temporada = tem_s.codigo_temporada
+
+					And tem_e.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
+
+				Inner Join pasantias.encargado boss 
+
+					On boss.codigo_encargado = tem_s.codigo_encargado
+
+				Inner Join pasantias.encargado_tipo_solicitud ets 
+
+					On ets.codigo_encargado  = boss.codigo_encargado
+
+				Inner Join pasantias.tipo_solicitud tip_s
+
+					On tip_s.id_tipo_solicitud = ets.id_tipo_solicitud
+
+					And  tem_s.id_tipo_solicitud = tip_s.id_tipo_solicitud
+
+				;") );
 	}
 
 	// ARMAR TABLAS POR CADA PESTAÑA ES DECIR SI SE  ENCUENTRA ESTUDIANTES QUE CLASIFIQUEN PARAAAAAA

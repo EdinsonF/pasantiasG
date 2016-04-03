@@ -251,49 +251,51 @@ function BuscarEstudiantesEsepcialidadTemporada(codigo_temporada_especialidad , 
         
         dataType: "html",
         
-        data    : {
-
+        data    : 
+        {
           VerEstudiantesdeEstaTemporadaCurso:codigo_temporada_especialidad
-                  },
+        },
         success: function (data){
 
             var Var              = JSON.parse(data);
             var ordenespestaneos = Array();
-           
-				if(Var['No PostuladosR']>0)
-				{   
-					    ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesNoPostulados;        
-				}
-				if(Var['PostuladosR']>0)
-				{					
-              ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesPostulados;
-				}
-				if(Var['AprobadosOrganizacionR']>0)
-				{
-					    ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesAprobados;
-				}
-				if(Var['EstudiantesSinTutores']>0)
-				{
-              ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesSinTutores;
-				}
-        if (Var['EstudiantesConTutores']>0)
-        {
-              ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesConTutores;
-        }
-        if (Var['No Solventes']>0) 
-        {
-              ordenespestaneos[ordenespestaneos.length] = BuscarEstudiantesNoSolventes;
-        }
-        if (Var['Solventes']>0) 
-        {
-           //alert(data);
-        }        
-			     RecibirOrdenes(ordenespestaneos , codigo_temporada_especialidad , imprimir_info); 
+
+
+        $.each(Var , function(index , value){
+              
+            if(index === 'Ejecutar')
+
+                RecibirOrdenes(ordenespestaneos , value[0] , imprimir_info);
+
+            else{ 
+               
+              if(value[0] > 0) ordenespestaneos[ordenespestaneos.length] =  buscarCoincidencia( value[1] ) ;
+             }
+
+            
+
+        });
+
+			       
         }
 
     	});
 
 }
+
+
+function buscarCoincidencia( Model )
+{ 
+    if(Model === 'BuscarEstudiantesNoPostulados')return  BuscarEstudiantesNoPostulados;
+    if(Model === 'BuscarEstudiantesPostulados')  return  BuscarEstudiantesPostulados;
+    if(Model === 'BuscarEstudiantesAprobados')   return  BuscarEstudiantesAprobados;
+    if(Model === 'BuscarEstudiantesSinTutores')  return  BuscarEstudiantesSinTutores;
+    if(Model === 'BuscarEstudiantesConTutores')  return  BuscarEstudiantesConTutores;
+    if(Model === 'BuscarEstudiantesNoSolventes') return  BuscarEstudiantesNoSolventes;
+    if(Model === 'BuscarEstudiantesSolventes')   return  BuscarEstudiantesSolventes;
+
+}
+
 
 var li                = '';
 
@@ -922,6 +924,111 @@ function BuscarEstudiantesNoSolventes( donde_imprimir ,codigo_temporada_especial
   
 
 }
+
+function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialidad , siguiente ,yo,  ultimo )
+{
+
+  var  pestañasEstudiantes ='<li data-target=#Estudiantes_Solventes data-toggle=tab><a >'+
+                            '<strong>Solventes</strong></a></li>';
+  var html='';
+      
+      html += '<div class=tab-pane id=Estudiantes_Solventes><br> <div class="table-responsive">';
+      
+      html +='<table class="table table-striped table-hover dt-responsive nowrap compact" id=tableEstudiantesSolventeses style='+'"cursor :pointer ; width:99%"'+'>'+
+                    
+                    '<thead><tr>'+
+                    
+                      '<th >Expediente</th>'+
+                    
+                      '<th >C&eacute;dula</th>'+
+                    
+                      '<th >Nombre</th>'+
+                    
+                      '<th >Apellido</th>'+
+                    
+                      '<th >Entregables</th>'+
+                    
+                      
+                                        
+                    '</tr></thead>';
+ 
+        $.ajax({
+
+                 async   : true, 
+
+                 cache   : false,
+
+                 type    : "POST",
+
+                 url     : "../controlador/recibeTemporada.php",
+
+                 dataType: "html",
+
+                 data    : {
+
+                 
+                   BuscarEstudiantesSolventes:codigo_temporada_especialidad
+                 },
+                 success: function (data){
+                  
+                    var boton_Reporte ='';
+                    var saltoslast    ='';                  
+                    var Variable      = JSON.parse(data); var  conteo_total_entregables; 
+                    
+               $.each(Variable, function(index, value){
+
+               html+='<tr>'+
+
+               '<td>'+value['expediente']+'</td>'+
+
+               '<td>'+value['cedula']+'</td>'+
+               
+               '<td>'+value['nombre']+'</td>'+
+               
+               '<td>'+value['apellido']+'</td>'+
+               
+               '<td>'+value['entregable_asignado']+' de '+value['conteo_general']+
+
+               '<label hidden class="codigo_estudiante" >'+value['codigo_estudiante']+'</label></td>'+
+               
+               '<td></td></tr>';
+               
+                boton_Reporte = '<button id=ReporteNoSolventes class="btn btn-primary btn-block" ><strong><span class="glyphicon glyphicon-download-alt"></span> Reporte ('+ parseInt( 1+index ) +') Estudiantes</strong>  <label hidden class="codigo_temporada_reportar" >'+codigo_temporada_especialidad+'</label></button>';
+                
+                //<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">    60%  </div></div>
+                conteo_total_entregables = value['conteo_general'];
+                
+                });
+
+              saltoslast +='<br>';
+
+              //var boton_asignar_entregable = '<button type=reset id=Asignar_entregable class="btn btn-success btn-block" disabled="disabled" ><strong><span class="glyphicon glyphicon-check"></span> Asignar Entregable </strong> <label hidden class="codigo_temporada_v_entregable" >'+codigo_temporada_especialidad+'</label> <label class="total_deentregables_this_temporada">'+conteo_total_entregables+'</label></button>';
+              
+              html +='</table></div>'+ saltoslast  + boton_Reporte+'</div>';
+                     
+                     li    += pestañasEstudiantes;
+                     
+                     div   += html;
+                     
+                     ids_tablas[yo] = '#tableEstudiantesSolventeses';
+                     
+                     //id_boton_reportes[yo] = {id_boton : "#ReporteNoSolventes" , descripcion : REPORTE_ESTUDIANTES_TUTORES };
+                     
+                     if( yo ==  ultimo)
+                     
+                     {
+                     
+                       PestanasEstudiantes(donde_imprimir ,li , div , ids_tablas , id_boton_reportes);
+                     
+                     }else { siguiente[yo+1](donde_imprimir,codigo_temporada_especialidad , siguiente ,yo+1,  ultimo); }
+
+                 } // success ... 
+
+               });  
+  
+
+}
+
 
 function PestanasEstudiantes(donde_imprimir , li , div , idstablas , id_boton_reportes)
 {	

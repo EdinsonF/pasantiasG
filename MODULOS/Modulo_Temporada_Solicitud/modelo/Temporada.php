@@ -469,15 +469,25 @@ END as calculo_tiempo ,
 
 	function tablaMistemporadas($codigo_encargado) {
 		
-		$sql = pg_query("SELECT  tipo_solicitud.nombre_tipo_solicitud , temporadas_solicitud.codigo_temporada ,
-			
-			to_char(periodo_solicitud.fecha_inicio, 'DD, TMMonth YYYY')|| ' al ' ||to_char(periodo_solicitud.fecha_fin, 'DD, TMMonth YYYY') as periodo,
-			
-			temporadas_solicitud.estatus, 
+		$sql = pg_query("SELECT  
 
-			 count(temporadas_especialidad.codigo_temporada) as especialidades
+	tipo_solicitud.nombre_tipo_solicitud , 
 
-	FROM pasantias.temporadas_solicitud JOIN pasantias.encargado
+	temporadas_solicitud.codigo_temporada ,
+			
+	to_char(periodo_solicitud.fecha_inicio, 'DD, TMMonth YYYY')
+
+	|| ' al ' ||
+
+	to_char(periodo_solicitud.fecha_fin, 'DD, TMMonth YYYY') as periodo,
+			
+	temporadas_solicitud.estatus, 
+
+	count(temporadas_especialidad.codigo_temporada) as especialidades
+
+  FROM pasantias.temporadas_solicitud 
+
+  JOIN pasantias.encargado
   	
   	ON  temporadas_solicitud.codigo_encargado = encargado.codigo_encargado 
 
@@ -513,9 +523,13 @@ END as calculo_tiempo ,
 
   WHERE temporadas_solicitud.codigo_encargado ='$codigo_encargado'
 
-  GROUP BY tipo_solicitud.nombre_tipo_solicitud , temporadas_solicitud.codigo_temporada ,
+  GROUP BY  tipo_solicitud.nombre_tipo_solicitud , 
+
+  			temporadas_solicitud.codigo_temporada ,
 			
-			 periodo, temporadas_solicitud.estatus 
+			periodo,
+
+			temporadas_solicitud.estatus 
 
  ;");
 
@@ -525,50 +539,127 @@ END as calculo_tiempo ,
 
 	function temporadasNoEspecialidades($codigo_temporada) {
 
-		$sql = pg_query("SELECT especialidad.id_especialidad , especialidad.nombre_especialidad ,tipo_especialidad.nombre_tipo_especialidad
-				FROM pasantias.encargado JOIN pasantias.temporadas_solicitud
-				ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
-				AND temporadas_solicitud.codigo_temporada='$codigo_temporada' JOIN pasantias.persona_organizacion_oficina
-				ON persona_organizacion_oficina.id_persona = encargado.id_persona
-				AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
-				AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
-				AND persona_organizacion_oficina.id_perfil = encargado.id_perfil JOIN pasantias.organizacionmunicipio
-				ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal JOIN pasantias.organizacion
-				ON organizacion.id_organizacion = organizacionmunicipio.id_organizacion JOIN pasantias.instituto_principal
-				ON instituto_principal.id_organizacion = organizacion.id_organizacion  JOIN pasantias.especialidad_instituto_principal
-				ON  instituto_principal.id_ip = especialidad_instituto_principal.id_ip
-				AND especialidad_instituto_principal.estatus = 'ACTIVO' JOIN pasantias.especialidad
+		$sql = pg_query("SELECT 
 
-				ON especialidad.id_especialidad  = especialidad_instituto_principal.id_especialidad JOIN pasantias.tipo_especialidad
-				ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
-				LEFT JOIN pasantias.temporadas_especialidad
-				ON temporadas_especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
-				AND temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
-				WHERE temporadas_especialidad.id_especialidad is null  ;");
-		return $sql;
+			especialidad.id_especialidad , 
+			
+			especialidad.nombre_especialidad ,
+			
+			tipo_especialidad.nombre_tipo_especialidad
+
+	FROM pasantias.encargado JOIN pasantias.temporadas_solicitud
+		
+		ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
+		
+		AND temporadas_solicitud.codigo_temporada='$codigo_temporada' 
+	
+	JOIN pasantias.persona_organizacion_oficina
+		
+		ON persona_organizacion_oficina.id_persona = encargado.id_persona
+		
+		AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
+		
+		AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
+		
+		AND persona_organizacion_oficina.id_perfil = encargado.id_perfil 
+	
+	JOIN pasantias.organizacionmunicipio
+	
+		ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal 
+	
+	JOIN pasantias.organizacion
+	
+		ON organizacion.id_organizacion = organizacionmunicipio.id_organizacion 
+	
+	JOIN pasantias.instituto_principal
+	
+		ON instituto_principal.id_organizacion = organizacion.id_organizacion  
+	
+	JOIN pasantias.especialidad_instituto_principal
+	
+		ON  instituto_principal.id_ip = especialidad_instituto_principal.id_ip
+	
+		AND especialidad_instituto_principal.estatus = 'ACTIVO' 
+	
+	JOIN pasantias.especialidad
+
+		ON especialidad.id_especialidad  = especialidad_instituto_principal.id_especialidad 
+	
+	JOIN pasantias.tipo_especialidad
+	
+		ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
+	
+	LEFT JOIN pasantias.temporadas_especialidad
+	
+		ON temporadas_especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+	
+		AND temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+	
+	WHERE temporadas_especialidad.id_especialidad is null  ;");
+	return $sql;
 	}
 
 	function temporadasConEspecialidades($codigo_temporada) {
 
-		$sql = pg_query("SELECT especialidad.id_especialidad , especialidad.nombre_especialidad ,tipo_especialidad.nombre_tipo_especialidad
-				FROM pasantias.encargado JOIN pasantias.temporadas_solicitud
-				ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
-				AND temporadas_solicitud.codigo_temporada='$codigo_temporada' JOIN pasantias.persona_organizacion_oficina
-				ON persona_organizacion_oficina.id_persona = encargado.id_persona
-				AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
-				AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
-				AND persona_organizacion_oficina.id_perfil = encargado.id_perfil JOIN pasantias.organizacionmunicipio
-				ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal JOIN pasantias.organizacion
-				ON organizacion.id_organizacion = organizacionmunicipio.id_organizacion JOIN pasantias.instituto_principal
-				ON instituto_principal.id_organizacion = organizacion.id_organizacion  JOIN pasantias.especialidad_instituto_principal
-				ON  instituto_principal.id_ip = especialidad_instituto_principal.id_ip
-				AND especialidad_instituto_principal.estatus = 'ACTIVO' JOIN pasantias.especialidad
+		$sql = pg_query("SELECT 	
 
-				ON especialidad.id_especialidad  = especialidad_instituto_principal.id_especialidad JOIN pasantias.tipo_especialidad
-				ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad LEFT JOIN pasantias.temporadas_especialidad
+			especialidad.id_especialidad , 
+			
+			especialidad.nombre_especialidad ,
+			
+			tipo_especialidad.nombre_tipo_especialidad
+
+		FROM pasantias.encargado 
+		
+		JOIN pasantias.temporadas_solicitud
+		
+				ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
+		
+				AND temporadas_solicitud.codigo_temporada='$codigo_temporada' 
+		
+		JOIN pasantias.persona_organizacion_oficina
+		
+				ON persona_organizacion_oficina.id_persona = encargado.id_persona
+		
+				AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
+		
+				AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
+		
+				AND persona_organizacion_oficina.id_perfil = encargado.id_perfil 
+		
+		JOIN pasantias.organizacionmunicipio
+		
+				ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal 
+		
+		JOIN pasantias.organizacion
+		
+				ON organizacion.id_organizacion = organizacionmunicipio.id_organizacion 
+		
+		JOIN pasantias.instituto_principal
+		
+				ON instituto_principal.id_organizacion = organizacion.id_organizacion  
+		
+		JOIN pasantias.especialidad_instituto_principal
+		
+				ON  instituto_principal.id_ip = especialidad_instituto_principal.id_ip
+		
+				AND especialidad_instituto_principal.estatus = 'ACTIVO' 
+		
+		JOIN pasantias.especialidad
+
+				ON especialidad.id_especialidad  = especialidad_instituto_principal.id_especialidad 
+		
+		JOIN pasantias.tipo_especialidad
+		
+				ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad 
+		
+		LEFT JOIN pasantias.temporadas_especialidad
+		
 				ON temporadas_especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+		
 				AND temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
-				WHERE temporadas_especialidad.id_especialidad is not null  ;");
+		
+		WHERE temporadas_especialidad.id_especialidad is not null  ;");
 		return $sql;
 	}
 
@@ -587,30 +678,57 @@ END as calculo_tiempo ,
 		return $num;
 	}
 	function BuscarTemporadasEnCurso($codigo_encargado) {
-		$sql = pg_query("SELECT temporadas_solicitud.codigo_temporada ,
-			to_char(periodo_solicitud.fecha_inicio, 'TMDay, DD TMMonth YYYY') ||' al '||
+		$sql = pg_query("SELECT 
+
+			temporadas_solicitud.codigo_temporada ,
+
+			to_char(periodo_solicitud.fecha_inicio, 'TMDay, DD TMMonth YYYY') 
+
+			||' al '||
+
 			to_char(periodo_solicitud.fecha_fin, 'TMDay, DD TMMonth YYYY') as periodo ,
+
 			tipo_solicitud.nombre_tipo_solicitud
+
 			FROM pasantias.encargado
+		
 		INNER JOIN pasantias.temporadas_solicitud
+		
 			ON encargado.codigo_encargado = temporadas_solicitud.codigo_encargado
+		
 			AND encargado.codigo_encargado = '$codigo_encargado'
+		
 			AND temporadas_solicitud.estatus='EN CURSO'
+		
 		INNER JOIN pasantias.persona_organizacion_oficina
+		
 			ON persona_organizacion_oficina.id_persona = encargado.id_persona
+		
 			AND persona_organizacion_oficina.id_perfil = encargado.id_perfil
+		
 			AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
+		
 			AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
+		
 		INNER JOIN pasantias.organizacionmunicipio
-			ON organizacionmunicipio .codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+		
+			ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+		
 		INNER JOIN pasantias.organizacion
-			ON organizacionmunicipio . id_organizacion = organizacion.id_organizacion
+		
+			ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion
+		
 		INNER JOIN pasantias.instituto_principal
+		
 			ON instituto_principal.id_organizacion = organizacion.id_organizacion
+		
 		INNER JOIN pasantias.tipo_solicitud
-			On tipo_solicitud .id_tipo_solicitud = temporadas_solicitud.id_tipo_solicitud
+		
+			On tipo_solicitud.id_tipo_solicitud = temporadas_solicitud.id_tipo_solicitud
+		
 		INNER JOIN pasantias.periodo_solicitud
-			ON periodo_solicitud .id_periodo = temporadas_solicitud.id_periodo
+		
+			ON periodo_solicitud.id_periodo = temporadas_solicitud.id_periodo
 		 ;");
 		return $sql;
 	}
@@ -619,41 +737,83 @@ END as calculo_tiempo ,
 	// ORDENAR PESTAÑAS POR  ESPECIALIDADES QUE  TENGAN ESTUDIANTES ASIGNADOS
 	function BuscarEspecialidadesTemporadasEnCurso($codigo_temporada) {
 
-		$sql = pg_query("SELECT COUNT(temporadas_estudiantes.codigo_estudiante) as cantidadestudiantes,
-			 Master.especialidad , Master.codigo_temporada_especialidad  FROM (
-				SELECT especialidad.nombre_especialidad ||' - '|| nombre_tipo_especialidad as especialidad
-			,temporadas_especialidad.codigo_temporada_especialidad
+		$sql = pg_query("SELECT 
+
+			COUNT(temporadas_estudiantes.codigo_estudiante) as cantidadestudiantes,
+
+			 Master.especialidad , 
+
+			 Master.codigo_temporada_especialidad  
+
+			 FROM (
+				SELECT 
+				especialidad.nombre_especialidad 
+				||' - '||
+				nombre_tipo_especialidad as especialidad,
+			
+			temporadas_especialidad.codigo_temporada_especialidad
+			
 			FROM pasantias.temporadas_solicitud
+			
 			INNER JOIN pasantias.temporadas_especialidad
+			
 				ON temporadas_solicitud.codigo_temporada = temporadas_especialidad.codigo_temporada
+			
 				AND temporadas_solicitud.codigo_temporada ='$codigo_temporada'
 
 			INNER JOIN pasantias.especialidad
+			
 				ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+			
 			INNER JOIN pasantias.tipo_especialidad
-				ON especialidad . id_tipo_especialidad = tipo_especialidad.id_tipo_especialidad
+			
+				ON especialidad.id_tipo_especialidad = tipo_especialidad.id_tipo_especialidad
+			
 			INNER JOIN pasantias.encargado
+			
 				ON encargado.codigo_encargado = temporadas_solicitud.codigo_encargado
+			
 			INNER JOIN pasantias.persona_organizacion_oficina
+			
 				ON persona_organizacion_oficina.id_persona = encargado.id_persona
+			
 				AND persona_organizacion_oficina.id_perfil = encargado.id_perfil
+			
 				AND persona_organizacion_oficina.id_oficina = encargado.id_oficina
+			
 				AND persona_organizacion_oficina.codigo_sucursal = encargado.codigo_sucursal
+			
 			INNER JOIN pasantias.organizacionmunicipio
+			
 				ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+			
 			INNER JOIN pasantias.organizacion
+			
 				ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion
+			
 			INNER JOIN pasantias.instituto_principal
+			
 				ON instituto_principal.id_organizacion = organizacion.id_organizacion
+			
 			INNER JOIN pasantias.especialidad_instituto_principal
+			
 				ON especialidad_instituto_principal.id_ip = instituto_principal.id_ip
+			
 				AND especialidad_instituto_principal.id_especialidad = especialidad.id_especialidad
+			
 				)as Master
+			
 			LEFT JOIN pasantias.temporadas_estudiantes
+			
 				ON temporadas_estudiantes.codigo_temporada_especialidad = Master.codigo_temporada_especialidad
-				WHERE temporadas_estudiantes.codigo_temporada_especialidad IS NOT NULL
+			
+			WHERE temporadas_estudiantes.codigo_temporada_especialidad IS NOT NULL
 
-				GROUP BY especialidad , Master.codigo_temporada_especialidad ORDER BY especialidad ;");
+		GROUP BY especialidad , 
+
+		Master.codigo_temporada_especialidad 
+
+		ORDER BY especialidad ;");
 
 		return $sql;
 	}
@@ -696,9 +856,11 @@ END as calculo_tiempo ,
 			'NoSolventes'  => 
 			array( self::VerificarEstudiantesNoSolventes($codigo_temporada_especialidad), BuscarEstudiantesNoSolventes )
 			,
+
 			'Solventes'    => 
 			array( self::VerificarEstudiantesSolventes($codigo_temporada_especialidad),   BuscarEstudiantesSolventes )
 			,
+
 			'Ejecutar'	   => 
 			array( $codigo_temporada_especialidad )
 			);		
@@ -722,9 +884,11 @@ END as calculo_tiempo ,
 			'NoSolventes'  => 
 			array( self::VerificarEstudiantesNoSolventes($codigo_temporada_especialidad) ,BuscarEstudiantesNoSolventes) 
 			,
+
 			'Solventes'    => 
 			array( self::VerificarEstudiantesSolventes($codigo_temporada_especialidad) ,BuscarEstudiantesSolventes)  
 			,
+
 			'Ejecutar'	   => 
 			array( $codigo_temporada_especialidad )
 			);
@@ -773,11 +937,13 @@ END as calculo_tiempo ,
 
 		ON solicitudes_enviadas.valor = estudiante.codigo_estudiante
 
-		WHERE solicitudes_enviadas.valor IS NULL
+	WHERE solicitudes_enviadas.valor IS NULL
 
 	) as recibidas
 
-	LEFT JOIN pasantias.solicitudes_recibidas ON recibidas.codigo_estudiante = solicitudes_recibidas.valor
+	LEFT JOIN pasantias.solicitudes_recibidas 
+
+		ON recibidas.codigo_estudiante = solicitudes_recibidas.valor
 
 	WHERE solicitudes_recibidas.valor is null;");
 
@@ -928,154 +1094,222 @@ END as calculo_tiempo ,
 	}
 
 	function VerificarEstudiantesSinTutores($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT solicitudes_aprobadas.valor  FROM pasantias.solicitudes_aprobadas
+		$sql = pg_query("SELECT 
+
+			solicitudes_aprobadas.valor  
+
+			FROM pasantias.solicitudes_aprobadas
+			
 			INNER JOIN pasantias.solicitud
+			
 				ON solicitudes_aprobadas.codigo_solicitud = solicitud.codigo_solicitud
+			
 			INNER JOIN pasantias.temporadas_especialidad
-				ON solicitud .codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+			
+				ON solicitud.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+			
 				AND solicitud.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
+			
 			INNER JOIN pasantias.estudiante
+			
 				ON estudiante.codigo_estudiante = solicitudes_aprobadas.valor
+			
 			INNER JOIN pasantias.persona_instituto_especialidad
+			
 				ON persona_instituto_especialidad.id_persona = estudiante.id_persona
+			
 				AND persona_instituto_especialidad.id_ip = estudiante.id_ip
+			
 				AND persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+			
 				ANd persona_instituto_especialidad.id_perfil = estudiante.id_perfil
+			
 			INNER JOIN pasantias.especialidad
+			
 				ON especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
+			
 			INNER JOIN pasantias.instituto_principal
+			
 				ON instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+			
 			INNER JOIN pasantias.especialidad_instituto_principal
+			
 				On instituto_principal.id_ip = especialidad_instituto_principal.id_ip
+			
 			LEFT JOIN pasantias.responsables
+				
 				ON responsables.codigo_solicitud = solicitud.codigo_solicitud
+			
 				AND responsables.table_column = 'tutor_academico.codigo_tutor_academico'
-			WHERE responsables.codigo_solicitud IS NULL GROUP BY solicitudes_aprobadas.valor;");
+			
+			WHERE responsables.codigo_solicitud IS NULL 
+
+			GROUP BY solicitudes_aprobadas.valor;");
+
 		return pg_num_rows($sql);
 
 	}
 
 	function VerificarEstudiantesConTutores($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT solicitudes_aprobadas.valor  FROM pasantias.solicitudes_aprobadas
+		$sql = pg_query("SELECT 
+
+			solicitudes_aprobadas.valor
+
+			FROM pasantias.solicitudes_aprobadas
+			
 			INNER JOIN pasantias.solicitud
+			
 				ON   solicitudes_aprobadas.codigo_solicitud = solicitud.codigo_solicitud
+			
 			INNER JOIN pasantias.temporadas_especialidad
+			
 				ON  solicitud.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+			
 				AND solicitud.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
+			
 			INNER JOIN pasantias.estudiante
+			
 				ON estudiante.codigo_estudiante = solicitudes_aprobadas.valor
+			
 			INNER JOIN pasantias.persona_instituto_especialidad
+			
 				ON persona_instituto_especialidad.id_persona       = estudiante.id_persona
+			
 				AND persona_instituto_especialidad.id_ip           = estudiante.id_ip
+			
 				AND persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+			
 				ANd persona_instituto_especialidad.id_perfil       = estudiante.id_perfil
+			
 			INNER JOIN pasantias.especialidad
+			
 				ON especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
+			
 			INNER JOIN pasantias.instituto_principal
+			
 				ON instituto_principal.id_ip    = persona_instituto_especialidad.id_ip
+			
 			INNER JOIN pasantias.especialidad_instituto_principal
+			
 				On instituto_principal.id_ip    = especialidad_instituto_principal.id_ip
+			
 			LEFT JOIN pasantias.responsables
+			
 				ON responsables.codigo_solicitud = solicitud.codigo_solicitud
+			
 				AND responsables.table_column    = 'tutor_academico.codigo_tutor_academico'
-			WHERE responsables.codigo_solicitud IS NOT NULL GROUP BY solicitudes_aprobadas.valor;");
+			
+			WHERE responsables.codigo_solicitud IS NOT NULL 
+
+			GROUP BY solicitudes_aprobadas.valor;");
+
 		return pg_num_rows($sql);
 
 	}
 
-	function VerificarEstudiantesNoSolventes($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT true FROM pasantias.temporadas_solicitud
+	function VerificarEstudiantesNoSolventes($codigo) {
+		$sql = pg_query("SELECT true 
 
-				INNER JOIN pasantias.temporadas_especialidad
+		FROM pasantias.temporadas_solicitud
 
-					ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+		INNER JOIN pasantias.temporadas_especialidad
 
-					AND temporadas_especialidad.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
+			ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
 
-				INNER JOIN pasantias.temporadas_estudiantes
+			AND temporadas_especialidad.codigo_temporada_especialidad ='$codigo'
 
-					ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+		INNER JOIN pasantias.temporadas_estudiantes
 
-				INNER JOIN pasantias.estudiante
+			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
 
-					On estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+		INNER JOIN pasantias.estudiante
 
-				INNER JOIN pasantias.entregable_temporada
+			On estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
 
-					ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+		INNER JOIN pasantias.entregable_temporada
 
-				INNER JOIN pasantias.entregable
+			ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
 
-					ON entregable.id_entregable = entregable_temporada.id_entregable
+		INNER JOIN pasantias.entregable
 
-				LEFT JOIN pasantias.estudiantes_entregables
+			ON entregable.id_entregable = entregable_temporada.id_entregable
 
-					ON estudiantes_entregables.id_entregable = entregable.id_entregable
+		LEFT JOIN pasantias.estudiantes_entregables
 
-					AND estudiantes_entregables.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+			ON estudiantes_entregables.id_entregable = entregable.id_entregable
 
-					AND estudiantes_entregables.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+			AND estudiantes_entregables.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
 
-				WHERE 	estudiantes_entregables.id_entregable IS NULL
+			AND estudiantes_entregables.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
 
-					AND estudiantes_entregables.codigo_temporada_especialidad IS NULL
+		WHERE 	estudiantes_entregables.id_entregable IS NULL
 
-					AND estudiantes_entregables.codigo_estudiante IS NULL ;");
+			AND estudiantes_entregables.codigo_temporada_especialidad IS NULL
 
-		return pg_num_rows($sql);
-	}
-
-	function VerificarEstudiantesSolventes($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT true FROM pasantias.temporadas_solicitud
-
-				INNER JOIN pasantias.temporadas_especialidad
-
-					ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
-
-					AND temporadas_especialidad.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
-
-				INNER JOIN pasantias.entregable_temporada
-
-					ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
-
-				INNER JOIN pasantias.entregable
-
-					ON entregable.id_entregable = entregable_temporada.id_entregable
-
-				LEFT JOIN pasantias.estudiantes_entregables
-
-					ON estudiantes_entregables.id_entregable = entregable.id_entregable
-
-				WHERE estudiantes_entregables.id_entregable IS NOT NULL ;");
+			AND estudiantes_entregables.codigo_estudiante IS NULL ;");
 
 		return pg_num_rows($sql);
 	}
 
-	function VerificarRequiereTutores($codigo_temporada_especialidad){
+	function VerificarEstudiantesSolventes($codigo) {
+		$sql = 
 
-		return pg_fetch_assoc( pg_query(" SELECT ets.descripcion 
+		pg_query("SELECT true 
+
+			FROM pasantias.temporadas_solicitud temp_s
+
+			INNER JOIN pasantias.temporadas_especialidad temp_es
+
+				ON temp_es.codigo_temporada =  temp_s.codigo_temporada
+
+				AND temp_es.codigo_temporada_especialidad ='$codigo'
+
+			INNER JOIN pasantias.entregable_temporada e_temp 
+
+				ON  temp_s.codigo_temporada = e_temp.codigo_temporada
+
+			INNER JOIN pasantias.entregable
+
+				ON entregable.id_entregable = e_temp.id_entregable
+
+			LEFT JOIN pasantias.estudiantes_entregables
+
+				ON estudiantes_entregables.id_entregable = entregable.id_entregable
+
+			WHERE estudiantes_entregables.id_entregable IS NOT NULL ;");
+
+		return pg_num_rows($sql);
+	}
+
+	function VerificarRequiereTutores($codigo){
+
+		return pg_fetch_assoc( 
+
+		pg_query(" SELECT 
+
+			ets.descripcion 
 
 			FROM pasantias.temporadas_solicitud tem_s 
 
-				Inner Join pasantias.temporadas_especialidad tem_e
+			Inner Join pasantias.temporadas_especialidad tem_e
 
-					On tem_e.codigo_temporada = tem_s.codigo_temporada
+				On tem_e.codigo_temporada = tem_s.codigo_temporada
 
-					And tem_e.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
+				And tem_e.codigo_temporada_especialidad ='$codigo'
 
-				Inner Join pasantias.encargado boss 
+			Inner Join pasantias.encargado boss 
 
-					On boss.codigo_encargado = tem_s.codigo_encargado
+				On boss.codigo_encargado = tem_s.codigo_encargado
 
-				Inner Join pasantias.encargado_tipo_solicitud ets 
+			Inner Join pasantias.encargado_tipo_solicitud ets 
 
-					On ets.codigo_encargado  = boss.codigo_encargado
+				On ets.codigo_encargado  = boss.codigo_encargado
 
-				Inner Join pasantias.tipo_solicitud tip_s
+			Inner Join pasantias.tipo_solicitud tip_s
 
-					On tip_s.id_tipo_solicitud = ets.id_tipo_solicitud
+				On tip_s.id_tipo_solicitud = ets.id_tipo_solicitud
 
-					And  tem_s.id_tipo_solicitud = tip_s.id_tipo_solicitud
+				And  tem_s.id_tipo_solicitud = tip_s.id_tipo_solicitud
 
 				;") );
 	}
@@ -1091,14 +1325,25 @@ END as calculo_tiempo ,
 	// 	 -------------- DATOS DATOS DATOS DATOS DATOS
 	function BuscarEstudiantesNoPostulados($codigo_temporada_especialidad) {
 
-		$sql = pg_query(" SELECT recibidas.*
-				FROM (
+	return pg_query("SELECT recibidas.*
 
-	SELECT estudiante.expediente , persona.nombre ||'  '|| persona.apellido as estudiante,
+	FROM (SELECT	 
 
-			persona.cedula , persona.correo ,  persona.telefono ,estudiante.codigo_estudiante
+	estudiante.expediente , 
 
-	FROM pasantias.estudiante INNER JOIN pasantias.temporadas_estudiantes
+	persona.nombre ||'  '|| persona.apellido as estudiante,
+
+	persona.cedula , 
+	
+	persona.correo ,  
+	
+	persona.telefono ,
+	
+	estudiante.codigo_estudiante
+
+	FROM pasantias.estudiante 
+
+	INNER JOIN pasantias.temporadas_estudiantes
 
 		ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
 
@@ -1140,11 +1385,12 @@ END as calculo_tiempo ,
 
 		WHERE  solicitudes_enviadas.valor IS NULL ) as recibidas
 
-		LEFT JOIN pasantias.solicitudes_recibidas ON recibidas.codigo_estudiante = solicitudes_recibidas.valor
+	LEFT JOIN pasantias.solicitudes_recibidas 
 
-		WHERE solicitudes_recibidas.valor is null;");
+	ON recibidas.codigo_estudiante = solicitudes_recibidas.valor
 
-		return $sql;
+	WHERE solicitudes_recibidas.valor is null;");
+
 	}
 	function BuscarEstudiantesPostulados($codigo_temporada_especialidad) {
 
@@ -1613,84 +1859,130 @@ END as calculo_tiempo ,
 	}
 
 	function BuscarEstudiantesNoSolventes($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT  conteo_general - COUNT (entregable.id_entregable)  as entregable_asignado , sql_conteo_total_entregables.*
+	$sql = pg_query("SELECT  
 
-			 FROM ( SELECT count(entregable.id_entregable) as conteo_general , sql_estudiantes.*
-			 FROM (
+		conteo_general - COUNT (entregable.id_entregable)  as entregable_asignado , 
 
-			SELECT persona.cedula , persona.nombre , persona.apellido , estudiante.expediente , temporadas_solicitud .codigo_temporada,
-			temporadas_estudiantes.codigo_estudiante , temporadas_estudiantes.codigo_temporada_especialidad
+		sql_conteo_total_entregables.*
 
-			FROM pasantias.temporadas_solicitud
-			INNER JOIN pasantias.temporadas_especialidad
-				ON  temporadas_especialidad . codigo_temporada = temporadas_solicitud . codigo_temporada
-				AND temporadas_solicitud . estatus='EN CURSO'
-			INNER JOIN pasantias.temporadas_estudiantes
-				ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
-				AND temporadas_especialidad .codigo_temporada_especialidad = '$codigo_temporada_especialidad'
-			INNER JOIN pasantias.estudiante
-				ON estudiante.codigo_estudiante = temporadas_estudiantes .codigo_estudiante
-			INNER JOIN  pasantias.persona_instituto_especialidad
-				ON persona_instituto_especialidad  .id_persona  	= 	estudiante.id_persona
-				AND persona_instituto_especialidad .id_ip  			= 	estudiante.id_ip
-				AND persona_instituto_especialidad .id_especialidad = 	estudiante.id_especialidad
-				AND persona_instituto_especialidad .id_perfil   	= 	estudiante.id_perfil
-			INNER JOIN pasantias.persona
-				ON persona.id_persona = persona_instituto_especialidad.id_persona
-			INNER JOIN pasantias . especialidad
-				ON especialidad . id_especialidad = persona_instituto_especialidad . id_especialidad
-			INNER JOIN pasantias . instituto_principal
-				ON instituto_principal . id_ip = persona_instituto_especialidad . id_ip
-			INNER JOIN pasantias . especialidad_instituto_principal
-				ON  especialidad_instituto_principal . id_ip = instituto_principal . id_ip
-				AND especialidad_instituto_principal . id_especialidad = especialidad . id_especialidad
-				AND especialidad_instituto_principal . id_especialidad = persona_instituto_especialidad . id_especialidad
-			INNER JOIN pasantias . perfil
-				ON perfil . id_perfil = persona_instituto_especialidad . id_perfil
-			)as sql_estudiantes
+		from ( Select 
+		 	count(entregable.id_entregable) as conteo_general , sql_estudiantes.*
+		from (
 
-				INNER JOIN pasantias.entregable_temporada
+		Select 
+		persona.cedula , 
+		persona.nombre , 
+		persona.apellido , 
+		estudiante.expediente , 
+		temporadas_solicitud.codigo_temporada,
+		temporadas_estudiantes.codigo_estudiante , 
+		temporadas_estudiantes.codigo_temporada_especialidad
 
-					ON entregable_temporada . codigo_temporada = sql_estudiantes . codigo_temporada
+		from pasantias.temporadas_solicitud
+		
+		Inner Join pasantias.temporadas_especialidad
+		
+			ON  temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+		
+			AND temporadas_solicitud.estatus='EN CURSO'
+		
+		Inner Join pasantias.temporadas_estudiantes
+		
+			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+		
+			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
+		
+		Inner Join pasantias.estudiante
+		
+			ON estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+		
+		Inner Join  pasantias.persona_instituto_especialidad
+		
+			ON persona_instituto_especialidad.id_persona  	= 	estudiante.id_persona
+		
+			AND persona_instituto_especialidad.id_ip  			= 	estudiante.id_ip
+		
+			AND persona_instituto_especialidad.id_especialidad = 	estudiante.id_especialidad
+		
+			AND persona_instituto_especialidad.id_perfil   	= 	estudiante.id_perfil
+		
+		Inner Join pasantias.persona
+		
+			ON persona.id_persona = persona_instituto_especialidad.id_persona
+		
+		Inner Join pasantias.especialidad
+		
+			ON especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
+		
+		Inner Join pasantias.instituto_principal
+		
+			ON instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+		
+		Inner Join pasantias.especialidad_instituto_principal
+		
+			ON  especialidad_instituto_principal.id_ip = instituto_principal.id_ip
+		
+			AND especialidad_instituto_principal.id_especialidad = especialidad.id_especialidad
+		
+			AND especialidad_instituto_principal.id_especialidad = persona_instituto_especialidad.id_especialidad
+		
+		Inner Join pasantias.perfil
+		
+			ON perfil.id_perfil = persona_instituto_especialidad.id_perfil
+		)as sql_estudiantes
 
-				INNER JOIN pasantias.entregable
+			Inner Join pasantias.entregable_temporada
 
-					ON entregable.id_entregable = entregable_temporada.id_entregable
+				ON entregable_temporada.codigo_temporada = sql_estudiantes.codigo_temporada
 
-				GROUP BY sql_estudiantes.cedula , sql_estudiantes.nombre , sql_estudiantes.apellido ,
-						 sql_estudiantes.expediente , sql_estudiantes .codigo_temporada,
-						 sql_estudiantes.codigo_estudiante , sql_estudiantes.codigo_temporada_especialidad
+			Inner Join pasantias.entregable
+
+				ON entregable.id_entregable = entregable_temporada.id_entregable
+
+			GROUP BY 
+
+				sql_estudiantes.cedula , 
+				sql_estudiantes.nombre , 
+				sql_estudiantes.apellido ,
+				sql_estudiantes.expediente , 
+				sql_estudiantes.codigo_temporada,
+				sql_estudiantes.codigo_estudiante , 
+				sql_estudiantes.codigo_temporada_especialidad
 
 			)as sql_conteo_total_entregables
 
-				INNER JOIN pasantias.entregable_temporada
+		Inner Join pasantias.entregable_temporada
 
-					ON  entregable_temporada.codigo_temporada = sql_conteo_total_entregables.codigo_temporada
+			ON  entregable_temporada.codigo_temporada = sql_conteo_total_entregables.codigo_temporada
 
-				INNER JOIN pasantias.entregable
+		Inner Join pasantias.entregable
 
-					ON entregable.id_entregable = entregable_temporada.id_entregable
+			ON entregable.id_entregable = entregable_temporada.id_entregable
 
-				LEFT JOIN  pasantias.estudiantes_entregables
+		left Join  pasantias.estudiantes_entregables
 
-				ON estudiantes_entregables  . codigo_estudiante = sql_conteo_total_entregables . codigo_estudiante
+			ON estudiantes_entregables.codigo_estudiante = sql_conteo_total_entregables.codigo_estudiante
 
-				AND estudiantes_entregables . id_entregable    = entregable.id_entregable
+			AND estudiantes_entregables.id_entregable    = entregable.id_entregable
 
-				AND estudiantes_entregables . codigo_temporada_especialidad  = sql_conteo_total_entregables.codigo_temporada_especialidad
+			AND estudiantes_entregables.codigo_temporada_especialidad = sql_conteo_total_entregables.codigo_temporada_especialidad
 
-				WHERE  estudiantes_entregables . codigo_estudiante IS NULL
+		where  estudiantes_entregables.codigo_estudiante IS NULL
 
-				AND estudiantes_entregables  . id_entregable IS NULL
+			AND estudiantes_entregables.id_entregable IS NULL
 
-				AND estudiantes_entregables  . codigo_temporada_especialidad IS NULL
+			AND estudiantes_entregables.codigo_temporada_especialidad IS NULL
 
-			GROUP BY sql_conteo_total_entregables.cedula , sql_conteo_total_entregables.nombre ,
-			sql_conteo_total_entregables . apellido , sql_conteo_total_entregables.expediente ,
-			sql_conteo_total_entregables . codigo_temporada,
-			sql_conteo_total_entregables . codigo_estudiante ,
-			sql_conteo_total_entregables . conteo_general ,
-			sql_conteo_total_entregables . codigo_temporada_especialidad  ;");
+		group by
+
+			sql_conteo_total_entregables.cedula , 
+			sql_conteo_total_entregables.nombre ,
+			sql_conteo_total_entregables.apellido , 
+			sql_conteo_total_entregables.expediente ,
+			sql_conteo_total_entregables.codigo_temporada,
+			sql_conteo_total_entregables.codigo_estudiante ,
+			sql_conteo_total_entregables.conteo_general ,
+			sql_conteo_total_entregables.codigo_temporada_especialidad  ;");
 
 		return $sql;
 	}
@@ -1701,32 +1993,68 @@ END as calculo_tiempo ,
 	}
 
 	function mensajeopiniouser($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT true FROM pasantias.tutor_academico INNER JOIN pasantias.persona_instituto_especialidad
-			ON 	persona_instituto_especialidad.id_persona 	= tutor_academico.id_persona
-			AND persona_instituto_especialidad.id_perfil 	= tutor_academico.id_perfil
-			AND persona_instituto_especialidad.id_ip 		= tutor_academico.id_ip
-			AND persona_instituto_especialidad.id_especialidad = tutor_academico.id_especialidad
+		$sql = pg_query("SELECT true 
+
+		FROM pasantias.tutor_academico 
+
+		INNER JOIN pasantias.persona_instituto_especialidad p_i_e
+		
+			ON 	p_i_e.id_persona 	= tutor_academico.id_persona
+		
+			AND p_i_e.id_perfil 	= tutor_academico.id_perfil
+		
+			AND p_i_e.id_ip 		= tutor_academico.id_ip
+		
+			AND p_i_e.id_especialidad = tutor_academico.id_especialidad
+		
 		INNER JOIN pasantias.especialidad_instituto_principal
-			ON  especialidad_instituto_principal.id_especialidad = persona_instituto_especialidad.id_especialidad
-			AND especialidad_instituto_principal.id_ip 			 = persona_instituto_especialidad.id_ip
+		
+			ON  especialidad_instituto_principal.id_especialidad = p_i_e.id_especialidad
+		
+			AND especialidad_instituto_principal.id_ip 			 = p_i_e.id_ip
+		
 		INNER JOIN pasantias.instituto_principal
+		
 			ON instituto_principal.id_ip = especialidad_instituto_principal.id_ip
-		INNER JOIN pasantias . persona
-			ON persona.id_persona = persona_instituto_especialidad.id_persona
+		
+		INNER JOIN pasantias.persona
+		
+			ON persona.id_persona = p_i_e.id_persona
+		
 		INNER JOIN pasantias.organizacion
-			ON organizacion .id_organizacion = instituto_principal .id_organizacion
+		
+			ON organizacion.id_organizacion = instituto_principal.id_organizacion
+		
 		INNER JOIN pasantias.especialidad
-			ON especialidad  . id_especialidad = especialidad_instituto_principal.id_especialidad
+		
+			ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+		
 		INNER JOIN pasantias.temporadas_especialidad
-			ON temporadas_especialidad .id_especialidad = especialidad.id_especialidad
-			AND temporadas_especialidad .codigo_temporada_especialidad = '$codigo_temporada_especialidad';");
+		
+			ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
+		
+			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad';");
+		
 		return pg_num_rows($sql);
 	}
 	function buscarTutoresResumen($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT persona.cedula , persona.nombre , persona.apellido , tutor_academico .codigo_tutor_academico ,
-			especialidad.nombre_especialidad || ' - ' || tipo_especialidad.nombre_tipo_especialidad as especialidad
+		$sql = pg_query("SELECT 
 
-		 	FROM pasantias.tutor_academico
+			persona.cedula , 
+			
+			persona.nombre , 
+			
+			persona.apellido , 
+			
+			tutor_academico.codigo_tutor_academico ,
+			
+			especialidad.nombre_especialidad 
+			
+			|| ' - ' || 
+			
+			tipo_especialidad.nombre_tipo_especialidad as especialidad
+
+		FROM pasantias.tutor_academico
 
 		INNER JOIN pasantias.persona_instituto_especialidad
 
@@ -1748,23 +2076,23 @@ END as calculo_tiempo ,
 
 			ON instituto_principal.id_ip = especialidad_instituto_principal.id_ip
 
-		INNER JOIN pasantias . persona
+		INNER JOIN pasantias.persona
 
 			ON persona.id_persona = persona_instituto_especialidad.id_persona
 
 		INNER JOIN pasantias.organizacion
 
-			ON organizacion .id_organizacion = instituto_principal .id_organizacion
+			ON organizacion.id_organizacion = instituto_principal.id_organizacion
 
 		INNER JOIN pasantias.especialidad
 
-			ON especialidad  . id_especialidad = especialidad_instituto_principal.id_especialidad
+			ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
 
 		INNER JOIN pasantias.temporadas_especialidad
 
-			ON temporadas_especialidad .id_especialidad = especialidad.id_especialidad
+			ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
 
-			AND temporadas_especialidad .codigo_temporada_especialidad = '$codigo_temporada_especialidad'
+			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
 
 		INNER JOIN pasantias.tipo_especialidad
 
@@ -1774,81 +2102,149 @@ END as calculo_tiempo ,
 	}
 
 	function CantidadEstudiantesAsignadosTemporada($codigo_tutor_academico, $codigo_temporada_especialidad) {
-		$sql = pg_query(" SELECT true FROM pasantias.responsables INNER JOIN pasantias.solicitud
-				ON solicitud .codigo_solicitud = responsables .codigo_solicitud
-				AND responsables.table_column = 'tutor_academico.codigo_tutor_academico'
-			INNER JOIN pasantias.temporadas_estudiantes
-				ON temporadas_estudiantes.codigo_temporada_especialidad = solicitud.codigo_temporada_especialidad
-				AND temporadas_estudiantes.codigo_estudiante = solicitud.codigo_estudiante
-			INNER JOIN pasantias.temporadas_especialidad
-				ON temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
-				AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
-			INNER JOIN pasantias.tutor_academico
-				On tutor_academico.codigo_tutor_academico = responsables.valor
-				AND tutor_academico .codigo_tutor_academico = '$codigo_tutor_academico'
-				AND responsables .valor = '$codigo_tutor_academico' ;");
+		$sql = pg_query("SELECT true 
+
+		FROM pasantias.responsables 
+		
+		INNER JOIN pasantias.solicitud
+		
+			ON solicitud.codigo_solicitud = responsables.codigo_solicitud
+		
+			AND responsables.table_column = 'tutor_academico.codigo_tutor_academico'
+		
+		INNER JOIN pasantias.temporadas_estudiantes
+		
+			ON temporadas_estudiantes.codigo_temporada_especialidad = solicitud.codigo_temporada_especialidad
+		
+			AND temporadas_estudiantes.codigo_estudiante = solicitud.codigo_estudiante
+		
+		INNER JOIN pasantias.temporadas_especialidad
+		
+			ON temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+		
+			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
+		
+		INNER JOIN pasantias.tutor_academico
+		
+			On tutor_academico.codigo_tutor_academico = responsables.valor
+		
+			AND tutor_academico.codigo_tutor_academico = '$codigo_tutor_academico'
+		
+			AND responsables.valor = '$codigo_tutor_academico' ;");
 
 		return pg_num_rows($sql);
 	}
 
-	function EncargadoApruebaSolicitudAprobadaOrganizacion($formun = array()) {
+	function EncargadoApruebaSolicitudAprobadaOrganizacion( $formun = array() ) {
+
 		$codigo_estudiante = $formun['estudiantecaleta'];
 		$codigo_solicitud  = $formun['aprobarsolicitudEncargado'];
 		$encargado         = $formun['supervisor'];
 		$sucursal          = $formun['codigo_sucursal'];
+
 		$spera;
+
 		$return = $this->VerifiacarOrigenSolicitud($codigo_estudiante, $codigo_solicitud, $encargado);
+		
 		if ($return['estudiante']['bool'] == 't') {
+		
 			$spera             = $this->ApruebaSolicitudDeEstudiante($codigo_solicitud, $sucursal);
+		
 			$return['factura'] = 'de Estudiante'.$spera;
+		
 		} else if ($return['empresa']['bool'] == 't') {
+		
 			$spera             = $this->ApruebaSolicitudDeEMpresa($codigo_solicitud, $codigo_estudiante);
+		
 			$return['factura'] = 'de Empresa'.$spera;
+		
 		}
+
 		return $spera;
 	}
 	function VerifiacarOrigenSolicitud($codigo_estudiante, $codigo_solicitud, $encargado) {
-		$sql_estudiantes_Postulado = pg_query("SELECT true FROM pasantias.temporadas_solicitud
-			INNER JOIN pasantias.temporadas_especialidad
-				ON temporadas_solicitud.codigo_temporada =temporadas_especialidad.codigo_temporada
-			INNER JOIN pasantias.temporadas_estudiantes
-				ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
-			INNER JOIN pasantias.solicitud
-				ON  solicitud.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
-				AND solicitud.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
-			INNER JOIN pasantias.solicitudes_enviadas
-				ON  solicitudes_enviadas.codigo_solicitud = solicitud.codigo_solicitud
-				AND solicitudes_enviadas.table_column = 'estudiante.codigo_estudiante'
-				AND solicitudes_enviadas.codigo_solicitud = '$codigo_solicitud'
-				AND solicitudes_enviadas.valor ='$codigo_estudiante'
-			WHERE temporadas_solicitud.codigo_encargado = '$encargado'
-				AND temporadas_estudiantes.codigo_estudiante='$codigo_estudiante';");
-		$sql_Empresa_Solicitud = pg_query("SELECT true FROM pasantias.temporadas_solicitud
-			INNER JOIN pasantias.temporadas_especialidad
-				ON temporadas_solicitud.codigo_temporada =temporadas_especialidad.codigo_temporada
-			INNER JOIN pasantias.temporadas_estudiantes
-				ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
-			INNER JOIN pasantias.solicitud
-				ON  solicitud.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
-				AND solicitud.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
-			INNER JOIN pasantias.solicitudes_recibidas
-				ON  solicitudes_recibidas.codigo_solicitud = solicitud.codigo_solicitud
-				AND solicitudes_recibidas.table_column = 'estudiante.codigo_estudiante'
-				AND solicitudes_recibidas.codigo_solicitud = '$codigo_solicitud'
-				AND solicitudes_recibidas.valor ='$codigo_estudiante'
-			WHERE temporadas_solicitud.codigo_encargado = '$encargado'
-				AND temporadas_estudiantes.codigo_estudiante='$codigo_estudiante';");
+		$sql_estudiantes_Postulado = 
+
+		pg_query("SELECT true 
+
+		FROM pasantias.temporadas_solicitud
+		
+		INNER JOIN pasantias.temporadas_especialidad
+		
+			ON temporadas_solicitud.codigo_temporada =temporadas_especialidad.codigo_temporada
+		
+		INNER JOIN pasantias.temporadas_estudiantes
+		
+			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+		
+		INNER JOIN pasantias.solicitud
+		
+			ON  solicitud.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+		
+			AND solicitud.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+		
+		INNER JOIN pasantias.solicitudes_enviadas
+		
+			ON  solicitudes_enviadas.codigo_solicitud = solicitud.codigo_solicitud
+		
+			AND solicitudes_enviadas.table_column = 'estudiante.codigo_estudiante'
+		
+			AND solicitudes_enviadas.codigo_solicitud = '$codigo_solicitud'
+		
+			AND solicitudes_enviadas.valor ='$codigo_estudiante'
+		
+		WHERE temporadas_solicitud.codigo_encargado = '$encargado'
+		
+			AND temporadas_estudiantes.codigo_estudiante='$codigo_estudiante';");
+		
+		$sql_Empresa_Solicitud = 
+
+		pg_query("SELECT true 
+
+		FROM pasantias.temporadas_solicitud
+		
+		INNER JOIN pasantias.temporadas_especialidad
+		
+			ON temporadas_solicitud.codigo_temporada =temporadas_especialidad.codigo_temporada
+		
+		INNER JOIN pasantias.temporadas_estudiantes
+		
+			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+		
+		INNER JOIN pasantias.solicitud
+		
+			ON  solicitud.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+		
+			AND solicitud.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+		
+		INNER JOIN pasantias.solicitudes_recibidas
+		
+			ON  solicitudes_recibidas.codigo_solicitud = solicitud.codigo_solicitud
+		
+			AND solicitudes_recibidas.table_column = 'estudiante.codigo_estudiante'
+		
+			AND solicitudes_recibidas.codigo_solicitud = '$codigo_solicitud'
+		
+			AND solicitudes_recibidas.valor ='$codigo_estudiante'
+		
+		WHERE temporadas_solicitud.codigo_encargado = '$encargado'
+		
+			AND temporadas_estudiantes.codigo_estudiante='$codigo_estudiante';");
 
 		return array('estudiante' => pg_fetch_assoc($sql_estudiantes_Postulado), 'empresa' => pg_fetch_assoc($sql_Empresa_Solicitud));
 	}
+
 	function ApruebaSolicitudDeEMpresa($codigo_solicitud, $codigo_estudiante) {
+		
 		$sql      = pg_query("UPDATE pasantias.solicitudes_recibidas SET estatus='Listo' WHERE codigo_solicitud ='$codigo_solicitud' AND valor='$codigo_estudiante' AND table_column='estudiante.codigo_estudiante';") or die('ERROR AL ACTUALIZAR DATOS: '.pg_last_error());
 		$registro = pg_affected_rows($sql);
 
 		pg_free_result($sql);
 		return $registro;
 	}
+
 	function ApruebaSolicitudDeEstudiante($codigo_solicitud, $codigo_sucursal) {
+		
 		$sql      = pg_query("UPDATE pasantias.solicitudes_recibidas SET estatus='Listo' WHERE codigo_solicitud ='$codigo_solicitud' AND valor='$codigo_sucursal' AND table_column='organizacionmunicipio.codigo_sucursal';") or die('ERROR AL ACTUALIZAR DATOS: '.pg_last_error());
 		$registro = pg_affected_rows($sql);
 
@@ -1888,21 +2284,30 @@ END as calculo_tiempo ,
 
 		$codigo_solicitud       = $arreglo['codigo_solicitud_caleta'];
 		$codigo_tutor_academico = $arreglo['codigo_tutor_caleta'];
-		$sql                    = pg_query("INSERT INTO pasantias.responsables (codigo_solicitud , table_column ,valor , estatus , fecha_asignacion)
+		$sql                    = 
+		pg_query("INSERT INTO pasantias.responsables (codigo_solicitud , table_column ,valor , estatus , fecha_asignacion)
 			VALUES ('$codigo_solicitud','tutor_academico.codigo_tutor_academico' ,'$codigo_tutor_academico','ASIGNADO',now() );");
+		
 		$registro = pg_affected_rows($sql);
 
 		pg_free_result($sql);
+
 		return $registro;
 	}
 
 	function CargarTemporadasParaHabilitarEnCurso($codigo_encargado) {
 
-		$sql = pg_query("SELECT sqlvirtualtabla.* , Count (temporadas_estudiantes.codigo_temporada_especialidad) as total_estudiantes ,
+		return pg_query("SELECT 
+			
+		sqlvirtualtabla.* , 
 
-			CASE WHEN sqlvirtualtabla.codigo_temporada is not null THEN
+		Count (temporadas_estudiantes.codigo_temporada_especialidad) as total_estudiantes ,
 
-			(SELECT COUNT(entregable_temporada.codigo_temporada) as total_entregables FROM pasantias.entregable_temporada 
+		CASE WHEN sqlvirtualtabla.codigo_temporada is not null THEN
+
+			(SELECT COUNT(entregable_temporada.codigo_temporada) as total_entregables 
+
+			FROM pasantias.entregable_temporada 
 
 			LEFT JOIN pasantias.temporadas_solicitud
 
@@ -1910,13 +2315,23 @@ END as calculo_tiempo ,
 
 			WHERE temporadas_solicitud.codigo_temporada = sqlvirtualtabla.codigo_temporada )
 
-			END AS todal_entregables
+		END AS todal_entregables
 
-			FROM ( SELECT tipo_solicitud.nombre_tipo_solicitud , Count(temporadas_especialidad.codigo_temporada) as totalespecialidades ,
+		FROM ( SELECT 
 
-		 to_char(periodo_solicitud.fecha_inicio, 'DD, TMMonth YYYY') || ' al ' || to_char(periodo_solicitud.fecha_fin, 'DD, TMMonth YYYY') as periodo
+			tipo_solicitud.nombre_tipo_solicitud ,
 
-			,temporadas_solicitud.estatus , temporadas_solicitud.codigo_temporada 
+			Count(temporadas_especialidad.codigo_temporada) as totalespecialidades ,
+
+		 	to_char(periodo_solicitud.fecha_inicio, 'DD, TMMonth YYYY')
+
+		 	|| ' al ' ||
+
+		 	to_char(periodo_solicitud.fecha_fin, 'DD, TMMonth YYYY') as periodo,
+
+			temporadas_solicitud.estatus ,
+
+			temporadas_solicitud.codigo_temporada
 
 		 FROM pasantias.temporadas_solicitud 
 
@@ -1938,9 +2353,14 @@ END as calculo_tiempo ,
 		 		
 		 		AND temporadas_solicitud.codigo_encargado='$codigo_encargado'
 
-		 GROUP BY tipo_solicitud.nombre_tipo_solicitud , periodo ,temporadas_solicitud.estatus,
+		 GROUP BY 
+		 tipo_solicitud.nombre_tipo_solicitud , 
 
-		 	temporadas_solicitud.codigo_temporada) as sqlvirtualtabla 
+		 periodo ,
+
+		 temporadas_solicitud.estatus,
+
+		 temporadas_solicitud.codigo_temporada) as sqlvirtualtabla 
 
 		 INNER JOIN pasantias.temporadas_especialidad
 
@@ -1954,49 +2374,104 @@ END as calculo_tiempo ,
 
 		 	ON estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
 
-		 GROUP BY sqlvirtualtabla.nombre_tipo_solicitud , sqlvirtualtabla.periodo ,sqlvirtualtabla.estatus,
+		 GROUP BY 
 
-		 	sqlvirtualtabla.codigo_temporada , sqlvirtualtabla.totalespecialidades
+		 sqlvirtualtabla.nombre_tipo_solicitud , 
+		 
+		 sqlvirtualtabla.periodo ,
+		 
+		 sqlvirtualtabla.estatus,
+
+		 sqlvirtualtabla.codigo_temporada , 
+		 
+		 sqlvirtualtabla.totalespecialidades
 
 		 ;");
-
-		return $sql;
+		 
 	}
 
 	function ExtraerEspecialidadesAsignadassegunTemporada($codigo_temporada) {
-		$value = pg_query(" SELECT nombre_especialidad ,tipo_especialidad.nombre_tipo_especialidad, tipo_especialidad.id_tipo_especialidad ,
-	 temporadas_solicitud.estatus , temporadas_especialidad.codigo_temporada_especialidad, palabraMasLarga.maxlength  FROM
+		$value = pg_query(" SELECT 
+
+			nombre_especialidad ,
+			
+			tipo_especialidad.nombre_tipo_especialidad, 
+			
+			tipo_especialidad.id_tipo_especialidad ,
+	 		
+	 		temporadas_solicitud.estatus , 
+	 		
+	 		temporadas_especialidad.codigo_temporada_especialidad, 
+	 		
+	 		palabraMasLarga.maxlength  FROM
 
 		( SELECT cast ( length( nombre_especialidad ) as int)+1  as maxlength
-		FROM pasantias.temporadas_solicitud INNER JOIN pasantias.temporadas_especialidad
-			ON temporadas_solicitud.codigo_temporada =  temporadas_especialidad.codigo_temporada
-		INNER JOIN pasantias.especialidad
-			ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
-			AND temporadas_solicitud.codigo_temporada = '$codigo_temporada'
-		WHERE cast ( length( nombre_especialidad ) as int) =
-		(SELECT  MAX(cast ( length( nombre_especialidad ) as int))
-			FROM pasantias.especialidad INNER JOIN pasantias.temporadas_especialidad
-			ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
-			ANd temporadas_especialidad.codigo_temporada = '$codigo_temporada' ) ) as palabraMasLarga
-		,
+		
+		FROM pasantias.temporadas_solicitud 
 
-		 pasantias.temporadas_solicitud
 		INNER JOIN pasantias.temporadas_especialidad
-			On temporadas_especialidad.codigo_temporada = temporadas_solicitud .codigo_temporada
-			AND temporadas_especialidad.codigo_temporada='$codigo_temporada'
+		
+			ON temporadas_solicitud.codigo_temporada =  temporadas_especialidad.codigo_temporada
+		
 		INNER JOIN pasantias.especialidad
+		
+			ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+		
+			AND temporadas_solicitud.codigo_temporada = '$codigo_temporada'
+		
+		WHERE cast ( length( nombre_especialidad ) as int) =
+		
+		(SELECT  MAX(cast ( length( nombre_especialidad ) as int))
+			
+		FROM pasantias.especialidad 
+
+		INNER JOIN pasantias.temporadas_especialidad
+
+			ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
+			
+			ANd temporadas_especialidad.codigo_temporada = '$codigo_temporada' ) ) as palabraMasLarga,
+		
+		pasantias.temporadas_solicitud
+		 
+		INNER JOIN pasantias.temporadas_especialidad
+		
+			On temporadas_especialidad.codigo_temporada = temporadas_solicitud .codigo_temporada
+		
+			AND temporadas_especialidad.codigo_temporada='$codigo_temporada'
+		
+		INNER JOIN pasantias.especialidad
+		
 			on especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+		
 		INNER JOIN pasantias.tipo_especialidad
-			on tipo_especialidad .id_tipo_especialidad = especialidad.id_tipo_especialidad
-	GROUP BY  nombre_especialidad , tipo_especialidad.nombre_tipo_especialidad ,  tipo_especialidad.id_tipo_especialidad ,
-	 temporadas_solicitud.estatus,temporadas_especialidad.codigo_temporada_especialidad,
-	 palabraMasLarga.maxlength ORDER BY nombre_tipo_especialidad, nombre_especialidad ;");
+		
+			on tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
+	
+	GROUP BY  
+
+	nombre_especialidad , 
+	
+	tipo_especialidad.nombre_tipo_especialidad ,  
+	
+	tipo_especialidad.id_tipo_especialidad ,
+	
+	temporadas_solicitud.estatus,temporadas_especialidad.codigo_temporada_especialidad,
+	
+	palabraMasLarga.maxlength 
+
+	ORDER BY 
+
+	nombre_tipo_especialidad, nombre_especialidad ;");
+	
 		$data = array();
 
 		while ($fila = pg_fetch_assoc($value)) {
 			$fila['numeroEstudiantes'] =
+			
 			$this->cotarCuantosEstudiantesSegunEspecialidadTemporada($fila['codigo_temporada_especialidad']);
+			
 			$fila['numespecialidadestipo'] = $this->calcularCuantosespecialidadestotal($codigo_temporada, $fila['id_tipo_especialidad']);
+			
 			$data[]                        = $fila;
 		}
 		return $data;
@@ -2004,29 +2479,48 @@ END as calculo_tiempo ,
 	}
 
 	function agregarPuntitosDerechos($palabra, $maxima_palabra) {
+		
 		$numeroPalabras           = strlen($palabra);
+		
 		$TotaldeEspaciosAgregados = $maxima_palabra-$numeroPalabras;
+		
 		for ($i = 0; $i < $TotaldeEspaciosAgregados; $i++) {
+		
 			$palabra = $palabra.'&nbsp;';
+		
 		}
+		
 		return $palabra;
 	}
 
 	function AbrirTemporada($codigo_temporada, $codigo_encargado) {
+		
 		$sql = pg_query("UPDATE pasantias.temporadas_solicitud SET estatus='EN CURSO' WHERE codigo_temporada='$codigo_temporada' AND codigo_encargado='$codigo_encargado' ;");
+		
 		$num = pg_affected_rows($sql);
+		
 		pg_free_result($sql);
+		
 		return $num;
 	}
 
 	function cotarCuantosEstudiantesSegunEspecialidadTemporada($codigo_temporada_especialidad) {
 
-		$psql = pg_query("SELECT count(temporadas_estudiantes.codigo_temporada_especialidad) as estudiantesAsignadosSegunEspecialidad
-		FROM pasantias.temporadas_especialidad INNER JOIN pasantias.temporadas_estudiantes
-	ON temporadas_especialidad.codigo_temporada_especialidad =temporadas_estudiantes.codigo_temporada_especialidad
-	AND temporadas_estudiantes.codigo_temporada_especialidad = '$codigo_temporada_especialidad' ;");
-		$row = pg_fetch_array($psql);
-		return $row[0];
+	$psql = pg_query("SELECT 
+		
+		count(tem_e.codigo_temporada_especialidad) as estudiantesAsignadosSegunEspecialidad
+		
+	FROM pasantias.temporadas_especialidad temp_esp
+	
+	INNER JOIN pasantias.temporadas_estudiantes tem_e
+	
+		ON temp_esp.codigo_temporada_especialidad =tem_e.codigo_temporada_especialidad
+	
+		AND tem_e.codigo_temporada_especialidad = '$codigo_temporada_especialidad' ;");
+	
+	$row = pg_fetch_array($psql);
+	
+	return $row[0];
 	}
 	// -------------------------------------------- E N T R E G A B L E S ---------- E N T R E G A B L E S
 	// -------------------------------------------- E N T R E G A B L E S ---------- E N T R E G A B L E S
@@ -2056,14 +2550,26 @@ END as calculo_tiempo ,
 		pg_free_result($sql);
 		return $num;
 	}
+
 	function BuscarEstaAsignacion($id_entregable, $codigo_temporada) {
-		$sql = pg_query("SELECT entregable_temporada.codigo_temporada
-				FROM pasantias.entregable_temporada INNER JOIN pasantias.entregable
-					ON  entregable.id_entregable = entregable_temporada.id_entregable
-				INNER JOIN pasantias.temporadas_solicitud
-					ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
-				WHERE entregable_temporada.id_entregable = $id_entregable
-					AND entregable_temporada.codigo_temporada ='$codigo_temporada';");
+		$sql = pg_query("SELECT
+
+		 entregable_temporada.codigo_temporada
+				
+		FROM pasantias.entregable_temporada 
+
+		INNER JOIN pasantias.entregable
+				
+			ON  entregable.id_entregable = entregable_temporada.id_entregable
+				
+		INNER JOIN pasantias.temporadas_solicitud
+				
+			ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+				
+		WHERE entregable_temporada.id_entregable = $id_entregable
+					
+			AND entregable_temporada.codigo_temporada ='$codigo_temporada';");
+
 		return pg_num_rows($sql);
 	}
 	function ProcesarEntregable($nombre_entregable, $codigo_temporada) {
@@ -2085,31 +2591,52 @@ END as calculo_tiempo ,
 	}
 
 	function BuscarParaAutoComplete($codigo_temporada) {
-		$sql = pg_query("SELECT nombre_entregable FROM  pasantias.entregable ORDER BY nombre_entregable ;");
-		return $sql;
+		
+		return pg_query("SELECT nombre_entregable FROM  pasantias.entregable ORDER BY nombre_entregable ;");
+		 
 	}
 
 	function BuscarEntregablesAsignados($codigo_temporada) {
-		$sql = pg_query("SELECT entregable.nombre_entregable ,entregable.id_entregable
+		$sql = pg_query("SELECT 
+
+			entregable.nombre_entregable ,
+
+			entregable.id_entregable
+
 			FROM pasantias.entregable
+			
 			INNER JOIN pasantias.entregable_temporada
+			
 				ON entregable.id_entregable =entregable_temporada.id_entregable
+			
 			INNER JOIN pasantias.temporadas_solicitud
+			
 				ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+			
 			AND temporadas_solicitud.codigo_temporada  ='$codigo_temporada'
+			
 			ORDER BY entregable.nombre_entregable ;");
 		return $sql;
 	}
 	function BuscarEntregablesNoAsignados($codigo_temporada) {
-		$sql = pg_query("SELECT entregable.nombre_entregable ,entregable.id_entregable
-			FROM pasantias.entregable
-			LEFT JOIN pasantias.entregable_temporada
-				ON entregable.id_entregable =entregable_temporada.id_entregable
-				AND entregable_temporada.codigo_temporada  ='$codigo_temporada'
+		return pg_query("SELECT 
+		
+		entregable.nombre_entregable ,
+			
+		entregable.id_entregable
+		
+		FROM pasantias.entregable
+		
+		LEFT JOIN pasantias.entregable_temporada
+		
+			ON entregable.id_entregable =entregable_temporada.id_entregable
+		
+			AND entregable_temporada.codigo_temporada  ='$codigo_temporada'
 
-			WHERE entregable_temporada.codigo_temporada is null
-			ORDER BY entregable.nombre_entregable ;");
-		return $sql;
+		WHERE entregable_temporada.codigo_temporada is null
+			
+		ORDER BY entregable.nombre_entregable ;");
+		 
 	}
 
 	// UPDATE ENTREGABLE DESDE MODAL
@@ -2162,6 +2689,9 @@ END as calculo_tiempo ,
 		}
 		return $variableMensage;
 	}
+
+	// FUNTION VErificar Datos Anteriores
+
 	function VerificarDatosViejosUpdate($Entregable, $id_entregable, $codigo_temporada) {
 		$desition;
 		$informacion_Asignacion_validada =
@@ -2176,6 +2706,10 @@ END as calculo_tiempo ,
 		} else if ($informacion_Asignacion_validada < 1) {$desition = 'Los Datos Enviados No Corresponden';}
 		return $desition;
 	}
+
+
+	// FUNTION VErificar Existencia
+
 	function VerificoTreParametrosExistentes($Entregable, $id_entregableViejo, $codigo_temporada) {
 		$sql = pg_query("SELECT true FROM pasantias.entregable INNER JOIN pasantias.entregable_temporada
 
@@ -2192,14 +2726,23 @@ END as calculo_tiempo ,
  			AND temporadas_solicitud.codigo_temporada='$codigo_temporada';");
 		return pg_num_rows($sql);
 	}
+
+	 // Verificar Existencia
+
 	function VerificoNombreEntregable($Entregable) {
 		$sql = pg_query("SELECT true FROM pasantias.entregable WHERE entregable.nombre_entregable=upper('$Entregable') ;");
 		return pg_num_rows($sql);
 	}
+
+	// Verificar ID ENtregable
+
 	function VerificoIdEntregable($Id_Entregable) {
 		$sql = pg_query("SELECT true FROM pasantias.entregable WHERE entregable.id_entregable=$Id_Entregable ;");
 		return pg_num_rows($sql);
 	}
+
+	// Verificar Asignacion 
+
 	function VerificoAsignacionEntregable($Id_Entregable, $codigo_temporada) {
 		$sql = pg_query("SELECT true FROM pasantias.entregable_temporada INNER JOIN pasantias.entregable
  			ON entregable_temporada.id_entregable = entregable.id_entregable
@@ -2209,6 +2752,10 @@ END as calculo_tiempo ,
  			AND entregable_temporada.id_entregable=$Id_Entregable;");
 		return pg_num_rows($sql);
 	}
+
+	// Operaciones de BD No REcuperacion de la Data
+	// Operaciones de BD No REcuperacion de la Data
+
 	function ActualizarasignacionEntregable($id_entregablenuevo, $codigo_temporada, $id_entregableViejo) {
 		$sql = pg_query("UPDATE pasantias.entregable_temporada SET id_entregable=$id_entregablenuevo
  			WHERE  codigo_temporada='$codigo_temporada' AND id_entregable=$id_entregableViejo;");
@@ -2216,6 +2763,7 @@ END as calculo_tiempo ,
 		pg_free_result($sql);
 		return $num;
 	}
+
 	function QuitarAsignacionEntregable($id_entregable, $codigo_temporada) {
 
 		$sql = pg_query("DELETE FROM pasantias.entregable_temporada
@@ -2262,51 +2810,98 @@ END as calculo_tiempo ,
 	// INICIO HACER RESUME DE UNA TEMPORADA DE SOLICITUD
 
 	function ResumenTemporada($codigo_temporada) {
-		$sqlEspecialidad = pg_query(" SELECT COUNT(especialidades.codigo_estudiante) as cantidad_estudiantes,
+		$sqlEspecialidad = pg_query(" SELECT
 
- 			especialidades.nombre_especialidad , especialidades.nombre_tipo_especialidad , especialidades.id_tipo_especialidad FROM
+		 	COUNT(especialidades.codigo_estudiante) as cantidad_estudiantes,
 
- 			(SELECT  especialidad.nombre_especialidad , temporadas_estudiantes.codigo_estudiante , tipo_especialidad.nombre_tipo_especialidad
- 			,tipo_especialidad.id_tipo_especialidad
+ 			especialidades.nombre_especialidad , 
+
+ 			especialidades.nombre_tipo_especialidad , 
+
+ 			especialidades.id_tipo_especialidad 
+
+ 			FROM
+
+ 			(SELECT  
+ 			especialidad.nombre_especialidad , 
+
+ 			temporadas_estudiantes.codigo_estudiante , 
+
+ 			tipo_especialidad.nombre_tipo_especialidad,
+
+ 			tipo_especialidad.id_tipo_especialidad
+
  			FROM pasantias.temporadas_solicitud
 
  			INNER JOIN pasantias.temporadas_especialidad
+ 			
  				ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+ 			
  				AND temporadas_solicitud.codigo_temporada = '$codigo_temporada'
+ 			
  			INNER JOIN pasantias.especialidad
+ 			
  				ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+ 			
  			INNER JOIN pasantias.tipo_especialidad
+ 			
  				ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
+ 			
  			INNER JOIN pasantias.temporadas_estudiantes
+ 			
  				ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad )
  		as especialidades
 
- 		GROUP BY especialidades.nombre_especialidad , especialidades.nombre_tipo_especialidad , especialidades.id_tipo_especialidad
+ 		GROUP BY 
 
- 		ORDER BY especialidades. nombre_tipo_especialidad ,especialidades.nombre_especialidad ;");
+ 		especialidades.nombre_especialidad , 
+ 		
+	 	especialidades.nombre_tipo_especialidad , 
+	 		
+	 	especialidades.id_tipo_especialidad
 
-		$sqlEntregable = pg_query(" SELECT  entregable.nombre_entregable
+ 		ORDER BY 
+ 		
+	 	especialidades.nombre_tipo_especialidad ,
+	 		
+	 	especialidades.nombre_especialidad ;");
 
- 				FROM pasantias.temporadas_solicitud INNER JOIN pasantias.entregable_temporada
+		$sqlEntregable = pg_query(" SELECT  
 
- 					ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+			entregable.nombre_entregable
 
- 					AND temporadas_solicitud.codigo_temporada = '$codigo_temporada'
+ 			FROM pasantias.temporadas_solicitud 
 
- 				INNER JOIN pasantias.entregable
+ 			INNER JOIN pasantias.entregable_temporada
 
- 					On entregable.id_entregable = entregable_temporada.id_entregable ;");
+ 				ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+
+ 				AND temporadas_solicitud.codigo_temporada = '$codigo_temporada'
+
+ 			INNER JOIN pasantias.entregable
+
+ 				On entregable.id_entregable = entregable_temporada.id_entregable ;");
 
 		return array('especialidad' => $sqlEspecialidad, 'entregable' => $sqlEntregable);
 	}
 
 	function calcularCuantosespecialidadestotal($codigo_temporada, $id_tipo_especialidad) {
 
-		$sql = pg_query("SELECT count(especialidades.nombre_especialidad) as cantidad , especialidades.nombre_tipo_especialidad FROM
+		$sql = pg_query("SELECT 
 
-		 (SELECT  especialidad.nombre_especialidad , tipo_especialidad.nombre_tipo_especialidad
+		count(especialidades.nombre_especialidad) as cantidad , 
 
-		 FROM pasantias.temporadas_solicitud
+		especialidades.nombre_tipo_especialidad 
+
+		FROM
+
+		 (SELECT  
+
+		 especialidad.nombre_especialidad , 
+
+		 tipo_especialidad.nombre_tipo_especialidad
+
+		FROM pasantias.temporadas_solicitud
 
 		INNER JOIN pasantias.temporadas_especialidad
 
@@ -2326,7 +2921,7 @@ END as calculo_tiempo ,
 
 		 as especialidades
 
-		  GROUP BY especialidades.nombre_tipo_especialidad;");
+		GROUP BY especialidades.nombre_tipo_especialidad;");
 
 		$fila = pg_fetch_row($sql);
 
@@ -2334,26 +2929,44 @@ END as calculo_tiempo ,
 	}
 
 	function buscaEstetutor($codigo_tutor) {
-		$sql = pg_query("SELECT true FROM pasantias.tutor_academico
+		$sql = pg_query("SELECT true 
+
+		FROM pasantias.tutor_academico
 
  		INNER JOIN pasantias.persona_instituto_especialidad
+		
 			ON persona_instituto_especialidad.id_persona = tutor_academico.id_persona
+		
 			AND persona_instituto_especialidad.id_ip = tutor_academico.id_ip
+		
 			AND persona_instituto_especialidad.id_especialidad = tutor_academico.id_especialidad
+		
 			AND persona_instituto_especialidad.id_perfil = tutor_academico.id_perfil
+		
 		INNER JOIN pasantias.especialidad_instituto_principal
+		
 			On especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+		
 			AND especialidad_instituto_principal.id_especialidad= persona_instituto_especialidad.id_especialidad
+		
 		INNER JOIN pasantias.especialidad
+		
 			ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+		
 			AND especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
+		
 		INNER JOIN pasantias.instituto_principal
 
 			ON instituto_principal.id_ip = especialidad_instituto_principal.id_ip
+
 			AND instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+
 		INNER JOIN pasantias.persona
-			ON persona.id_persona =  persona_instituto_especialidad . id_persona
+
+			ON persona.id_persona =  persona_instituto_especialidad.id_persona
+
 		WHERE tutor_academico.codigo_tutor_academico = '$codigo_tutor';");
+
 		return pg_num_rows($sql);
 	}
 
@@ -2385,80 +2998,102 @@ END as calculo_tiempo ,
 	}
 
 	function Verificar_existencia_codigo_temporada_especialidad($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT true FROM  pasantias.temporadas_especialidad
-  			INNER JOIN pasantias.temporadas_solicitud
-  				ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
- 			WHERE temporadas_especialidad.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
- 			AND temporadas_solicitud.estatus='EN CURSO' ;");
+	
+	$sql = pg_query("SELECT true 
+
+		FROM  pasantias.temporadas_especialidad
+  			
+  		INNER JOIN pasantias.temporadas_solicitud
+  			
+  			ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+ 			
+ 		WHERE temporadas_especialidad.codigo_temporada_especialidad ='$codigo_temporada_especialidad'
+ 			
+ 		AND temporadas_solicitud.estatus='EN CURSO' ;");
+
 		return pg_num_rows($sql);
 	}
 
 	function Verificar_existencia_encargado($codigo_encargado) {
-		return pg_num_rows(pg_query("SELECT true FROM pasantias.encargado
+		return pg_num_rows(pg_query("SELECT true 
 
- 	 	INNER JOIN pasantias.persona_organizacion_oficina
+	FROM pasantias.encargado
 
-			ON encargado.id_persona = persona_organizacion_oficina.id_persona
-			AND encargado.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
-			AND encargado.id_perfil = persona_organizacion_oficina.id_perfil
-			AND encargado.id_oficina = persona_organizacion_oficina.id_oficina
-		INNER JOIN pasantias.organizacionmunicipio
-			ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
-		INNER JOIN pasantias.persona
-			ON persona_organizacion_oficina.id_persona = persona.id_persona
-		INNER JOIN pasantias.temporadas_solicitud
-			ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
- 	 	WHERE encargado.codigo_encargado = '$codigo_encargado';"));
+ 	 INNER JOIN pasantias.persona_organizacion_oficina
+
+		ON encargado.id_persona = persona_organizacion_oficina.id_persona
+	
+		AND encargado.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+	
+		AND encargado.id_perfil = persona_organizacion_oficina.id_perfil
+	
+		AND encargado.id_oficina = persona_organizacion_oficina.id_oficina
+	
+	INNER JOIN pasantias.organizacionmunicipio
+	
+		ON organizacionmunicipio.codigo_sucursal = persona_organizacion_oficina.codigo_sucursal
+	
+	INNER JOIN pasantias.persona
+	
+		ON persona_organizacion_oficina.id_persona = persona.id_persona
+	
+	INNER JOIN pasantias.temporadas_solicitud
+	
+		ON temporadas_solicitud.codigo_encargado= encargado.codigo_encargado
+	
+	 	WHERE encargado.codigo_encargado = '$codigo_encargado';"));
 
 	}
 
 	function verificar_existencia_estudiante($codigo_estudiante, $codigo_temporada_especialida) {
 
-		$sql = pg_query("SELECT true FROM pasantias.estudiante
+		$sql = pg_query("SELECT true 
 
- 			INNER JOIN pasantias.persona_instituto_especialidad
+		FROM pasantias.estudiante
 
- 				ON  persona_instituto_especialidad.id_persona = estudiante.id_persona
+		INNER JOIN pasantias.persona_instituto_especialidad
 
- 				AND persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+			ON  persona_instituto_especialidad.id_persona = estudiante.id_persona
 
- 				AND persona_instituto_especialidad.id_ip = estudiante.id_ip
+			AND persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
 
- 				AND persona_instituto_especialidad.id_perfil = estudiante.id_perfil
+			AND persona_instituto_especialidad.id_ip = estudiante.id_ip
 
- 				AND estudiante.codigo_estudiante = '$codigo_estudiante'
+			AND persona_instituto_especialidad.id_perfil = estudiante.id_perfil
 
- 			INNER JOIN pasantias.persona
+			AND estudiante.codigo_estudiante = '$codigo_estudiante'
 
- 				ON persona.id_persona =  persona_instituto_especialidad.id_persona
+		INNER JOIN pasantias.persona
 
- 			INNER JOIN pasantias.especialidad
+			ON persona.id_persona =  persona_instituto_especialidad.id_persona
 
- 				ON especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
+		INNER JOIN pasantias.especialidad
 
- 			INNER JOIN pasantias.especialidad_instituto_principal
+			ON especialidad.id_especialidad = persona_instituto_especialidad.id_especialidad
 
- 				ON  especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+		INNER JOIN pasantias.especialidad_instituto_principal
 
- 			INNER JOIN pasantias.instituto_principal
+			ON  especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
 
- 				ON instituto_principal.id_ip = especialidad_instituto_principal.id_ip
+		INNER JOIN pasantias.instituto_principal
 
- 			INNER JOIN pasantias.temporadas_especialidad
+			ON instituto_principal.id_ip = especialidad_instituto_principal.id_ip
 
- 				ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
+		INNER JOIN pasantias.temporadas_especialidad
 
- 			INNER JOIN pasantias.temporadas_solicitud
+			ON temporadas_especialidad.id_especialidad = especialidad.id_especialidad
 
- 				ON temporadas_solicitud.codigo_temporada = temporadas_especialidad.codigo_temporada
+		INNER JOIN pasantias.temporadas_solicitud
 
- 			INNER JOIN pasantias.temporadas_estudiantes
+			ON temporadas_solicitud.codigo_temporada = temporadas_especialidad.codigo_temporada
 
- 				ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
+		INNER JOIN pasantias.temporadas_estudiantes
 
- 				AND temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+			ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
 
- 			WHERE temporadas_especialidad.codigo_temporada_especialidad  = '$codigo_temporada_especialida' ;");
+			AND temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+
+		WHERE temporadas_especialidad.codigo_temporada_especialidad  = '$codigo_temporada_especialida' ;");
 
 		return pg_num_rows($sql);
 	}
@@ -2496,45 +3131,51 @@ END as calculo_tiempo ,
 
 	function sql_buscar_cada_entregable_faltante_estudiante($codigo_estudiante, $codigo_temporada_especialida) {
 
-		return pg_query("SELECT entregable.nombre_entregable , entregable.id_entregable FROM pasantias.entregable
+		return pg_query("SELECT 
 
- 					INNER JOIN pasantias.entregable_temporada
+			entregable.nombre_entregable , 
 
- 						ON entregable_temporada.id_entregable =  entregable.id_entregable
+			entregable.id_entregable 
 
- 					INNER JOIN pasantias.temporadas_solicitud
+		FROM pasantias.entregable
 
- 						ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+		INNER JOIN pasantias.entregable_temporada
 
- 					INNER JOIN pasantias.temporadas_especialidad
+			ON entregable_temporada.id_entregable =  entregable.id_entregable
 
- 						ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+		INNER JOIN pasantias.temporadas_solicitud
 
- 					INNER JOIN pasantias.temporadas_estudiantes
+			ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
 
- 						ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+		INNER JOIN pasantias.temporadas_especialidad
 
- 					INNER JOIN pasantias.estudiante
+			ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
 
- 						On estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+		INNER JOIN pasantias.temporadas_estudiantes
 
- 					LEFT JOIN pasantias.estudiantes_entregables
+			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
 
- 						ON estudiantes_entregables.id_entregable  = entregable.id_entregable
+		INNER JOIN pasantias.estudiante
 
- 						AND estudiantes_entregables.codigo_estudiante  =  temporadas_estudiantes.codigo_estudiante
+			On estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
 
- 						AND estudiantes_entregables.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+		LEFT JOIN pasantias.estudiantes_entregables
 
- 					WHERE estudiantes_entregables.id_entregable  IS NULL
+			ON estudiantes_entregables.id_entregable  = entregable.id_entregable
 
- 						AND estudiantes_entregables.codigo_estudiante  IS NULL
+			AND estudiantes_entregables.codigo_estudiante  =  temporadas_estudiantes.codigo_estudiante
 
- 						AND estudiantes_entregables.codigo_temporada_especialidad IS NULL
+			AND estudiantes_entregables.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
 
- 						AND   estudiante.codigo_estudiante = '$codigo_estudiante'
+		WHERE estudiantes_entregables.id_entregable  IS NULL
 
- 						AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialida' ;");
+			AND estudiantes_entregables.codigo_estudiante  IS NULL
+
+			AND estudiantes_entregables.codigo_temporada_especialidad IS NULL
+
+			AND   estudiante.codigo_estudiante = '$codigo_estudiante'
+
+			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialida' ;");
 	}
 
 	function sql_buscar_cada_entregable_asignado_estudiante($codigo_estudiante, $codigo_temporada_especialida) {
@@ -2604,63 +3245,71 @@ SELECT nombre_entregable , entregable .id_entregable ,
 
 	function sql_buscar_Datos_Estudiante($codigo_estudiante, $codigo_temporada_especialidad) {
 
-		$sql = pg_query("SELECT persona.nombre || ' ' || persona.apellido as estudiante ,
+		$sql = pg_query("SELECT 
 
-				especialidad.nombre_especialidad || ' - ' || tipo_especialidad.nombre_tipo_especialidad as nombre_especialidad ,
+			persona.nombre || ' ' || persona.apellido as estudiante ,
 
-				persona.cedula , estudiante.expediente , 'En Espera' as progres
+			especialidad.nombre_especialidad 
 
- 		 	FROM pasantias.temporadas_solicitud
+			|| ' - ' || 
 
- 		 		INNER JOIN pasantias.temporadas_especialidad
+			tipo_especialidad.nombre_tipo_especialidad as nombre_especialidad ,
 
- 		 			ON (temporadas_solicitud.codigo_temporada  = temporadas_especialidad.codigo_temporada)
+			persona.cedula , estudiante.expediente , 
 
- 		 		INNER JOIN pasantias.temporadas_estudiantes
+			'En Espera' as progres
 
- 		 			ON (temporadas_estudiantes.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad)
+	 	FROM pasantias.temporadas_solicitud
 
- 		 		INNER JOIN pasantias.estudiante
+	 		INNER JOIN pasantias.temporadas_especialidad
 
-					ON (estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante)
+	 			ON (temporadas_solicitud.codigo_temporada  = temporadas_especialidad.codigo_temporada)
 
-				INNER JOIN pasantias.persona_instituto_especialidad
+	 		INNER JOIN pasantias.temporadas_estudiantes
 
-					ON  (persona_instituto_especialidad.id_persona      = estudiante.id_persona )
+	 			ON (temporadas_estudiantes.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad)
 
-					AND (persona_instituto_especialidad.id_perfil       = estudiante.id_perfil )
+	 		INNER JOIN pasantias.estudiante
 
-					AND (persona_instituto_especialidad.id_ip           = estudiante.id_ip)
+			ON (estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante)
 
-					AND (persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad)
+		INNER JOIN pasantias.persona_instituto_especialidad
 
-				INNER JOIN pasantias.especialidad
+			ON  (persona_instituto_especialidad.id_persona      = estudiante.id_persona )
 
-					ON ( especialidad.id_especialidad = temporadas_especialidad.id_especialidad)
+			AND (persona_instituto_especialidad.id_perfil       = estudiante.id_perfil )
 
-				INNER JOIN pasantias.instituto_principal
+			AND (persona_instituto_especialidad.id_ip           = estudiante.id_ip)
 
-					ON ( instituto_principal.id_ip = persona_instituto_especialidad.id_ip )
+			AND (persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad)
 
-				INNER JOIN pasantias.especialidad_instituto_principal
+		INNER JOIN pasantias.especialidad
 
-					ON (especialidad_instituto_principal.id_ip = instituto_principal.id_ip)
+			ON ( especialidad.id_especialidad = temporadas_especialidad.id_especialidad)
 
-					AND ( especialidad_instituto_principal.id_especialidad = especialidad.id_especialidad)
+		INNER JOIN pasantias.instituto_principal
 
-					AND ( especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip)
+			ON ( instituto_principal.id_ip = persona_instituto_especialidad.id_ip )
 
-				INNER JOIN pasantias.persona
+		INNER JOIN pasantias.especialidad_instituto_principal
 
-					ON (persona.id_persona = persona_instituto_especialidad.id_persona)
+			ON (especialidad_instituto_principal.id_ip = instituto_principal.id_ip)
 
-				INNER JOIN pasantias.tipo_especialidad
+			AND ( especialidad_instituto_principal.id_especialidad = especialidad.id_especialidad)
 
-					ON ( especialidad.id_tipo_especialidad = tipo_especialidad.id_tipo_especialidad )
+			AND ( especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip)
 
-				WHERE temporadas_especialidad.codigo_temporada_especialidad    = '$codigo_temporada_especialidad'
+		INNER JOIN pasantias.persona
 
-					AND estudiante.codigo_estudiante                           = '$codigo_estudiante' ;");
+			ON (persona.id_persona = persona_instituto_especialidad.id_persona)
+
+		INNER JOIN pasantias.tipo_especialidad
+
+			ON ( especialidad.id_tipo_especialidad = tipo_especialidad.id_tipo_especialidad )
+
+		WHERE temporadas_especialidad.codigo_temporada_especialidad    = '$codigo_temporada_especialidad'
+
+			AND estudiante.codigo_estudiante                           = '$codigo_estudiante' ;");
 
 		return $sql;
 	}
@@ -2695,10 +3344,15 @@ SELECT nombre_entregable , entregable .id_entregable ,
 
 	pg_fetch_assoc(
 
-	pg_query("SELECT id_estudiantes_entregables FROM pasantias.estudiantes_entregables WHERE
+	pg_query("SELECT id_estudiantes_entregables 
+
+		FROM pasantias.estudiantes_entregables WHERE
+		
 			id_entregable                     = $id_entregable
-			AND codigo_estudiante             = '$estudiante'
-			AND codigo_temporada_especialidad = '$codigo_temporada_especialidad' ;") );
+		
+		AND codigo_estudiante             = '$estudiante'
+		
+		AND codigo_temporada_especialidad = '$codigo_temporada_especialidad' ;") );
 
 	$id_estudiantes_entregables= $fech['id_estudiantes_entregables'];
 
@@ -2716,47 +3370,49 @@ SELECT nombre_entregable , entregable .id_entregable ,
 	{	return
 		pg_query("SELECT 'No Postulado' as proceso
 
-				FROM( SELECT estudiante.codigo_estudiante FROM pasantias.estudiante
+				FROM( SELECT estudiante.codigo_estudiante 
 
-					INNER JOIN pasantias.temporadas_estudiantes
+				FROM pasantias.estudiante
 
-						ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
+				INNER JOIN pasantias.temporadas_estudiantes
 
-						AND estudiante.codigo_estudiante = '$codigo_estudiante'
+					ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
 
-					INNER JOIN pasantias.temporadas_especialidad
+					AND estudiante.codigo_estudiante = '$codigo_estudiante'
 
-						ON temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+				INNER JOIN pasantias.temporadas_especialidad
 
-						AND temporadas_especialidad.codigo_temporada_especialidad='$codigo_temporada_especialidad'
+					ON temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
 
-					INNER JOIN pasantias.persona_instituto_especialidad
+					AND temporadas_especialidad.codigo_temporada_especialidad='$codigo_temporada_especialidad'
 
-						ON persona_instituto_especialidad.id_persona = estudiante.id_persona
+				INNER JOIN pasantias.persona_instituto_especialidad
 
-						AND  persona_instituto_especialidad.id_ip = estudiante.id_ip
+					ON persona_instituto_especialidad.id_persona = estudiante.id_persona
 
-						AND  persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+					AND  persona_instituto_especialidad.id_ip = estudiante.id_ip
 
-						AND  persona_instituto_especialidad.id_perfil = estudiante.id_perfil
+					AND  persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
 
-					INNER JOIN pasantias.especialidad_instituto_principal
+					AND  persona_instituto_especialidad.id_perfil = estudiante.id_perfil
 
-						ON especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+				INNER JOIN pasantias.especialidad_instituto_principal
 
-						AND especialidad_instituto_principal.id_especialidad = persona_instituto_especialidad.id_especialidad
+					ON especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
 
-					INNER JOIN pasantias.especialidad
+					AND especialidad_instituto_principal.id_especialidad = persona_instituto_especialidad.id_especialidad
 
-						ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+				INNER JOIN pasantias.especialidad
 
-						AND especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+					ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
 
-					LEFT JOIN pasantias.solicitudes_enviadas
+					AND especialidad.id_especialidad = temporadas_especialidad.id_especialidad
 
-						ON solicitudes_enviadas.valor = estudiante.codigo_estudiante
+				LEFT JOIN pasantias.solicitudes_enviadas
 
-						WHERE solicitudes_enviadas.valor IS NULL
+					ON solicitudes_enviadas.valor = estudiante.codigo_estudiante
+
+					WHERE solicitudes_enviadas.valor IS NULL
 
 					) as recibidas
 
@@ -3099,23 +3755,29 @@ SELECT nombre_entregable , entregable .id_entregable ,
 	{	
 		$array=
 		pg_fetch_assoc(
-		pg_query("SELECT COUNT(sql_BRONNER.nombre_tipo_especialidad) as total
+		pg_query("SELECT 
 
-			FROM  (
-			SELECT  tipo_especialidad.nombre_tipo_especialidad ,  count (tipo_especialidad.id_tipo_especialidad) as total_tipo_especialidad
+			COUNT(sql_BRONNER.nombre_tipo_especialidad) as total
+
+			FROM  ( SELECT			  
+
+			tipo_especialidad.nombre_tipo_especialidad ,  
+
+			count (tipo_especialidad.id_tipo_especialidad) as total_tipo_especialidad
 
 		 FROM pasantias.temporadas_especialidad
 
-				INNER JOIN pasantias.especialidad
+			INNER JOIN pasantias.especialidad
 
-					ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+				ON especialidad.id_especialidad = temporadas_especialidad.id_especialidad
 
-				INNER JOIN pasantias.tipo_especialidad
+			INNER JOIN pasantias.tipo_especialidad
 
-					ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
+				ON tipo_especialidad.id_tipo_especialidad = especialidad.id_tipo_especialidad
 
-				WHERE temporadas_especialidad.codigo_temporada = '$codigo_temporada'
-				GROUP BY tipo_especialidad.nombre_tipo_especialidad ) sql_BRONNER
+			WHERE temporadas_especialidad.codigo_temporada = '$codigo_temporada'
+
+			GROUP BY tipo_especialidad.nombre_tipo_especialidad ) sql_BRONNER
 		;") 
 		);
 

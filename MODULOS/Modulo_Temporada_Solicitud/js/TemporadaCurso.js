@@ -946,30 +946,27 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                     
                       '<th >Apellido</th>'+
                     
-                      '<th >Entregables</th>'+
-                    
-                      
+                      '<th >Entregables</th>'+                     
                                         
                     '</tr></thead>';
  
-        $.ajax({
+  $.ajax({
 
-                 async   : true, 
+           async   : true, 
 
-                 cache   : false,
+           cache   : false,
 
-                 type    : "POST",
+           type    : "POST",
 
-                 url     : "../controlador/recibeTemporada.php",
+           url     : "../controlador/recibeTemporada.php",
 
-                 dataType: "html",
+           dataType: "html",
 
-                 data    : {
-
-                 
-                   BuscarEstudiantesSolventes:codigo_temporada_especialidad
-                 },
-                 success: function (data){
+           data    :
+           {                 
+             BuscarEstudiantesSolventes:codigo_temporada_especialidad
+           },
+           success: function (data){
                   
                     var boton_Reporte ='';
                     var saltoslast    ='';                  
@@ -1022,9 +1019,9 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                      
                      }else { siguiente[yo+1](donde_imprimir,codigo_temporada_especialidad , siguiente ,yo+1,  ultimo); }
 
-                 } // success ... 
+            } // success ... 
 
-               });  
+          });  
   
 
 }

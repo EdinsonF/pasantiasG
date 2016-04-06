@@ -39,6 +39,14 @@
 			$varialbe = $modeloThis->HacerResumenOrganizacionesAsociadasA( $_POST['id_ip']  );
 
 			echo json_encode($varialbe);
+
+	}else if(isset($_POST['MisPostulaciones']))
+	{//----EDINSON--->>
+			include("postulacionController.php");
+			$clase= new postulacionController();
+			$result = $clase->CargarMis_Postulaciones($_POST);
+			echo json_encode($result);
+	
 	}
 
 

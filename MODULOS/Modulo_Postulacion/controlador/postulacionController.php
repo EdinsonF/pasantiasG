@@ -23,6 +23,19 @@ include("../modelo/PostulacionDirecta.php");
 
 		}
 
+//----EDINSON--->>>
+		function CargarMis_Postulaciones($arreglo)
+		{
+			$calss = new Postulacion();
+
+			$result = $calss->BuscarMis_Postulaciones($arreglo['codigo_estudiante']);
+			
+			return $result; 
+
+		}
+
+		/////////////////////////
+
 		function PostularEstudiante($arreglo=array())
 		{
 			$calss = new Postulacion();

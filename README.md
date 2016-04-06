@@ -50,3 +50,10 @@ hola... Todo me funciona bien.
 
 	----PUEDES ACTUALIZAR TU BRANCH, HICE EL PULL DE TU VERSION Y ME HIZO UN AUTOMERGE CON LO MIO.
 	(Y).........................................
+#HOY Martes 05 de Abril, 2016
+
+	-Subiendo al repositorio, modificaciones en:
+	+Modulo_poltulacion
+	+Modulo_organizacion
+	+Mis_postulaciones(vistas,jquery)=>add
+	

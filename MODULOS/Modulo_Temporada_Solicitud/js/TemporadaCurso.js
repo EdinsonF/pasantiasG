@@ -157,8 +157,8 @@ function buscarEstatemporada(codigo , pestañasEspecialidades , ids)
                 
                 dataType: "html",
                 
-                data    : {
-                  
+                data    : 
+                {                  
                   estaTemporada:  codigo
                 },
                 success: function (data) {
@@ -214,7 +214,6 @@ function buscarEstatemporada(codigo , pestañasEspecialidades , ids)
                  
             });
 } 
-
 
 function crearPestanasdeEspecialidesThis(especialidades ,ids , id_boton)
 {
@@ -988,7 +987,7 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
 
                '<label hidden class="codigo_estudiante" >'+value['codigo_estudiante']+'</label></td>'+
                
-               '<td></td></tr>';
+               '</tr>';
                
                 boton_Reporte = '<button id=ReporteNoSolventes class="btn btn-primary btn-block" ><strong><span class="glyphicon glyphicon-download-alt"></span> Reporte ('+ parseInt( 1+index ) +') Estudiantes</strong>  <label hidden class="codigo_temporada_reportar" >'+codigo_temporada_especialidad+'</label></button>';
                 
@@ -1138,19 +1137,20 @@ function Activar_evento_entregables()
 
 function datosSucursal(codigo_sucursal)
 {
-     $.ajax({
-            
-            async   : true, 
-            
-            cache   : false,
-            
-            type    : "POST",
-            
-            url     : "../controlador/recibeTemporada.php",
-            
-            dataType: "html",
-            
-            data    : {
+$.ajax({
+      
+      async   : true, 
+      
+      cache   : false,
+      
+      type    : "POST",
+      
+      url     : "../controlador/recibeTemporada.php",
+      
+      dataType: "html",
+      
+      data    : 
+      {
       
         buscarDatosSucursal:codigo_sucursal
 
@@ -1710,20 +1710,20 @@ function CerrarTemporada( Codigo_Temprada)
 
 function Buscar_entregables_este_estudiante(codigo_estudiante ,  codigo_temporada_especialidad , total_de_entregables)
 { 
-      $.ajax({
-             
-              async   : true, 
-             
-              cache   : false,
-             
-              type    : "POST",
-             
-              url     : "../controlador/recibeTemporada.php",
-             
-              dataType: "html",
-             
-              data    : {
-              
+$.ajax({
+       
+        async   : true, 
+       
+        cache   : false,
+       
+        type    : "POST",
+       
+        url     : "../controlador/recibeTemporada.php",
+       
+        dataType: "html",
+       
+        data    : 
+        {              
               temporade_full_boleta             : codigo_temporada_especialidad,
 
               buscar_entregables_estudiante_this: codigo_estudiante
@@ -1733,12 +1733,17 @@ function Buscar_entregables_este_estudiante(codigo_estudiante ,  codigo_temporad
 
             var extract = JSON.parse(data);
             
-            var html = ''; $("#id_entregables_no").html(''); 
+            var html = ""; $("#id_entregables_no").html(''); 
             
             $("#panel_asignados").hide(); $("#panel_noasignados").hide();
             
             //<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">    60%  </div></div>
-           
+            
+            var progreso ;
+             // Ecmascript6 so so Yisus 2016...
+            $.each( extract.estudiantes_p , (index , values) => {  progreso = values.proceso  });           
+              
+
             $("#informacionStudiante").html(
 
               '<pre ><br>'+
@@ -1751,7 +1756,7 @@ function Buscar_entregables_este_estudiante(codigo_estudiante ,  codigo_temporad
               
               '<label> Expediente   : '+extract.estudiantes_d.expediente+'         </label><br>'+
 
-              '<label> Progreso     : '+extract.estudiantes_d.progres+'            </label><br>'+
+              '<label> Progreso     : '+progreso+'            </label><br>'+
               
               ' </pre>');              
    

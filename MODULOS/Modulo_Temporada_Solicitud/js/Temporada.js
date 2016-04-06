@@ -1107,7 +1107,7 @@ function EspecialidadesAsignadasSegunTemporada( codigo_temporada)
     },
     success: function (data) 
     {
-     
+        
          var variable = JSON.parse(data); 
          
          if(variable[0].estatus=='EN CURSO') $("#Abrirsesson").attr('disabled',true);

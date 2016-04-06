@@ -189,7 +189,7 @@ $(document).ready(function(){
             });
             
             InitializeLapso();
-
+            
         }
     }
 

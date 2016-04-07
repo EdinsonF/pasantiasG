@@ -255,7 +255,7 @@ function BuscarEstudiantesEsepcialidadTemporada(codigo_temporada_especialidad , 
           VerEstudiantesdeEstaTemporadaCurso:codigo_temporada_especialidad
         },
         success: function (data){
-
+          alert(data);
             var Var              = JSON.parse(data);
             var ordenespestaneos = Array();
 

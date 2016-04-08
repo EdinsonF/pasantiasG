@@ -250,11 +250,11 @@ function informacion()
                         
                          "<th >Solicitud de</th>"+ 	//4
 
-                         "<th >T. Empresarial</th>"+ //5
+                         "<th >Tutores</th>"+ //5                 
                         
-                         "<th >T. Académico</th>"+     //6                   
-                        
-                         "<th > Estado - Solicitu</th>"+	//7                        
+                         "<th > Estado - Solicitu</th>"+	//7
+
+                         "<th > Opción</th>"+  //7                         
                         
           				 
                    "</tr></thead>";
@@ -278,42 +278,37 @@ function informacion()
 
                 if(value['descripcion']=="false"){
                   
-                    contenido +="<th>NO REQUERIDO</th>"+
-                                "<th>NO REQUERIDO</th>";
+                    contenido +="<th>NO REQUERIDO</th>";
+            
+                    contenido +="<td>"+value['estatus']+"</td>";
 
-                    if(value['estatus']=='APROBADO ORGANIZACION'){
-
-                        contenido +="<td>APROBADO</td>";
-
-                    }else{
-
-                        contenido +="<td>"+value['estatus']+"</td></tr>";
-
-                    }
+                    contenido +="<td><a href='#Modal' role='button' class='btn btn-primary' data-toggle='modal'>Detalles</a></td></tr>";
                   
                 }else{
+
 
                     if(value['estatus']=='LISTO'){
 
                         contenido +="<th>EN ESPERA</th>"+
-                                    "<th>EN ESPERA</th>"+
-                                    "<td>APROBADO</td></tr>";
+                                    "<td>APROBADO (ambos)</td>";
 
                     }else if (value['estatus']=='ASIGNADO'){
 
                         contenido +="<th>ASIGNADO</th>"+
-                                    "<th>EN ESPERA</th>"+
-                                    "<td>APROBADO (ambos)</td></tr>";
+                                    "<td>APROBADO (ambos)</td>";
 
                     }else{
 
                         contenido +="<th>REQUERIDO</th>"+
-                                    "<th>REQUERIDO</th>"+
-                                    "<td>"+value['estatus']+"</td></tr>";
+                                    "<td>"+value['estatus']+"</td>";
 
                     }
+
+                      contenido +="<td><a href='#Modal' role='button' class='btn btn-primary' data-toggle='modal'>Detalles</a></td></tr>";
                     
                 }
+
+
 
                   
 

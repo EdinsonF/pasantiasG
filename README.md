@@ -56,4 +56,9 @@ hola... Todo me funciona bien.
 	+Modulo_poltulacion
 	+Modulo_organizacion
 	+Mis_postulaciones(vistas,jquery)=>add
+
+
+#Hoy jueves 07 de Abril, 2016
+	
+	-No se que poner ps... pero lo modifique, adelante algo...
 	

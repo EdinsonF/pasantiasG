@@ -1561,45 +1561,64 @@ END as calculo_tiempo ,
 	function VerificarEstudiantesSolventes($codigo) {
 		$sql = 
 
-		pg_query("SELECT true 
+		pg_query("SELECT 
 
-		FROM pasantias.temporadas_solicitud
+			st_et.codigo_estudiante ,
 
-		INNER JOIN pasantias.temporadas_especialidad
+			Count(st_et.id_entregable) as cantidaEstudiante 						
 
-			ON temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada
+		FROM ( SELECT 
 
-			AND temporadas_especialidad.codigo_temporada_especialidad ='$codigo'
+			et.id_entregable ,
 
-		INNER JOIN pasantias.temporadas_estudiantes
+			tm_sp.codigo_temporada_especialidad, 
 
-			ON temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
+			Count(et.id_entregable) as cantidadGeneral
 
-		INNER JOIN pasantias.estudiante
+			FROM pasantias.temporadas_solicitud tm_so 
 
-			On estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+			Inner Join pasantias.temporadas_especialidad tm_sp
 
-		INNER JOIN pasantias.entregable_temporada
+				On ( tm_sp.codigo_temporada = tm_so.codigo_temporada )
 
-			ON temporadas_solicitud.codigo_temporada = entregable_temporada.codigo_temporada
+				And ( tm_sp.codigo_temporada_especialidad = '$codigo' )
+			
+			Inner Join pasantias.entregable_temporada et_tm
 
-		INNER JOIN pasantias.entregable
+				On ( et_tm.codigo_temporada = tm_so.codigo_temporada )
 
-			ON entregable.id_entregable = entregable_temporada.id_entregable
+			Inner Join pasantias.entregable et 
 
-		LEFT JOIN pasantias.estudiantes_entregables
+				On ( et.id_entregable = et_tm.id_entregable )
 
-			ON estudiantes_entregables.id_entregable = entregable.id_entregable
+			Where tm_sp.codigo_temporada_especialidad Is Not Null
 
-			AND estudiantes_entregables.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+			Group By 
 
-			AND estudiantes_entregables.codigo_estudiante = temporadas_estudiantes.codigo_estudiante
+			et.id_entregable ,
 
-		WHERE 	estudiantes_entregables.id_entregable IS NOT NULL
+			tm_sp.codigo_temporada_especialidad ) sql_entregables
+		
+		Inner Join pasantias.estudiantes_entregables st_et 
 
-			AND estudiantes_entregables.codigo_temporada_especialidad IS NOT NULL
+			On ( st_et.id_entregable = sql_entregables.id_entregable )
 
-			AND estudiantes_entregables.codigo_estudiante IS NOT NULL ;");
+			And ( st_et.codigo_temporada_especialidad = sql_entregables.codigo_temporada_especialidad )
+
+		Inner join pasantias.estudiante st 
+
+			On ( st.codigo_estudiante = st_et.codigo_estudiante )
+
+		Where st_et.id_entregable Is Not Null
+		
+		Group By 
+
+		st_et.codigo_estudiante 
+
+		having 
+
+		Count(st_et.id_entregable) = sum(sql_entregables.cantidadGeneral) ;");
+
 
 		return pg_num_rows($sql);
 	}
@@ -2903,152 +2922,66 @@ END as calculo_tiempo ,
 		return $sql;
 	}
 
-	function BuscarEstudiantesSolventes($codigo_temporada_especialidad) {
-		return pg_query("SELECT  
+	function BuscarEstudiantesSolventes($codigo) {
+		return pg_query("SELECT 
 
-		conteo_general - COUNT (entregable.id_entregable)  as entregable_asignado , 
+			st_et.codigo_estudiante ,
 
-		sql_conteo_total_entregables.*
+			Count(st_et.id_entregable) as cantidaEstudiante 						
 
-		from ( Select 
+		FROM ( SELECT 
 
-		 	count(entregable.id_entregable) as conteo_general , sql_estudiantes.*
+			et.id_entregable ,
 
-		from ( Select
-		
-		persona.cedula , 
-		
-		persona.nombre , 
-		
-		persona.apellido , 
-		
-		estudiante.expediente , 
-		
-		temporadas_solicitud.codigo_temporada,
-		
-		temporadas_estudiantes.codigo_estudiante , 
-		
-		temporadas_estudiantes.codigo_temporada_especialidad
+			tm_sp.codigo_temporada_especialidad, 
 
-		from pasantias.temporadas_solicitud
-		
-		Inner Join pasantias.temporadas_especialidad
-		
-			ON  (temporadas_especialidad.codigo_temporada = temporadas_solicitud.codigo_temporada )
-		
-			AND (temporadas_solicitud.estatus='EN CURSO' )
-		
-		Inner Join pasantias.temporadas_estudiantes
-		
-			ON  ( temporadas_estudiantes.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad )
-		
-			AND temporadas_especialidad.codigo_temporada_especialidad = '$codigo_temporada_especialidad'
-		
-		Inner Join pasantias.estudiante
-		
-			ON ( estudiante.codigo_estudiante = temporadas_estudiantes.codigo_estudiante )
-		
-		Inner Join  pasantias.persona_instituto_especialidad p_i_e
-		
-			ON   ( p_i_e.id_persona  	  = estudiante.id_persona     )
-		
-			AND  ( p_i_e.id_ip  	      = estudiante.id_ip          )
-		
-			AND  ( p_i_e.id_especialidad  = estudiante.id_especialidad)
-		
-			AND  ( p_i_e.id_perfil   	  = estudiante.id_perfil      )
-		
-		Inner Join pasantias.persona
-		
-			ON ( persona.id_persona =  p_i_e.id_persona )
-		
-		Inner Join pasantias.especialidad
-		
-			ON ( especialidad.id_especialidad =  p_i_e.id_especialidad )
-		
-		Inner Join pasantias.instituto_principal
-		
-			ON ( instituto_principal.id_ip =  p_i_e.id_ip )
-		
-		Inner Join pasantias.especialidad_instituto_principal e_i_p
-		
-			ON  ( e_i_p.id_ip = instituto_principal.id_ip )
-		
-			AND ( e_i_p.id_especialidad = especialidad.id_especialidad )
-		
-			AND ( e_i_p.id_especialidad =  p_i_e.id_especialidad )
-		
-		Inner Join pasantias.perfil
-		
-			ON ( perfil.id_perfil =  p_i_e.id_perfil )
+			Count(et.id_entregable) as cantidadGeneral
 
-		)as sql_estudiantes
+			FROM pasantias.temporadas_solicitud tm_so 
 
-			Inner Join pasantias.entregable_temporada
+			Inner Join pasantias.temporadas_especialidad tm_sp
 
-				ON ( entregable_temporada.codigo_temporada = sql_estudiantes.codigo_temporada )
+				On ( tm_sp.codigo_temporada = tm_so.codigo_temporada )
 
-			Inner Join pasantias.entregable
-
-				ON ( entregable.id_entregable = entregable_temporada.id_entregable )
-
-			GROUP BY 
-
-				sql_estudiantes.cedula , 
-				
-				sql_estudiantes.nombre , 
-				
-				sql_estudiantes.apellido ,
-				
-				sql_estudiantes.expediente , 
-				
-				sql_estudiantes.codigo_temporada,
-				
-				sql_estudiantes.codigo_estudiante , 
-				
-				sql_estudiantes.codigo_temporada_especialidad
-
-			)as sql_conteo_total_entregables
-
-		Inner Join pasantias.entregable_temporada
-
-			ON ( entregable_temporada.codigo_temporada = sql_conteo_total_entregables.codigo_temporada )
-
-		Inner Join pasantias.entregable
-
-			ON ( entregable.id_entregable = entregable_temporada.id_entregable)
-
-		left Join  pasantias.estudiantes_entregables est_ent
-
-			ON  ( est_ent.codigo_estudiante = sql_conteo_total_entregables.codigo_estudiante )
-
-			AND ( est_ent.id_entregable    = entregable.id_entregable )
-
-			AND ( est_ent.codigo_temporada_especialidad = sql_conteo_total_entregables.codigo_temporada_especialidad )
-
-		where  est_ent.codigo_estudiante is not null
-
-			AND est_ent.id_entregable is not null
-
-			AND est_ent.codigo_temporada_especialidad is not null
-
-		group by
-
-			sql_conteo_total_entregables.cedula , 
+				And ( tm_sp.codigo_temporada_especialidad = '$codigo' )
 			
-			sql_conteo_total_entregables.nombre ,
-			
-			sql_conteo_total_entregables.apellido , 
-			
-			sql_conteo_total_entregables.expediente ,
-			
-			sql_conteo_total_entregables.codigo_temporada,
-			
-			sql_conteo_total_entregables.codigo_estudiante ,
-			
-			sql_conteo_total_entregables.conteo_general ,
-			
-			sql_conteo_total_entregables.codigo_temporada_especialidad  ;");
+			Inner Join pasantias.entregable_temporada et_tm
+
+				On ( et_tm.codigo_temporada = tm_so.codigo_temporada )
+
+			Inner Join pasantias.entregable et 
+
+				On ( et.id_entregable = et_tm.id_entregable )
+
+			Where tm_sp.codigo_temporada_especialidad Is Not Null
+
+			Group By 
+
+			et.id_entregable ,
+
+			tm_sp.codigo_temporada_especialidad ) sql_entregables
+		
+		Inner Join pasantias.estudiantes_entregables st_et 
+
+			On ( st_et.id_entregable = sql_entregables.id_entregable )
+
+			And ( st_et.codigo_temporada_especialidad = sql_entregables.codigo_temporada_especialidad )
+
+		Inner join pasantias.estudiante st 
+
+			On ( st.codigo_estudiante = st_et.codigo_estudiante )
+
+		Where st_et.id_entregable Is Not Null
+		
+		Group By 
+
+		st_et.codigo_estudiante 
+
+		having 
+
+		Count(st_et.id_entregable) = sum(sql_entregables.cantidadGeneral)
+
+			;");
 		
 	}
 

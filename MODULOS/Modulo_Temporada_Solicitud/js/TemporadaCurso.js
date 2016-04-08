@@ -259,19 +259,17 @@ function BuscarEstudiantesEsepcialidadTemporada(codigo_temporada_especialidad , 
             var Var              = JSON.parse(data);
             var ordenespestaneos = Array();
 
-
         $.each(Var , function(index , value){
               
             if(index === 'Ejecutar')
 
-                RecibirOrdenes(ordenespestaneos , value[0] , imprimir_info);
+              RecibirOrdenes(ordenespestaneos , value[0] , imprimir_info);
 
-            else{ 
+            else
                
-              if(value[0] > 0) ordenespestaneos[ordenespestaneos.length] =  buscarCoincidencia( value[1] ) ;
-             }
+              if(value[0] > 0) 
 
-            
+                ordenespestaneos[ordenespestaneos.length] =  buscarCoincidencia( value[1] ) ;
 
         });
 
@@ -292,7 +290,6 @@ function buscarCoincidencia( Model )
     if(Model === 'BuscarEstudiantesConTutores')  return  BuscarEstudiantesConTutores;
     if(Model === 'BuscarEstudiantesNoSolventes') return  BuscarEstudiantesNoSolventes;
     if(Model === 'BuscarEstudiantesSolventes')   return  BuscarEstudiantesSolventes;
-
 }
 
 
@@ -945,8 +942,6 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                     
                       '<th >Apellido</th>'+
                     
-                      '<th >Entregables</th>'+                     
-                                        
                     '</tr></thead>';
  
   $.ajax({
@@ -967,9 +962,8 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
            },
            success: function (data){
                   
-                    var boton_Reporte ='';
-                    var saltoslast    ='';                  
-                    var Variable      = JSON.parse(data); var  conteo_total_entregables; 
+                    var boton_Reporte , saltoslast , conteo_total_entregables ;               
+                    var Variable      = JSON.parse(data); 
                     
                $.each(Variable, function(index, value){
 
@@ -982,10 +976,6 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                '<td>'+value['nombre']+'</td>'+
                
                '<td>'+value['apellido']+'</td>'+
-               
-               '<td>'+value['entregable_asignado']+' de '+value['conteo_general']+
-
-               '<label hidden class="codigo_estudiante" >'+value['codigo_estudiante']+'</label></td>'+
                
                '</tr>';
                

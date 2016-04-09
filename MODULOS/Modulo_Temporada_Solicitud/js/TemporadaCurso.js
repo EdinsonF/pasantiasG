@@ -104,26 +104,26 @@ function BuscarEspecialidadesTemporada( codigo_temporada){
                
                 dataType: "html",
                
-                data    : {
-                 
+                data    : 
+                {                 
                   EspecialidadesdeTemporadasCurso:codigo_temporada
                 },
-                success: function (data) {
+                success: (data) => {
                     
-                    		ids = Array();
+                    ids          = Array();
                     var Variable = JSON.parse(data);
                     if (Variable) {
-                      var pestañasEspecialidades= '<br><div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';//<ul class="nav nav-tabs" id=especialidad >';
+                      var Paneles= '<br><div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';//<ul class="nav nav-tabs" id=especialidad >';
                     
                     }
-                     $.each(Variable, function(index, value){
+                     $.each(Variable, (index, value) => {
 
                      	// pestañasEspecialidades+='<li ><a href=#especialidad'+index+' data-toggle=tab>'+
                 						// 		'<strong>'+value['especialidad']+'</strong></a>'+
                 						// 		'<label class=codigo_temporada_especialidad  style=display:none>'+value['codigo_temporada_especialidad']+'</label></li>'
                             ids[index]= '#Especialicollapse'+index;
 
-  pestañasEspecialidades+="<div class='panel panel-info'>"+
+  Paneles+="<div class='panel panel-info'>"+
 
   "<div class='panel-heading collapsed' role=tab id=Especialicollapse"+index+" data-toggle=collapse data-parent=#accordion aria-expanded='false' aria-controls=EspecialidadOpenm"+index+" data-target=#EspecialidadOpenm"+index+" style='cursor:pointer ; width:99%'>"+
                   
@@ -131,11 +131,11 @@ function BuscarEspecialidadesTemporada( codigo_temporada){
   
   "<div id=EspecialidadOpenm"+index+" class='panel-collapse collapse' role=tabpanel aria-labelledby=Especialicollapse"+index+">"+
   
-  "<div class=panel-body></div></div></div>";
+  "<div class=panel-body></i></div></div></div>";
                      });
                     //pestañasEspecialidades+='</ul>';
                     
-                    buscarEstatemporada(codigo_temporada , pestañasEspecialidades , ids);
+                    buscarEstatemporada(codigo_temporada , Paneles , ids);
                 }
 
             });
@@ -220,11 +220,16 @@ function crearPestanasdeEspecialidesThis(especialidades ,ids , id_boton)
 
     $("#contenidoEspecial").html(especialidades);
 
-    $.each(ids , function( index , values ){
-         $(values).click(function(e) 
-         { 
-         BuscarEstudiantesEsepcialidadTemporada($(".codigo_temporada_especialidad",this).text() , $(this).parent().find('.panel-body'));
-         });  
+    $.each(ids , ( index , values ) =>{
+
+      $(values).click(function(e) 
+      { 
+          icono = "<center><i class='fa fa-spinner fa-pulse fa-2x'></i> Cargando...</center>";
+          
+          $(this).parent().find(".panel-body").html(icono);
+
+          BuscarEstudiantesEsepcialidadTemporada($(".codigo_temporada_especialidad",this).text() , $(this).parent().find('.panel-body'));
+      });  
          
     });
 
@@ -254,22 +259,22 @@ function BuscarEstudiantesEsepcialidadTemporada(codigo_temporada_especialidad , 
         {
           VerEstudiantesdeEstaTemporadaCurso:codigo_temporada_especialidad
         },
-        success: function (data){
-          alert(data);
+        success: (data) =>{
+          
             var Var              = JSON.parse(data);
             var ordenespestaneos = Array();
 
-        $.each(Var , function(index , value){
+        $.each(Var, (index , value) => {
               
             if(index === 'Ejecutar')
 
-              RecibirOrdenes(ordenespestaneos , value[0] , imprimir_info);
+            RecibirOrdenes(ordenespestaneos , value[0] , imprimir_info);
 
             else
                
-              if(value[0] > 0) 
+              if(value[0] > 0)
 
-                ordenespestaneos[ordenespestaneos.length] =  buscarCoincidencia( value[1] ) ;
+              ordenespestaneos[ordenespestaneos.length] =  buscarCoincidencia( value[1] ) ;
 
         });
 
@@ -986,7 +991,7 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                 
                 });
 
-              saltoslast +='<br>';
+              saltoslast ='<br>';
 
               //var boton_asignar_entregable = '<button type=reset id=Asignar_entregable class="btn btn-success btn-block" disabled="disabled" ><strong><span class="glyphicon glyphicon-check"></span> Asignar Entregable </strong> <label hidden class="codigo_temporada_v_entregable" >'+codigo_temporada_especialidad+'</label> <label class="total_deentregables_this_temporada">'+conteo_total_entregables+'</label></button>';
               

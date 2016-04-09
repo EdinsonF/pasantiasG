@@ -179,7 +179,7 @@ class Temporada {
 
 			persona.cedula , 
 
-			persona .nombre ||'  '||persona.apellido as estudiante
+			persona.nombre ||'  '|| persona.apellido as estudiante
 
 	FROM  pasantias.temporadas_especialidad 
 
@@ -270,7 +270,7 @@ class Temporada {
 
 			estudiante.expediente ,persona.cedula , 
 
-			persona .nombre ||'  '||persona.apellido as estudiante
+			persona.nombre ||'  '||persona.apellido as estudiante
 
 			FROM  pasantias.temporadas_especialidad
 
@@ -1083,7 +1083,6 @@ END as calculo_tiempo ,
 
 			FROM ( SELECT 
 
-
 			estudianteSolicitud.*  ,
 
 			solicitudes_enviadas.valor as sucursal 
@@ -1138,13 +1137,19 @@ END as calculo_tiempo ,
 	
 		AND persona_instituto_especialidad.id_perfil = estudiante.id_perfil
 	
-		INNER JOIN pasantias.persona ON persona.id_persona =persona_instituto_especialidad.id_persona ) as estudianteSolicitud
+		INNER JOIN pasantias.persona 
+
+		ON persona.id_persona =persona_instituto_especialidad.id_persona 
+
+		) as estudianteSolicitud
 	
 		INNER JOIN pasantias.solicitudes_enviadas
 	
 			ON estudianteSolicitud.codigo_solicitud = solicitudes_enviadas.codigo_solicitud
 	
-		AND solicitudes_enviadas.table_column='organizacionmunicipio.codigo_sucursal') as SucursalEnviada
+		AND solicitudes_enviadas.table_column='organizacionmunicipio.codigo_sucursal'
+
+		) as SucursalEnviada
 	
 		INNER JOIN pasantias.solicitudes_enviadas
 	
@@ -1210,7 +1215,9 @@ END as calculo_tiempo ,
 		
 			AND persona_instituto_especialidad.id_perfil = estudiante.id_perfil
 		
-		INNER JOIN pasantias.persona ON persona.id_persona =persona_instituto_especialidad.id_persona )
+		INNER JOIN pasantias.persona 
+
+			ON persona.id_persona =persona_instituto_especialidad.id_persona )
 		
 		 as estudianteSolicitud
 
@@ -1334,7 +1341,6 @@ END as calculo_tiempo ,
 		persona.correo , 
 
 		solicitud.codigo_solicitud
-
 		
 		FROM pasantias.encargado INNER JOIN pasantias.temporadas_solicitud
 		
@@ -1609,11 +1615,15 @@ END as calculo_tiempo ,
 
 			On ( st.codigo_estudiante = st_et.codigo_estudiante )
 
+		Inner Join pasantias.temporadas_estudiantes tm_st
+
+			On ( tm_st.codigo_estudiante = st.codigo_estudiante ) 
+
 		Where st_et.id_entregable Is Not Null
 		
 		Group By 
 
-		st_et.codigo_estudiante 
+			st_et.codigo_estudiante 
 
 		having 
 
@@ -2925,6 +2935,14 @@ END as calculo_tiempo ,
 	function BuscarEstudiantesSolventes($codigo) {
 		return pg_query("SELECT 
 
+			st.expediente,
+
+			persona.nombre ,
+
+			persona.apellido ,
+
+			persona.cedula ,			
+
 			st_et.codigo_estudiante ,
 
 			Count(st_et.id_entregable) as cantidaEstudiante 						
@@ -2959,7 +2977,7 @@ END as calculo_tiempo ,
 
 			et.id_entregable ,
 
-			tm_sp.codigo_temporada_especialidad ) sql_entregables
+			tm_sp.codigo_temporada_especialidad ) as sql_entregables
 		
 		Inner Join pasantias.estudiantes_entregables st_et 
 
@@ -2971,9 +2989,49 @@ END as calculo_tiempo ,
 
 			On ( st.codigo_estudiante = st_et.codigo_estudiante )
 
+		Inner Join pasantias.temporadas_estudiantes tm_st
+
+			On ( tm_st.codigo_estudiante = st_et.codigo_estudiante )
+
+			And ( tm_st.codigo_temporada_especialidad = sql_entregables.codigo_temporada_especialidad ) 
+
+		Inner Join pasantias.persona_instituto_especialidad p_i_e 
+
+			On ( p_i_e.id_persona = st.id_persona ) 
+
+			And ( p_i_e.id_perfil = st.id_perfil )
+
+			And ( p_i_e.id_ip = st.id_ip )
+
+			And ( p_i_e.id_especialidad = st.id_especialidad )
+
+		Inner Join pasantias.persona 
+
+			On ( persona.id_persona = p_i_e.id_persona )
+
+		Inner join pasantias.especialidad 
+
+			On ( especialidad.id_especialidad = p_i_e.id_especialidad  )
+
+		Inner Join pasantias.instituto_principal
+
+			On ( instituto_principal.id_ip = p_i_e.id_ip )
+
+		Inner Join pasantias.perfil
+
+			On ( perfil.id_perfil = p_i_e.id_perfil )			
+
 		Where st_et.id_entregable Is Not Null
 		
 		Group By 
+
+		st.expediente,
+
+		persona.nombre ,
+
+		persona.apellido ,
+
+		persona.cedula ,
 
 		st_et.codigo_estudiante 
 

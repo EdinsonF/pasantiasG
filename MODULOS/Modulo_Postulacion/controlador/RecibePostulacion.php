@@ -47,6 +47,13 @@
 			$result = $clase->CargarMis_Postulaciones($_POST);
 			echo json_encode($result);
 	
+	}else if(isset($_POST['VerInfo_Modal']))
+	{//----EDINSON--->>
+			include("postulacionController.php");
+			$clase= new postulacionController();
+			$result = $clase->CargarInfo_Modal($_POST);
+			echo json_encode($result);
+	
 	}
 
 

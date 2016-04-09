@@ -226,7 +226,7 @@ function informacion()
 		 		if(pestanaver != value['nombre_tipo_organizacion']){
             tipo = 1 ; 
           
-            boton ='<br><button id=tablaX'+dex+' type="button" class="btn btn-primary btn-block" disabled="disabled">Postularme</button> ';
+            boton ='<br><button id=tablaX'+dex+' type="button" class="btn btn-primary btn-block" >Reporte</button> ';
   		 		 
             if(index>0) {contenido +="</table></div>"+boton+"</div>"; botonselectedorganizacion[botonselectedorganizacion.length] = '#tablaX'+dex; } 
 
@@ -268,7 +268,10 @@ function informacion()
 
                   "<td hidden ></td>"+  //0  
 
-						      "<td>"+value['nombre_organizacion']+" ("+value['observacion']+")<label hidden style=display:none class=codigo_sucursal>"+value['codigo_sucursal']+"</label></td>"+
+						      "<td>"+value['nombre_organizacion']+" ("+value['observacion']+")"+
+                      "<input type='hidden' class='codigoS' value='"+value['codigo_sucursal']+"'>"+
+                      "<input type='hidden' class='codigoTE' value='"+value['codigo_temporada_especialidad']+"'>"+
+                      "<input type='hidden' class='codigoT' value='"+value['codigo_temporada']+"'></td>"+
 
 			          	"<td>"+value['ubicacion']+"</td>"+
 			          	
@@ -282,7 +285,7 @@ function informacion()
             
                     contenido +="<td>"+value['estatus']+"</td>";
 
-                    contenido +="<td><a href='#Modal' role='button' class='btn btn-primary' data-toggle='modal'>Detalles</a></td></tr>";
+                    contenido +="<td><a href='#' role='button' class='btn btn-primary' data-toggle='modal' onclick='VerModal(this)'>Detalles</a></td></tr>";
                   
                 }else{
 
@@ -304,7 +307,7 @@ function informacion()
 
                     }
 
-                      contenido +="<td><a href='#Modal' role='button' class='btn btn-primary' data-toggle='modal'>Detalles</a></td></tr>";
+                      contenido +="<td><a href='#' role='button' class='btn btn-primary' data-toggle='modal' onclick='VerModal(this)'>Detalles</a></td></tr>";
                     
                 }
 
@@ -315,7 +318,7 @@ function informacion()
 		 									  	});	//EACH
           dex = dex+1 ;
 
-          boton ='<br><button id=tablaX'+dex+' type="button" class="btn btn-primary btn-block" disabled="disabled">Reporte</button> ';
+          
           
             contenido +="</table></div>"+boton+"</div>";     
 
@@ -334,7 +337,89 @@ function informacion()
 
 
 
+function VerModal(button){
 
+   var codigo_sucursal                   =$(button).closest("tr").find(".codigoS").val();
+   var codigo_temporada_especialidad     =$(button).closest("tr").find(".codigoTE").val();
+   var codigo_temporada                  =$(button).closest("tr").find(".codigoT").val(); 
+   var codigo_estudiante                 =$("#codigo_estudiante").val(); 
+  //alert(codigo_temporada_especialidad+"---"+codigo_sucursal+"---"+codigo_estudiante);
+
+  $.ajax({
+
+        async:true, 
+        cache:false,
+        dataType:"html", 
+        type: 'POST',   
+        url: "../controlador/RecibePostulacion.php",
+        data: {
+            
+            codigo_sucursal               : codigo_sucursal,
+            codigo_temporada              : codigo_temporada,
+            codigo_temporada_especialidad : codigo_temporada_especialidad,
+            codigo_estudiante             : codigo_estudiante,
+
+            VerInfo_Modal : boton
+
+              },
+              
+
+    success: function(data){  
+         
+          var varia = JSON.parse(data);
+
+          alert(data);
+
+
+                  if (varia){
+
+                  var mensaje_dias_calculados = '<span class="glyphicon glyphicon-hourglass"></span> '+varia['calculo_tiempo']+' <br>';
+                 
+
+                  if(varia['colore']=='warning') varia['estatus'] += ' ADMINISTRADOR';
+
+                  varia['descripcion'] = ( varia['descripcion'] == 'true' ) ?
+
+                    '<label class="text-success">SI <span class="glyphicon glyphicon-ok-sign"></span></label>' :
+                    '<label class="text-warning">NO <span class="glyphicon glyphicon-alert"></span></label>' ;
+
+                    varia['estatus'] = (varia['colore'])  ? 
+
+                      '<label class="text-'+varia['colore']+'">'+varia['estatus']+'</label>' : 
+                      '<label class="text-'+varia['colore']+'">'+varia['estatus']+'</label>' ;
+
+                        var html = '<br><pre ><br> <label >Persona Encargada : </label> '+varia['encargado'] +'<br>'+
+                                   
+                                   '<label >Tipo de Solicitud : </label> '+varia['nombre_tipo_solicitud']+'<br> '+
+
+                                   '<label >Tutores           : </label> '+varia['descripcion']+'          <br> '+
+                                   
+                                   '<label >Estatus           : </label> '+varia['estatus']+'              <br> '+
+                                   
+                                   '<label >Periodo           : </label> '+varia['periodo']+'              <br> '+
+
+                                   '<label >Tiempo Periodo    : </label> '+varia['calculodeperiodo']+'     <br> '+
+                                   
+                            '<label >Lapso Acad&eacute;mico   : </label> '+varia['lapsoacademico']+'<br> </pre>'; 
+                                   
+                           
+                      
+                      if(varia['colore']=='warning') 
+                      {
+                         html+= '<br><div class="alert alert-warning" role="alert"> '+mensaje_dias_calculados+' <span class="glyphicon glyphicon-info-sign"></span><strong> Advertencia!</strong> La Fecha Actual ( '+varia['very_now']+' ) está Fuera de Rango del periodo de Solicitud ... <br> El Estatus "<strong>En Curso Administrador</strong>" Explica que el periodo de solicitud no le será habilitado a los estudiantes esta temporada, puesto que para ellos ( los Estudiantes ),<br> el Periodo aún no ha comenzado ó ya expiró .</div>';   
+                      
+                      }else { html+= '<br><div class="alert alert-success" role="alert"> La Fecha Actual ( '+varia['very_now']+' )<br> '+mensaje_dias_calculados+'</div>';  }
+
+                    
+                    $("#info").html(html);
+                    $("#Modal").modal('show');
+                    }
+                  
+                                      
+            }
+
+  });
+}
 
 
 function haceresponsiveporclick( autoclicked ){

@@ -34,6 +34,16 @@ include("../modelo/PostulacionDirecta.php");
 
 		}
 
+		function CargarInfo_Modal($arreglo)
+		{
+			$calss = new Postulacion();
+
+			$result = $calss->CargarInfo_MiSolicitud($arreglo);
+			
+			return $result; 
+
+		}
+
 		/////////////////////////
 
 		function PostularEstudiante($arreglo=array())

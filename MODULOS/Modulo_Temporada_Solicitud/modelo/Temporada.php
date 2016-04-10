@@ -1729,13 +1729,15 @@ END as calculo_tiempo ,
 
 		ON ( persona.id_persona = p_i_e.id_persona)
 
-	LEFT JOIN pasantias.solicitudes_enviadas
+	Left Join pasantias.solicitudes_enviadas
 
 		ON ( solicitudes_enviadas.valor = estudiante.codigo_estudiante)
 
-		WHERE  solicitudes_enviadas.valor IS NULL 
+		WHERE  
+		
+		solicitudes_enviadas.valor IS NULL 	
 
-	Union 
+Union 
 
 	SELECT 		 
 
@@ -1789,11 +1791,13 @@ END as calculo_tiempo ,
 
 		ON ( persona.id_persona = p_i_e.id_persona )
 
-	LEFT JOIN pasantias.solicitudes_recibidas 
+	Left JOIN pasantias.solicitudes_recibidas 
 
 		ON ( solicitudes_recibidas.valor = estudiante.codigo_estudiante )
 
-		WHERE solicitudes_recibidas.valor is null;");
+		WHERE solicitudes_recibidas.valor is null 
+
+		 ;");
 
 	}
 	function BuscarEstudiantesPostulados($codigo_temporada_especialidad) {
@@ -1806,17 +1810,13 @@ END as calculo_tiempo ,
 			
 			persona.nombre||' '|| persona.apellido as solicitant 
 
-			FROM
-
-		(SELECT 
+		FROM ( SELECT 		
 
 		estudianteSolicitud.*  ,
 
 		solicitudes_enviadas.valor as sucursal 
 
-		FROM
-
-		( SELECT 
+		FROM ( SELECT 		
 
 				persona.nombre ||'  '|| persona.apellido as estudiante , 
 				
@@ -1918,9 +1918,7 @@ END as calculo_tiempo ,
 
 		'ESTUDIANTE' as solicitant
 
-		FROM 
-
-		(SELECT 
+		FROM ( SELECT 
 
 			persona.nombre ||'  '|| persona.apellido as estudiante , 
 

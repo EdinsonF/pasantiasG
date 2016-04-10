@@ -223,15 +223,39 @@ function crearPestanasdeEspecialidesThis(especialidades ,ids , id_boton)
     $.each(ids , ( index , values ) =>{
 
       $(values).click(function(e) 
-      { 
-          icono = "<center><i class='fa fa-spinner fa-pulse fa-2x'></i> Cargando...</center>";
+      {   
+          //e.preventDefault();  panel-heading collapsed
           
-          $(this).parent().find(".panel-body").html(icono);
+          //console.log($( this ).hasClass( "collapsed" ).toString())
 
-          BuscarEstudiantesEsepcialidadTemporada($(".codigo_temporada_especialidad",this).text() , $(this).parent().find('.panel-body'));
+        if( ($( this ).hasClass( "collapsed" ).toString() === "true") || 
+            ($( this ).hasClass( "collapsed" ))  )
+        {
+          BuscarInformacionPanel( $( this ) );
+        }
+
       });  
          
     });
+
+}
+
+function BuscarInformacionPanel( panel )
+{ 
+    // inicio declaracion de Variables a utilizar ...
+
+    icono = "<center><i class='fa fa-spinner fa-pulse fa-2x'></i> Cargando...</center>";
+
+    codigo = $(".codigo_temporada_especialidad",panel).text();
+
+    where_print = $(panel).parent().find('.panel-body');
+
+    // fin declaracion variables
+    // inicio ejecucuion funcion de el icono animado "Cargando..." y buscar las consultas ajax
+          
+    $(panel).parent().find(".panel-body").html(icono);
+
+    BuscarEstudiantesEsepcialidadTemporada( codigo , where_print );
 
 }
 

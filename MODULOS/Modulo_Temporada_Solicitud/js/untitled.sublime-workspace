@@ -1,0 +1,1073 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"jso",
+				"json_decode"
+			],
+			[
+				"entre",
+				"entregables"
+			],
+			[
+				"len",
+				"length	(TemporadaCurso.js)"
+			],
+			[
+				"siz",
+				"size=\"50	(Temporada.js)"
+			],
+			[
+				"list-g",
+				"list-group-item"
+			],
+			[
+				"estudiantes",
+				"estudiantes_d"
+			],
+			[
+				"temporadas_",
+				"temporadas_especialidad"
+			],
+			[
+				"especialidad",
+				"especialidad"
+			],
+			[
+				"temporadas",
+				"temporadas_especialidad"
+			],
+			[
+				"especiali",
+				"especialidad"
+			],
+			[
+				"instituto_",
+				"especialidad_instituto_principal"
+			],
+			[
+				"estudi",
+				"Estudiantes"
+			],
+			[
+				"Jo",
+				"JOIN"
+			],
+			[
+				"temporadas_es",
+				"temporadas_estudiantes"
+			],
+			[
+				"codi",
+				"codigo_temporada"
+			],
+			[
+				"on",
+				"onClick"
+			],
+			[
+				"organiza",
+				"organizacionmunicipio"
+			],
+			[
+				"codigo_s",
+				"codigo_sucursal"
+			],
+			[
+				"selec",
+				"seleccionarfila"
+			],
+			[
+				"fin",
+				"finContent"
+			],
+			[
+				"pes",
+				"pestanas"
+			],
+			[
+				"w",
+				"warning"
+			],
+			[
+				"off",
+				"offstyle"
+			],
+			[
+				"des",
+				"destroy"
+			],
+			[
+				"id",
+				"id_tipo_solicitud"
+			],
+			[
+				"tipos",
+				"tipo_solicitud"
+			],
+			[
+				"desci",
+				"descripcion"
+			],
+			[
+				"_",
+				"_POST"
+			],
+			[
+				"rec",
+				"recibeTemporada"
+			],
+			[
+				"desc",
+				"description"
+			],
+			[
+				"nombre",
+				"nombre_tipo_solicitud"
+			],
+			[
+				"codigo",
+				"codigo_encargado"
+			],
+			[
+				"id_",
+				"id_tipo_solicitud"
+			],
+			[
+				"pg_fech",
+				"pg_fetch_assoc"
+			],
+			[
+				"nom",
+				"nombre_tipo_solicitud"
+			],
+			[
+				"tipo",
+				"tipo_solicitud"
+			],
+			[
+				"fecha",
+				"fecha_fin"
+			],
+			[
+				"fe",
+				"fecha_fin"
+			],
+			[
+				"SE",
+				"SET"
+			],
+			[
+				"e",
+				"encontrado"
+			],
+			[
+				"IDOrde",
+				"IDOrden"
+			],
+			[
+				"Orde",
+				"Orden"
+			],
+			[
+				"op",
+				"option	Tag"
+			],
+			[
+				"No",
+				"NombrePro"
+			],
+			[
+				"ID",
+				"IDProducto"
+			],
+			[
+				"ORDEN",
+				"Orden_Productos"
+			],
+			[
+				"Status",
+				"StatusNombre"
+			],
+			[
+				"Stat",
+				"StatusNombre"
+			],
+			[
+				"IDOrd",
+				"IDOrden"
+			],
+			[
+				"Id",
+				"IDUser"
+			],
+			[
+				"Con",
+				"ConfirmacionPago"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"orde",
+				"Orden"
+			],
+			[
+				"Sta",
+				"StatusOrden"
+			],
+			[
+				"Contar",
+				"ContarOrdenConfirmada"
+			],
+			[
+				"Cantidad",
+				"CantidadPro"
+			],
+			[
+				"mysql_num_",
+				"mysql_num_rows"
+			],
+			[
+				"Mysql_num",
+				"mysql_num_rows"
+			],
+			[
+				"parse",
+				"parse_ini_string"
+			],
+			[
+				"Ca",
+				"Cantidad"
+			],
+			[
+				"mysq",
+				"mysql_db_query"
+			],
+			[
+				"mysql_fec",
+				"mysql_fetch_assoc"
+			],
+			[
+				"ORDE",
+				"Orden_Productos"
+			],
+			[
+				"IDO",
+				"IDOrden"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"Orden",
+				"Orden_Productos"
+			],
+			[
+				"Direccio",
+				"Direccion"
+			],
+			[
+				"parroqui",
+				"Parroquia"
+			],
+			[
+				"C",
+				"Ciudad"
+			],
+			[
+				"Direccion",
+				"DireccionEnvio"
+			],
+			[
+				"mysql_fe",
+				"mysql_fetch_assoc"
+			],
+			[
+				"mysqlnu",
+				"mysql_num_rows"
+			],
+			[
+				"alert",
+				"alertify"
+			],
+			[
+				"mysql_a",
+				"mysql_fetch_assoc"
+			],
+			[
+				"mysql_num",
+				"mysql_num_rows"
+			],
+			[
+				"estudian",
+				"estudiantes_entregables"
+			],
+			[
+				"temporada_es",
+				"temporadas_especialidad"
+			],
+			[
+				"est",
+				"estudiantes_entregables"
+			],
+			[
+				"codigo_tem",
+				"codigo_temporada"
+			],
+			[
+				"codigo_temporada",
+				"codigo_temporada_especialidad"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"codigo_temporada_especialid",
+				"codigo_temporada_especialidad"
+			],
+			[
+				"codigo_te",
+				"codigo_temporada_especialida"
+			],
+			[
+				"temporads_es",
+				"temporadas_estudiantes"
+			],
+			[
+				"temporad",
+				"temporadas_estudiantes"
+			],
+			[
+				"entregable",
+				"entregable_temporada"
+			],
+			[
+				"temporada_s",
+				"temporadas_solicitud"
+			],
+			[
+				"instit",
+				"instituto_principal"
+			],
+			[
+				"persona",
+				"persona_instituto_especialidad"
+			],
+			[
+				"entrega",
+				"entregable_temporada"
+			],
+			[
+				"id_e",
+				"id_entregable"
+			],
+			[
+				"temporada",
+				"temporadas_especialidad"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"Activar",
+				"Activarevento_asignarTutor"
+			],
+			[
+				"pi",
+				"pivoteJ"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"solicitudes",
+				"solicitudes_aprobadas"
+			],
+			[
+				"codig",
+				"codigo_temporada_especialidad"
+			],
+			[
+				"Repor",
+				"Reporte_estudiantes_no_postuladosSQL"
+			],
+			[
+				"pre",
+				"preparada"
+			],
+			[
+				"CE",
+				"CErrada"
+			],
+			[
+				"Cerra",
+				"CerrarTemporada"
+			],
+			[
+				"Codi",
+				"Codigo_Temprada"
+			],
+			[
+				"ids",
+				"ids"
+			],
+			[
+				"numero",
+				"numero_lapso"
+			],
+			[
+				"pg_num_",
+				"pg_num_rows"
+			],
+			[
+				"lapso",
+				"lapso_academico"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"institu",
+				"especialidad_instituto_principal"
+			],
+			[
+				"id_per",
+				"id_perfil"
+			],
+			[
+				"pg_fec",
+				"pg_fetch_assoc"
+			],
+			[
+				"per",
+				"persona_organizacion_oficina"
+			],
+			[
+				"organizac",
+				"organizacion_oficina"
+			],
+			[
+				"persona_",
+				"persona_organizacion_oficina"
+			],
+			[
+				"orga",
+				"organizacion"
+			],
+			[
+				"pg_num",
+				"pg_num_rows"
+			],
+			[
+				"pers",
+				"persona"
+			],
+			[
+				"espec",
+				"especialidad_instituto_principal"
+			],
+			[
+				"persoa",
+				"persona_instituto_especialidad"
+			],
+			[
+				"data-t",
+				"data-target"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "TemporadaCurso.js",
+			"settings":
+			{
+				"buffer_size": 74963,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/PosiblesModalsEncurso.phtml",
+			"settings":
+			{
+				"buffer_size": 5455,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/modelo/Temporada.php",
+			"settings":
+			{
+				"buffer_size": 118524,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Snippet: ",
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: jQuery Plugin Boilerplate"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: remov",
+				"Package Control: Remove Channel"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"package COntrol: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 160.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/Temporada.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/js/MisOrganizaciones.js",
+		"/home/chrome/.config/sublime-text-3/Packages/SyntaxHighlightTools/README.rst",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Postulacion/vista/PostulacionDirigida.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Postulacion/js/postulacion.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/gestiontablas.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/TemporadaCurso.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/TemporadasCurso.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/styleDinamic.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/Temporada_Solicitud.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/controlador/recibeTemporada.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/aprobarUsuarioInstituto.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/js/SolicitudesAprobadas.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/js/AprobarInstituto.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/controlador/estadoController.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/js/estado.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/vista/Estado.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_tipoOrganizacion/vista/tipoOrganizacion.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_tipoOrganizacion/controlador/tipoOrganizacionController.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_tipoOrganizacion/js/tipo_Organizacion.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/js/tipo_solicitud.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/js/municipio.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/vista/Municipio.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Estado/controlador/municipioController.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/AsignarTutores.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/Modales.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/Instituto.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/InstitutoConvenio.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/MisOrganizacionesRegistrados.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/Mis_Solicitudes.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/modalOrganizacionesAsociadas.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/ModalsS.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/Solicitudes.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/SolicitudesAprobadas.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/ZConvenio.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/ZPersonaContacto.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/vista/ZSucursal.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Requisito/vista/Requisito.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/ModalTutores.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/Modals.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Periodo_Solicitud/vista/Gestion_Periodo_Solicitud.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Nuevo_Lapso/vista/Gestion_Lapso_Academico.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/modelo/Tipo_Solicitud.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/controlador/Tipo_Solicitud_Controller.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/controlador/recibeTipo_Solicitud.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Departamento/vista/Gestion_Oficina.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/vista/Tipo_Solicitud.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/controlador/reportesController.php",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/modelo/Temporada.php",
+		"/home/chrome/Escritorio/subl",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/TemporadaCurso.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/TemporadasCurso.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/controlador/recibeTemporada.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/modelo/Temporada.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/vista/Tipo_Solicitud.phtml",
+		"/home/chrome/Escritorio/Sistemas_apache/asd.txt",
+		"/home/chrome/.config/sublime-text-3/Packages/User/bh_swapping.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/Base File.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/chrome/.config/sublime-text-3/Packages/Alignment/Default (Linux).sublime-keymap",
+		"/home/chrome/.config/sublime-text-3/Packages/Alignment/Base File.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/Distraction Free.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/PHP.sublime-settings",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/PosiblesModalsEncurso.phtml",
+		"/home/chrome/.config/sublime-text-3/Packages/User/Package Control.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/SyntaxMgr.sublime-settings",
+		"/home/chrome/.config/sublime-text-3/Packages/User/PHPTools.sublime-settings",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Postulacion/modelo/PostulacionDirecta.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Postulacion/controlador/postulacionController.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/vista/aprobarUsuarioInstituto.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Postulacion/vista/PostulacionDirigida.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Postulacion/js/postulacion.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/Temporada.js",
+		"/var/www/html/bootstrap-table-master/index.html",
+		"/home/chrome/Descargas/bootstrap-table-master/index.html",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/js/institucionConvenio.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/js/PersonaConvenio.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/vista/ZPersonaContacto.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/js/AprobarInstituto.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/vista/InstitutoConvenio.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/vista/Modales.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/js/solicitudver.js",
+		"/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Organizacion/js/solicitudver.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Organizacion/vista/aprobarUsuario.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Curriculo_ColorAzul/controlador/Gestion_Curriculo_Controller.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Curriculo_ColorAzul/js/curriculo.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/Temporada_Solicitud.phtml",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/js/tipo_solicitud.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/controlador/recibeTipo_Solicitud.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/modelo/Tipo_Solicitud.php",
+		"/var/www/html/20-01-2016/BASE_DATOS/Conect.php",
+		"/var/www/html/BDNUEBA.backup",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Tipo_Solicitud/controlador/Tipo_Solicitud_Controller.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Requisito/modelo/Requisito.php",
+		"/etc/php5/apache2/php.ini",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Usuario/js/inicio_sesion.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Nuevo_Lapso/js/lapso_academico.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Mantenimiento/controlador/recibeMantenimiento.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Usuario/modelo/mod_usuario.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Periodo_Solicitud/modelo/Periodo_Solicitud.php",
+		"/tmp/fz3temp-1/mod_Orden.php",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/js/gestiontablas.js",
+		"/var/www/html/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/Modals.phtml",
+		"/tmp/fz3temp-1/ctr_Orden.php",
+		"/tmp/fz3temp-1/OrdenConfirmn.php",
+		"/tmp/fz3temp-1/OrdenesConfimadas.js",
+		"/home/chrome/.cache/.fr-VrbKN2/bootstrap-table-examples-master/welcome.html",
+		"/var/www/html/bootstrap-table-master/xample.html",
+		"/tmp/fz3temp-1/Orden.js",
+		"/tmp/fz3temp-1/Panel.php",
+		"/tmp/fz3temp-1/bootstrap.css",
+		"/tmp/fz3temp-1/bootstrap.min.css",
+		"/tmp/fz3temp-1/index.php",
+		"/tmp/fz3temp-1/login.js",
+		"/tmp/fz3temp-1/indexclient.php",
+		"/tmp/fz3temp-1/panel.js",
+		"/tmp/fz3temp-1/Orden.php",
+		"/tmp/fz3temp-1/mod_consulta.php",
+		"/tmp/fz3temp-1/ConBD.php",
+		"/home/chrome/Escritorio/s.js",
+		"/var/www/html/jarvis/Modulos/js/noticiafast.js",
+		"/var/www/html/jarvis/Modulos/vista/index.html",
+		"/var/www/html/jarvis/Modulos/vista/registro_noticia.html",
+		"/var/www/html/jarvis/Modulos/vista/Mini/noticia.html",
+		"/var/www/html/jarvis/Modulos/js/noticia.js",
+		"/var/www/html/comunicacion/inc/js/Usuario.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"//",
+			"id_entregable",
+			";\n",
+			"CrearCampoinline",
+			"value",
+			")$",
+			"entregables",
+			"array",
+			"num",
+			";\n",
+			"key",
+			"entregables",
+			"id_entregable",
+			"AND",
+			",",
+			"id_estudiantes_entregables",
+			"valor_asignaco",
+			"id_estudiantes_entregables",
+			"varificarValoradd",
+			"id_entregable",
+			" . ",
+			"veredicte",
+			"//",
+			"id_entregable",
+			"var",
+			"value",
+			"function",
+			".parent()",
+			"class=",
+			"ActivarCheckbox",
+			"CrearEventoforliSeleccionableSimulandoTablasconLi",
+			"disabled",
+			"nameentregable",
+			"CrearCampoinline",
+			"span",
+			"CrearCampoinline",
+			">'",
+			"input",
+			"CrearCampoinline",
+			"num",
+			"CrearCampoinline",
+			"placeholder",
+			"input",
+			"sql_buscar_Datos_Estudiante",
+			"verificar_existencia_estudiante",
+			"Verificar_existencia_codigo_temporada_especialidad",
+			"Buscar_entregables_este_estudiante",
+			"hover",
+			"fecha_entrega",
+			"</center>",
+			"Entregado",
+			"td",
+			"html",
+			"Entrega",
+			"progres_solvencia",
+			"\"#myTable\"",
+			"Contenido",
+			"tabla",
+			"tablaabrirTemporadas",
+			"index",
+			"badge",
+			"ArmarTabla",
+			"ActualizarTablas",
+			"Rechazad",
+			"br",
+			"//",
+			"tableEstudiantesNoSolventeses",
+			"styleTabla",
+			"str",
+			"ArmarTabla",
+			"\".\"",
+			"ArmarTabla",
+			"str",
+			"ArmarTabla",
+			"\".\"",
+			"str",
+			"ArmarTabla",
+			"tablaindex",
+			"agregar_Resumen",
+			"DarDataTable_Librer",
+			"showselect",
+			"documen",
+			"document",
+			"docume",
+			"table-bordered",
+			"table-hover table-bordered",
+			"<table",
+			"table-hover table-bordered",
+			"<table",
+			"table-hover table-bordered",
+			"table-bordered",
+			"<table",
+			"table",
+			"container",
+			"styl",
+			"resul",
+			"nombre_tipo_solicitud",
+			"codigo_encargado",
+			"SLECET",
+			"codigo_encargado",
+			"buscarTipoSolicitudAutoComplete",
+			";\n",
+			"fila",
+			"codigo_encargado",
+			"rv",
+			"nombre",
+			"tipoSolicitud",
+			"AutocompletetipoSolicitud",
+			"PestanasEstudiantes",
+			"length",
+			"ordenespestaneos[",
+			"ordenespestaneos",
+			" ON",
+			" INNER JOIN",
+			"JOIN",
+			"INNER JOIN",
+			"	AND",
+			"	ON",
+			"ON ",
+			"on ",
+			"ON ",
+			"on",
+			"ON",
+			"label",
+			"fecha_inicio",
+			"hover",
+			"table-bordered",
+			"especialidad"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"UuuuUuuuUUUUUUuu"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "TemporadaCurso.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 74963,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								70267,
+								70267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 37437.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/vista/PosiblesModalsEncurso.phtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5455,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4840,
+								4840
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2583.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/chrome/Escritorio/Sistemas_apache/20-01-2016/MODULOS/Modulo_Temporada_Solicitud/modelo/Temporada.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 118524,
+						"regions":
+						{
+							"bookmarks":
+							{
+								"flags": 144,
+								"icon": "bookmark",
+								"regions":
+								[
+								],
+								"scope": "bookmarks"
+							}
+						},
+						"selection":
+						[
+							[
+								117777,
+								117810
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4
+						},
+						"translation.x": 0.0,
+						"translation.y": 46831.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "untitled.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 167.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

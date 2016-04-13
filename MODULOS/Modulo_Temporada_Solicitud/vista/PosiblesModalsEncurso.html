@@ -1,0 +1,156 @@
+  <div id="modal_detallesSucursal" class="modal fade">   
+
+
+      <div class="modal-dialog">
+            <div class="modal-content">
+             
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title"  align="center">Detalles de Sede</h4>
+
+      </div>
+      
+      <div class="modal-body" >
+      <div  class="panel panel-primary" >  
+          <div class="panel-heading"><h4 class="panel-title">Organización <span class="badge" id="totalEspecialidades"></span></h4></div>
+
+          <div class="panel-body" id="infothesede">
+
+          </div>
+
+          <div class="panel-footer">
+                <ul class="nav nav-pills" role="tablist">
+               
+                <div align="right"><button class="btn btn-primary" disabled="disabled" type="button" id="Reportesedealguienpostulado"><span class="glyphicon glyphicon-download-alt"></span> Reporte</button></div>
+                </ul>
+          </div>
+
+      </div> <!-- PANEL ESPECIALIDADES NO ACORDION -->
+         
+
+      </div>  
+      <div class="modal-footer">
+        <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+        </button>
+    
+      </div>
+
+      
+                
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+  <div id="modal_estudiante_entregables" class="modal fade">   
+
+      <div class="modal-dialog">
+            <div class="modal-content">
+             
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title"  align="center">Entregables - Estudiante</h4>
+
+      </div>
+      
+      <div class="modal-body" >
+      <div id="informacionStudiante"></div>
+
+      <div  class="panel panel-info"  id="panel_noasignados">  
+          <div class="panel-heading"><h4 class="panel-title"> Entregables Por Asignar<span class="badge" id="totalEntregablesEstudiantes_no"></span></h4></div>
+
+          <div class="panel-body" id="id_entregables_no">
+
+          </div>
+
+          <div class="panel-footer">
+                <ul class="nav nav-pills" role="tablist">
+               
+                <div align="right"><button class="btn btn-primary" id="guardar_entregables_estudiante" disabled="disabled" type="button" ><span class="glyphicon glyphicon-edit" ></span> Guardar</button></div>
+                </ul>          
+                <label hidden class=codigo_temporada_especialidad_estudiante_entregable></label>      
+          </div>
+
+      </div> <!-- PANEL Entregables NO ACORDION -->
+
+
+      <div hidden class="panel panel-primary" id="panel_asignados">  
+          <div class="panel-heading"><h4 class="panel-title"> Entregables Asignados<span class="badge" id="totalEntregablesEstudiantes_si"></span></h4></div>
+
+          <div class="panel-body" id="progres_solvencia">
+
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-condensed table-hover compact" cellspacing="0" id="id_entregables_si" style="cursor:pointer ; width : 99% ">
+                <thead>
+                    <tr>
+                        <td><center><label>N#</label></center></td>
+                        <td><center><label>Entregable</label></center></td>
+                        <td><center><label>Entregado</label></center></td>
+                        <td><center><label>Detalle</label></center></td>
+                    </tr>
+
+                </thead>
+                <tbody>
+                  
+                </tbody>
+            </table>
+          </div>
+          <label hidden class="codigo_estudiante_para_entregableAsignacion"></label>
+      </div> <!-- PANEL ESPECIALIDADES NO ACORDION -->
+         
+
+      </div>  
+      <div class="modal-footer">
+        <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+        </button>
+    
+      </div>
+      
+                
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+          $("#guardar_entregables_estudiante").click(function(){
+            
+            var idsEntregables = Array(); 
+
+            $(".toggle-demo-check:checked").each( function(index , values){
+
+                algo  = $(this).parent(); 
+               
+                thing = algo.parent();
+               
+                padre = thing.parent();
+                
+                id_Entregable = padre.find('label[class=id_entregableAsiiiiiiiiii]');
+                
+                valorAdd      = $(this).parent().parent().find('.form-control').val();
+
+                veredicte     = false ; if (valorAdd.length>0) veredicte = true ;
+                
+                idsEntregables[index]=  
+                {
+                  id_entregable       : id_Entregable.html(),
+                  Verificar_asignacion: veredicte , 
+                  ValorEntregable     : valorAdd
+                };
+                
+            });
+             
+              var codigo_estudiante = $(".codigo_estudiante_para_entregableAsignacion").html();
+             
+              if(idsEntregables.length>0)  AsignarEstosEntregables_a_estudiantes( idsEntregables, codigo_estudiante);
+             
+              else Mensajes( ' Seleccione uno o varios de la lista ' );
+            
+          });
+        });
+
+    </script>

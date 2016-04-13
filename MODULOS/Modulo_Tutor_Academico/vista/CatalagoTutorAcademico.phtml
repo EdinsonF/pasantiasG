@@ -1,0 +1,147 @@
+<?php
+session_start();
+
+if(isset($_SESSION['id_perfil'])){
+$id_perfil=$_SESSION['id_perfil'];
+$nombre_perfil=$_SESSION['nombre_perfil'];
+$nombre_organizacion =  $_SESSION['nombre_instituto'];
+$nombre_persona = $_SESSION['persona'];
+$ID_INSTITUCION=$_SESSION['ID_INSTITUCION'];
+}else { 
+$id_perfil=1;
+$nombre_perfil="Menu Principal";
+}
+?>
+
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pasantias</title>
+
+ <!--   Mensajes-->
+
+    <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
+    <link rel="stylesheet" href="../js/dist/css/animate.min.css">
+   
+   <!--  FIN  Mensajes-->
+
+  <!--    MENU CUERPO-->
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+  <script src="../../../Menus/bootstrap/js/jquery-1.10.2.min.js"></script>
+  
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+  
+   <link rel="stylesheet" href="../js/sweetalert-master/lib/sweet-alert.css">
+  <script type="text/javascript" src="../js/sweetalert-master/lib/sweet-alert.js"></script>
+   <script type="text/javascript" src="../js/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+  <script language='javascript' src="../js/validaciones.js"></script> 
+
+
+
+
+
+
+  </head>
+
+  <body style="padding-top: 20px;">
+
+    
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+    
+
+
+<div align="center">
+  <table width="70%">
+    <tr>
+    <td>
+          
+      <table class="table table-bordered"  >
+          <tr class="well">
+          <td>
+                      <center><strong>Tutores Acadèmico</strong></center>
+          </td>
+          </tr>
+      </table>
+            
+           
+          
+            
+            <!--TABLA DE LOS REGISTROS-->
+            <table class="table table-bordered" id="Table_t" width="100%">
+               
+            		<thead>
+                                <tr class="well">
+                                    <td ><strong ><center>Cèdula</center></strong></td>
+                                    <td><strong><center>Nómbre</center></strong></td>
+                                    <td><strong><center>Apellido</center></strong></td>
+                                    <td><strong><center>Especialidad</center></strong></td>
+                                    
+                         
+                                 </tr>
+                </thead>
+                    <tbody>
+
+
+            </table>
+    </td>
+    </tr>
+  </table>
+</div>
+
+
+<!--PAGINADOR-->
+    <script src="../js/js_tabla/jquery.dataTables.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('#Table_t').dataTable();
+    });
+  </script>
+    <script src='../js/js_tabla/tablesort.min.js'></script>
+
+  <script>
+      new Tablesort(document.getElementById('table-id'));
+    </script>
+     <link href="../js/js_tabla/jquery.dataTables.css" rel="stylesheet">
+  
+<script src='../js/estudiante.js'></script>
+         <!--   Mensajes-->
+ <script src="../js/dist/js/jquery.amaran.min.js"></script>
+ <script src="../js/dist/js/jquery.amaran.js"></script>
+   <!--  FIN  Mensajes-->
+</body></html>

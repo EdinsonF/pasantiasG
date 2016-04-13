@@ -1,0 +1,130 @@
+  <div id="modal_tutors" class="modal fade" > 
+
+
+      <div class="modal-dialog">
+            <div class="modal-content">
+               
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title"  align="center">Elige un Tutor Acad&eacute;mico</h4>
+
+      </div>
+      <input type="hidden" id="codigocaleta" style="display:none">
+      <div class="modal-body" align="center">
+
+              <center>
+               
+                    
+                   <div class="table-responsive">
+                <table class="table table-striped table-hover compact" cellspacing="0" id="tableTutors" style="cursor:pointer ; width:99%">
+                    <thead >
+                         <tr>
+                             <td hidden>
+                               <center><label> C&eacute;dula</label></center>
+                             </td>                             
+                             <td>
+                               <center><label> C&eacute;dula</label></center>
+                             </td>
+                             <td>
+                               <center><label> Nombre</label></center>
+                             </td>
+                             <td>
+                               <center><label> Apellido</label></center>
+                             </td>
+                             <td >
+                               
+                             </td>
+                             <td style="display:none" width="0">
+                                
+                             </td>
+                         </tr>                         
+                    </thead>                        
+                </table>
+                    </div>
+               
+              </center>
+
+      </div>  
+      <div class="modal-footer">
+        <button  class="btn btn-default" id="arr" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+        </button>
+        <button  class="btn btn-primary" id="ass" disabled="true" data-dismiss="modal" aria-hidden="true"><strong>Asignar Tutor</strong>
+        </button>    
+      </div>
+                
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  <script type="text/javascript">prepararTablaTutores();
+    $("#arr").click(function(){
+          $("#ass").attr('disabled',true);
+    });  
+    $("#ass").click(function(){
+      
+        if($('.tutor:checked').closest("tr").find('td').eq(5).text() == '' ) swal('Upss',' Como te Dicen? el código del Tutor no se encontró  en esta posicion de la tabla!','error');
+        else {
+            VerificandoEcistenciaDelTutor($('.tutor:checked').closest("tr").find('td').eq(5).text());
+        }
+        
+        
+    });   
+
+  </script>
+
+
+ <div id="modal_tutorsMostrar" class="modal fade" > 
+
+
+      <div class="modal-dialog">
+            <div class="modal-content">
+               
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title"  align="center" id="titleTutor">Tutor(es) Acad&eacute;mico(s)</h4>
+
+      </div>
+      <input type="hidden"  style="display:none">
+      <div class="modal-body" align="center">
+
+              <center>
+               
+                    
+                   <div class="table-responsive">
+                <table class="table table-striped  table-hover  compact" cellspacing="0" id="tutoresDisponiblesTemporada" style="cursor:pointer ; width:99%">
+                    <thead >
+                         <tr>
+                             <td hidden>
+                               <center><label> C&eacute;dula</label></center>
+                             </td>                             
+                             <td>
+                               <center><label> C&eacute;dula</label></center>
+                             </td>
+                             <td>
+                               <center><label> Nombre</label></center>
+                             </td>
+                             <td>
+                               <center><label> Apellido</label></center>
+                             </td>
+                             <td>
+                               <center></center>
+                             </td>
+                             <td hidden>
+                               <center></center>
+                             </td>
+
+                         </tr>                         
+                    </thead>                        
+                </table>
+                  </div>  
+               
+              </center>
+
+      </div>  
+      <div class="modal-footer">
+        <button  class="btn btn-default"  data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong></button>
+         <button  class="btn btn-primary" disabled="disabled" ><span class="glyphicon glyphicon-download-alt"></span> Reporte</button>         
+      </div>
+                
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

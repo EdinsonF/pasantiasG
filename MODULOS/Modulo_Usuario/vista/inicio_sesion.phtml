@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pasantias</title>
+
+<!--    MENU CUERPO-->
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.10.2.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+
+     
+  <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+  <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+  </head>
+
+  <body style="padding-top: 20px;">
+
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+
+
+$persona->menu(1, "Menú Principal" ,'','');
+?>
+ 
+<!-- Fin De MENU-->
+
+<div align="center">
+        <div style="width: 30%">
+        <table class="table table-bordered">
+          <tr class="well">
+              <td><h4 align="center">Inicio Sesión</h4></td>
+            </tr>
+          <tr>
+            <td>
+                        <!--
+                        <form name="form" action="../controlador/iniciar_sesion.php" method="post">
+                        -->
+                                       <center>                           
+                            <input type="hidden" id="num" name="num" value="1" placeholder="Usuario" autocomplete="off" width="95%" maxlength="10" required><br>    
+                              
+                             
+                              <strong>Usuario:</strong><br>
+                              <input type="text" id="usuario" name="usuario" value="" class="form-control" placeholder="Usuario" autocomplete="off" width="95%" maxlength="10" required><br>    
+                              <strong>Contraseña:</strong><br>
+                              <input type="password" id="contrasena" name="contrasena" value="" class="form-control" placeholder="Contraseña" autocomplete="off" width="95%" maxlength="8" required><br>
+                                <!-- inicio del captcha -->
+                                
+
+                              <input type="submit" id="ingresar" value="Ingresar" class="btn btn-lg btn-primary btn-block">
+                  </center>
+
+                     <!-- </form>  -->
+                </td>
+          </tr>
+        </table>
+    </div></div>
+
+
+    <script src="../js/inicio_sesion.js"></script>
+
+    <div id="Modals" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3  align="center">Elije una Organizaci&oacute;n<br></h3>
+    <h4 id="Personad"></h3>
+    </div>
+    <div class="modal-body" align="center">
+    <input type="hidden"  id="id_persona" value="">
+    <table class="table table-bordered"  id="myTable">
+
+    <thead>
+      <tr>
+
+          <td><center> <strong> Perf&iacute;l</strong> </center> 
+            
+          </td>
+          <td><center> <strong> Organizaci&oacute;n</strong> </center> 
+            
+          </td>   
+          <td><center> <strong> Estado - Municipio</strong> </center>           
+       
+      </tr>
+    </thead>
+
+    </table>
+
+    </div>  
+    <div class="modal-footer">
+    <button  class="btn" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+    </button>
+  
+    </div>
+    </div>
+  
+
+</body></html>

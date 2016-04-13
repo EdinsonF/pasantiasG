@@ -1,0 +1,16 @@
+
+RewriteEngine on
+#4 variables
+Rewriterule ^(.*)/(.*),(.*)/(.*),(.*)/(.*),(.*)/(.*),(.*)/$ $1.php?$2=$3&$4=$5&$6=$7&$8=$9
+Rewriterule ^(.*)/$ $1.phtml
+#3 variables
+Rewriterule ^(.*)/(.*),(.*)/(.*),(.*)/(.*),(.*)/$ $1.php
+#2 variables
+Rewriterule ^(.*)/(.*),(.*)/(.*),(.*)/$ $1.php?$2=$3&$4=$5
+#1 variable
+Rewriterule ^(.*)/(.*),(.*)/$ $1.php?$2=$3
+#otherexample
+Rewriterule ^03-11-2015/MODULOS/Modulo_temporada_Solicitud/vista/ejemplo.php?id =$1
+
+
+Rewriterule ^(.*)/03-11-2015/MODULOS/Modulo_temporada_Solicitud/vista/ejemplo.php?id =$1&title=$2

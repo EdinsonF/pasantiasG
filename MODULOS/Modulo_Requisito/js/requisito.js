@@ -321,7 +321,8 @@ $.amaran({
         position       :'bottom right',
 
         cssanimationIn : 'bounceInUp',
-        cssanimationOut: 'rollOut'
+        cssanimationOut: 'rollOut',
+        clearAll       : true 
 
 });
 
@@ -339,7 +340,8 @@ $.amaran({
         position       :'bottom right',
 
         cssanimationIn : 'bounceInUp',
-        cssanimationOut: 'rollOut'
+        cssanimationOut: 'rollOut',
+        clearAll       : true 
 
 });
 
@@ -358,7 +360,8 @@ $.amaran({
         position       :'bottom right',
 
         cssanimationIn : 'bounceInUp',
-        cssanimationOut: 'rollOut'
+        cssanimationOut: 'rollOut',
+        clearAll       : true 
 
 });
 }
@@ -377,7 +380,8 @@ $.amaran({
             position       :'bottom right',
 
             cssanimationIn : 'bounceInUp',
-            cssanimationOut: 'rollOut'
+            cssanimationOut: 'rollOut',
+            clearAll       : true 
 
 });
 }

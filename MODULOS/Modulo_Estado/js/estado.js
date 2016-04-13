@@ -578,38 +578,7 @@ function restablecerForm()
 
 }
 
-function MensajeRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Operacion Exitoso'
-                   },
-                   theme          :'colorful',
 
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-
-}
-
-function MensajeNoRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Estado No Registrado'
-                   },
-                   theme          :'colorful',
-
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-}
 function MensajeDatosNone()
 {
 
@@ -623,8 +592,9 @@ $.amaran({
         theme          :'colorful',
         position       :'bottom right',
 
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
 
 });
 }
@@ -641,7 +611,8 @@ function MensajeNombreCorto(){
 
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'bottom right'
+                   position       :'bottom right',
+                   clearAll       : true
                 });
     }
 
@@ -656,8 +627,9 @@ function MensajeModificarNone()
             theme          :'colorful',
             position       :'bottom right',
 
-            cssanimationIn : 'swing',
-            cssanimationOut: 'bounceOut'
+            cssanimationIn : 'bounceInRight',
+            cssanimationOut: 'bounceOut',
+            clearAll       : true
 
     });
 
@@ -677,7 +649,8 @@ function MensajeEsteRegistroYaExiste(codigo, nombre)
 
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'bottom right'
+                   position       :'bottom right',
+                   clearAll       : true
                 });
 
 }
@@ -694,7 +667,8 @@ function MensajeEsteDatoYaExiste()
 
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'bottom right'
+                   position       :'bottom right',
+                   clearAll       : true
                 });
 
 }

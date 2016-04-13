@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -843,4 +844,425 @@ include("../../Modulo_Usuario/modelo/mod_usuario.php");
 
                 
 >>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
+=======
+<?php
+session_start();
+
+  if(isset($_SESSION['id_perfil'])){
+      $id_perfil            = $_SESSION['id_perfil'];
+      $nombre_perfil        = $_SESSION['nombre_perfil'];
+      $nombre_organizacion  = $_SESSION['nombre_instituto'];
+      $nombre_persona       = $_SESSION['persona'];
+      $codigo_encargado     = $_SESSION['codigo_encargado'];
+      $codigo_sucursal      = $_SESSION['codigo_sucursal'];
+  }else { 
+      $id_perfil      = 1;
+      $nombre_perfil  = "Menú Principal";
+  }
+?>
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pasantias</title>
+
+ <!--   Mensajes-->
+
+    <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
+    <link rel="stylesheet" href="../js/dist/css/animate.min.css">
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+ 
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/typeahead.css"> 
+ 
+
+
+
+   <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-toggle.min.css"> 
+  <!-- Bootstrap JS -->
+<style>
+        /* Extra styles to adjust Typeahead */
+    
+.icon:hover {
+    background-color: #337AB7;
+    border-color    : #337AB7;
+    color           : #ffffff;
+    border-radius   : 4px;
+}
+
+.bordeonion:hover{
+  
+  border       : 1px solid #337AB7 ; 
+  border-radius: 4px;
+}
+
+</style>
+
+  <script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+  <script src="../../../Menus/bootstrap/js/bootstrap.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/js/bootstrap.js" defer=""></script>
+ 
+  
+
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+
+  <script src="../../../Menus/bootstrap/js/modal.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/js/alert.js" ></script>
+  <script src="../../../Menus/bootstrap/js/typeahead.js" ></script> 
+  <script src="../../../Menus/bootstrap/js/tooltip.js" ></script>
+  <script src="../../../Menus/bootstrap/js/bootstrap-toggle.min.js" ></script> 
+  <script src="../../../Menus/bootstrap/js/popover.js" ></script>
+
+
+  <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+  <script src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+  <script src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+
+<!-- AWESOME -->
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/Awesome/css/font-awesome.min.css">
+
+<!-- AWESOME -->
+
+  </head>
+
+  <body style="padding-top: 20px;">
+
+<!--inicio del menu -->
+
+<?php
+//include('../controlador/Periodo_Solicitud_Controller.php');
+include("../../../BASE_DATOS/Conect.php");
+    $conexionBD = new Conexion();
+    $conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+    $persona= new usuarios();
+
+    if($id_perfil== 1){
+      
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+      echo '<label hidden id=codigo_encargado>'.$_SESSION['codigo_encargado'].'</label >';
+    }
+    
+?>
+
+<!-- Fin De MENU-->
+
+
+<div align="center">
+        <div style="width:60%">
+
+              <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs nav-justified">
+
+        <li class="active" id="tabmaestrio" data-target="#tab1" data-toggle="tab" ><a id='litab1' ><strong>Registrar Temporada</strong></a>
+        </li>
+
+        <li id="tabasasignarespecialidades" data-target="#tab3" data-toggle="tab" ><a  id='litab2'><strong>Asignar Especialidades</strong></a>
+        </li>                
+        <li id="tabasgnaratemp" data-target="#tab2" data-toggle="tab"><a id='litab3' ><strong>Asignar Estudiantes</strong></a>
+        </li>
+        <li id="tabAbrirTemporadas"  data-target="#tab4"  data-toggle="tab"><a id='litab4'><strong>Abrir Temporada</strong></a>
+        </li>        
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+              
+		<div class="tab-pane active" id="tab1">
+
+        <table class="table table-bordered">
+          <tr class="well">
+              <td>
+			  <h4 align="center">Temporada de Solicitud</h4>
+			  </td>
+          </tr>
+		   <tr>
+             
+			  <input type="hidden" id="encargado" name="encargado"  autocomplete="off"  required value="<?php echo $codigo_encargado ?>"/> 
+                <input type="hidden" id="codigo_sucursal" name="encargado"  autocomplete="off" disabled="true" required value="<?php echo $codigo_sucursal ?>"/>
+			</tr>
+          <tr>
+            <td>
+
+                            <center>
+                            <div class="row-fluid">
+                              <div class="span6">
+                                <strong> Periodo de Solicitud:</strong><br>
+                                    <select id="periodo" class="form-control" name="fecha_inicio"  required>   
+                                    </select>
+            									  <font color="red" size="2">*</font><br>
+
+                   							<strong>Lapso Acad&eacute;mico:</strong><br>
+                                <input type="text" id="lapso"  name="lapso" value="" autocomplete="off" disabled="true" required>
+
+                              <font color="red" size="2">*</font><br>  
+            									<br>
+									  
+									            </div>
+									  <div class="span6">
+                         <strong>Tipo de Solicitud:</strong><br>
+                          <select id="tipo_solicitud" class="form-control"  name="tipo_solicitud"  required>   
+                                    
+                          </select><font color="red" size="2">*</font><br>
+
+                  <strong>Requiere de Tutores:</strong>  
+                 <br>
+                  <input id="description" type="checkbox" class=toggle-demo-check data-width="205" disabled>
+                  <font color="red" size="2">*</font><br> 
+                             
+
+                                <strong>Estatus:</strong><br>
+
+                                    <select id="estatus" class="form-control"  name="estatus" required ><br><br>
+                                      <option value="" >Seleccione..</option>
+                                      <option value="ACTIVO" >ACTIVO</option>
+                                      <option value="INACTIVO" >INACTIVO</option>
+                                    </select>
+
+                                <font color="red" size="2">*</font><br>
+                      </div>
+                            
+
+                      </div><br>
+                    
+                      <center>
+                      <input type="button" id="Registrar" value="Registrar"  class="btn btn-primary btn-large" name="Registrar" >
+
+                      <input type="button" id="Modificar" value="Modificar"  class="btn btn-primary btn-large" disabled="true" >
+                      
+                      <input type="button" id="Cancelar" class="btn btn-primary btn-large" name="Cancelar" value="Cancelar" disabled="true"/>
+
+                      <input type="button" id="Reporte" value="Reporte"  class="btn btn-primary btn-large" name="Reporte" >
+                      </center> 
+                    
+                    </center>
+                </td>
+          </tr>
+        </table>
+
+       </div>
+       <div class="tab-pane " id="tab2">
+        <div class="row-fluid">
+             	
+            <table class="table table-bordered" >
+                  
+                  <tr class="well">
+                    <td > 
+
+          			     <h4 align="center">Mis Temporadas de Solicitud Preparadas</h4>
+
+                    </td>
+                  </tr>
+
+            </table>
+
+              <div class="table-responsive">
+      		      <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0" id="Asignacion" style="cursor :pointer ; width:100%">
+                    
+                    <thead>
+                    
+                    <tr>
+
+                      <th hidden></th>
+                      
+                      <th>Tipo Solicitud</th>
+                      
+                      <th>Periodo</th>                    
+                      
+                      <th>Estatus</th>   
+                      
+                      <th >Detalles</th>
+                      
+                    </tr>
+                    
+                    </thead>                      
+                </table> 
+              </div>
+        </div>
+       </div>
+       <div class="tab-pane" id="tab3">
+            <div class="row-fluid">
+                
+                  <table class="table table-bordered"  >
+                    <tr class="well">
+                      
+                      <td >
+                      
+                         <h4><center>Mis Temporadas Registradas</center></h4>
+                      
+                      </td>
+                    </tr>
+
+                  </table>
+
+                      <!--TABLA DE LOS REGISTROS-->
+                <div class="table-responsive">
+                  
+                    <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0" id="tablaforespecialidades" style="cursor :pointer; width:99% ">
+                    <thead>
+                    <tr>
+                         
+                         <th hidden> </th>
+
+                         <th> Tipo Solicitud</th>
+                         
+                         <th> Periodo </th>
+                         
+                         <th> Estatus</th>
+                         
+                         <th> Detalles</th>                         
+                         
+                    
+                    </tr>
+                    </thead>
+
+                          
+                    </table> 
+                    </div>
+            </div>
+       </div>
+
+<!-- OTRA PESTAÑA PARA AGREGAR  EL ESTATUS EN CURSO YES .... --> 
+
+
+       <div class="tab-pane" id="tab4">
+          <div class="row-fluid">
+                
+                <table class="table table-bordered"  >
+
+                    <tr class="well">
+                    <td >
+                              <h4><center> Temporadas Preparadas</center></h4>
+                    </td>
+                    </tr>
+
+                </table>
+
+                      <!--TABLA DE LOS REGISTROS-->
+                <div class="table-responsive">
+  
+                    <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="tablaabrirTemporadas" style="cursor :pointer ; width:99%">
+                    <thead>
+                      <tr>
+                      
+                      <th hidden></th>
+
+                      <th> Tipo Solicitud</th>
+
+                      <th> Periodo</th>
+                      
+                      <th> Estatus</th>
+                      
+                      <th> Detalles</th>
+
+                      </tr>
+                    </thead>
+                          
+                    </table>
+                </div> 
+
+          </div>
+       </div>      
+
+       </div>
+       </div>
+
+
+
+    </div>
+           <div id="tablatrampa" style="width:70%">
+           <table class="table table-bordered"  id="myTabletiblte">
+              <tr class="well">
+              <td>
+                  <h4><center>Temporadas Registradas</center></h4>
+              </td>
+              </tr>
+           </table>
+            
+            <!--TABLA DE LOS REGISTROS-->
+            <div class="table-responsive">
+                      <table class="table table-striped table-hover dt-responsive nowrap compact" cellspacing="0"  id="myTable" style="cursor :pointer ; width :100% ">
+
+                      <thead>
+                      <tr>
+                        <th hidden ></th>
+
+                        <th >Encargado</th>
+                        
+                        <th >Tipo </th>
+                        
+                        <th >Periodo</th>
+                        
+                        <th >Estatus</th>
+                        
+                        <th ></th>
+                        
+                       
+                      </tr>
+                      </thead>
+                            
+                      </table> 
+            </div>
+
+          </div>
+          
+          <div id="tablamistemporadaespecialidad" style="width:70%">
+
+          </div>
+    </div>
+            
+                    
+    <?php
+    include('Modals.html');
+  	?>
+
+  <!-- Estilo De Selects Very Good -->
+
+<link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-select/css/jquery.selectBoxIt.css">
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery-ui-1.8.23.custom.min.js" defer=""></script> 
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery.selectBoxIt.min.js" defer=""></script>
+
+  <!-- Estilo De Selects Very Good -->
+    
+       <!--PAGINADOR-->
+
+
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+    <script src="../js/dist/js/jquery.amaran.min.js"></script>
+    <script src="../js/dist/js/jquery.amaran.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/letrasNunmers.js"></script>
+    <script src="../js/EvaluarPalabra.js"></script>
+  
+    <script type="text/javascript" src="../js/gestiontablas.js"></script>
+    <script type="text/javascript" src="../js/Temporada.js"></script>
+
+                
+>>>>>>> jesus
 </body></html>

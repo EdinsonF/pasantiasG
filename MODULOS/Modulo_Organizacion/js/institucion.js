@@ -252,43 +252,6 @@ function restablecerFormulario()
 
 }
 
-function MensajeCamposVacios()
-{
-
-
-$.amaran({
-        content        :{
-        bgcolor        :'#0066CC',
-        color          :'#fff',
-        message        :'Campos Vacíos'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-        
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
- 
-});
-}
-
-function MensajeRegistrado()
-{
-$.amaran({
-           content        :{
-           bgcolor        :'#0066CC',
-           color          :'#fff',
-           message        :'Operacion Exitosa'
-           },
-           theme          :'colorful',
-           
-           cssanimationIn :'bounceInRight',
-           cssanimationOut:'rollOut',
-           position       :'top right'
-        });
-
-}
-
-
 function BuscarLlenarSelects()
 {
     $.ajax({

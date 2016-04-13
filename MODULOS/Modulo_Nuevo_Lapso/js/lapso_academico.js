@@ -387,70 +387,6 @@ function Renderidng_select()
 }
 
 
-function MensajeRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Operación Exitosa'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-
-}
-
-function MensajeNoRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Lapso Academico No Registrado'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-}
-function MensajeModificado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Operación Exitosa'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-        });
-}
-function MensajeNoModificado()
-{
-
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Lapso Academico No Modificado'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-}
-
 function MensajeDatosNone()
 {
 
@@ -459,13 +395,14 @@ $.amaran({
         content        :{
         bgcolor        :'#0066CC',
         color          :'#fff',
-        message        :'Campos Vacios'
+        message        :'Campos Vacíos'
         },
         theme          :'colorful',
         position       :'bottom right',
         
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 
@@ -486,8 +423,9 @@ $.amaran({
         theme          :'colorful',
         position       :'bottom right',
         
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 }
@@ -506,8 +444,9 @@ $.amaran({
         theme          :'colorful',
         position       :'bottom right',
         
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
  }

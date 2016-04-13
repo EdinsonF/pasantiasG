@@ -375,7 +375,7 @@ function styleTabla( id_tabla){
             {   
                 var column_num = parseInt( $(this).index() ) + 1;
                  if((column_num==2) && ( $(".sucursal",this).text() !='') ) 
-                 {
+                 {  
                     datosSucursal($(".sucursal",this).text());
                     $("#modal_detallesSucursal").modal('show');
                  }

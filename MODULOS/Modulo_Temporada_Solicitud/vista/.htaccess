@@ -13,4 +13,4 @@ Rewriterule ^(.*)/(.*),(.*)/$ $1.php?$2=$3
 Rewriterule ^03-11-2015/MODULOS/Modulo_temporada_Solicitud/vista/ejemplo.php?id =$1
 
 
-Rewriterule ^(.*)/03-11-2015/MODULOS/Modulo_temporada_Solicitud/vista/ejemplo.php?id =$1&title=$2
+Rewriterule ^(.*)/pasantiasG/MODULOS/Modulo_temporada_Solicitud/vista/ejemplo_Vistas.php

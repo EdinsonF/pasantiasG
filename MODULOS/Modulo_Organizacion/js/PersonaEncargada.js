@@ -369,7 +369,8 @@ $.amaran({
         position       :'bottom right',
         
         cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 }
@@ -387,7 +388,8 @@ function MensajeDinamico(mensaje)
         position       :'bottom right',
         
         cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 }
@@ -406,7 +408,8 @@ $.amaran({
         position       :'bottom right',
         
         cssanimationIn : 'bounceInUp',
-        cssanimationOut: 'rollOut'
+        cssanimationOut: 'rollOut',
+        clearAll       : true
  
 });
 }
@@ -425,7 +428,8 @@ $.amaran({
         position       :'bottom right',
         
         cssanimationIn : 'bounceInUp',
-        cssanimationOut: 'rollOut'
+        cssanimationOut: 'rollOut',
+        clearAll       : true
  
 });
 }
@@ -442,7 +446,8 @@ function MensajeRegistrado()
                    
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'top right'
+                   position       :'top right',
+                   clearAll       : true
                 });
 
 }
@@ -460,7 +465,8 @@ function MensajeNoRegistrado()
                    
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'top right'
+                   position       :'top right',
+                   clearAll       : true
                 });
 
 }
@@ -478,7 +484,8 @@ function MensajeNoUsuario()
                    
                    cssanimationIn :'bounceInRight',
                    cssanimationOut:'rollOut',
-                   position       :'bottom right'
+                   position       :'bottom right',
+                   clearAll       : true
                 });
 
 }

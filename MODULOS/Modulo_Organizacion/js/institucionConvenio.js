@@ -1246,7 +1246,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
  
 });
 
@@ -1266,7 +1266,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
  
 });
 }
@@ -1284,7 +1284,7 @@ $.amaran({
            cssanimationIn :'bounceInRight',
            cssanimationOut:'rollOut',
            position       :'top right',
-           'clearAll'     :true
+           clearAll       :true
         });
 
 }
@@ -1304,7 +1304,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
  
 });
 }
@@ -1324,7 +1324,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
  
 });
 return nombreEstado;
@@ -1343,7 +1343,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
 });
 }
 
@@ -1360,7 +1360,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
 });
 
 }
@@ -1378,7 +1378,7 @@ function MensajedomicilioSucursal()
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
 });
 }
 
@@ -1397,7 +1397,7 @@ $.amaran({
         
         cssanimationIn : 'bounceInUp',
         cssanimationOut: 'rollOut',
-        'clearAll'     :true
+        clearAll       :true
  
 });
 }
@@ -1420,7 +1420,7 @@ $.amaran({
             'closeOnClick' :false,
             cssanimationIn : 'bounceInUp',
             cssanimationOut: 'rollOut',
-            'clearAll'     :true
+            clearAll       :true
  
 });
     

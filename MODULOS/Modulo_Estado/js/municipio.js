@@ -558,69 +558,7 @@ $(".municipio td").mouseout(function() {
 });
  });
 
-function MensajeRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Operacion Exitoso'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
 
-}
-
-function MensajeNoRegistrado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Municipio No Registrado'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-}
-function MensajeModificado()
-{
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Operacion Exitoso'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-        });
-}
-function MensajeNoModificado()
-{
-
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'Municipio No Modificado'
-                   },
-                   theme          :'colorful',
-                   
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'top right'
-                });
-}
 
 function MensajeDatosNone()
 {
@@ -635,8 +573,9 @@ $.amaran({
         theme          :'colorful',
         position       :'bottom right',
         
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 
@@ -656,8 +595,9 @@ $.amaran({
         theme          :'colorful',
         position       :'bottom right',
         
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
+        cssanimationIn : 'bounceInRight',
+        cssanimationOut: 'bounceOut',
+        clearAll       : true
  
 });
 

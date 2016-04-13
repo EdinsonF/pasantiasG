@@ -1129,65 +1129,135 @@ class organizacion
 
 	function cargarSolicitudesAprobadasOrganizacion($codigo_encargado)
 	{
-			$sql =pg_query(" SELECT SucursalEnviada.* ,solicitudes_enviadas.valor as persona FROM  (SELECT estudianteSolicitud.*  ,solicitudes_enviadas.valor as sucursal FROM  
+			return pg_query(" SELECT SucursalEnviada.* ,solicitudes_enviadas.valor as persona 
 
-				( SELECT persona.nombre ||'  '|| persona.apellido as estudiante , persona.telefono
-				,persona.correo , solicitud.codigo_solicitud 
-				FROM pasantias.encargado INNER JOIN pasantias.temporadas_solicitud 
+				FROM  (SELECT estudianteSolicitud.*  ,solicitudes_enviadas.valor as sucursal FROM  
+
+				( SELECT 
+
+				persona.nombre ||'  '|| persona.apellido as estudiante , 
+
+				persona.telefono,
+				
+				persona.correo , 
+
+				solicitud.codigo_solicitud 
+
+			FROM pasantias.encargado INNER JOIN pasantias.temporadas_solicitud 
+				
 				ON encargado.codigo_encargado =  temporadas_solicitud.codigo_encargado
+				
 				AND encargado.codigo_encargado='$codigo_encargado'
-				INNER JOIN pasantias.temporadas_especialidad 
+				
+			INNER JOIN pasantias.temporadas_especialidad 
+				
 				ON temporadas_solicitud.codigo_temporada =temporadas_especialidad.codigo_temporada 
-				INNER JOIN pasantias.solicitud 
+				
+			INNER JOIN pasantias.solicitud 
+				
 				ON solicitud.codigo_temporada_especialidad = temporadas_especialidad.codigo_temporada_especialidad
-				INNER JOIN pasantias.solicitudes_recibidas 
+				
+			INNER JOIN pasantias.solicitudes_recibidas 
+				
 				ON solicitudes_recibidas.codigo_solicitud = solicitud.codigo_solicitud 
+				
 				AND solicitudes_recibidas.estatus='APROBADO ORGANIZACION'
-				INNER JOIN pasantias.estudiante 
+				
+			INNER JOIN pasantias.estudiante 
+				
 				ON solicitudes_recibidas.valor = estudiante.codigo_estudiante 
-				INNER JOIN pasantias.temporadas_estudiantes 
+				
+			INNER JOIN pasantias.temporadas_estudiantes 
+				
 				ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante 
+				
 				AND temporadas_estudiantes.codigo_temporada_especialidad=temporadas_especialidad.codigo_temporada_especialidad
-				INNER JOIN pasantias.persona_instituto_especialidad 
+				
+			INNER JOIN pasantias.persona_instituto_especialidad 
+				
 				ON persona_instituto_especialidad.id_persona = estudiante.id_persona
+				
 				AND persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+				
 				AND persona_instituto_especialidad.id_ip = estudiante.id_ip
+				
 				AND persona_instituto_especialidad.id_perfil = estudiante.id_perfil
-				INNER JOIN pasantias.persona ON persona.id_persona =persona_instituto_especialidad.id_persona ) as estudianteSolicitud
-				INNER JOIN pasantias.solicitudes_enviadas 
-				ON estudianteSolicitud.codigo_solicitud = solicitudes_enviadas.codigo_solicitud
-				AND solicitudes_enviadas.table_column='organizacionmunicipio.codigo_sucursal') as SucursalEnviada
-				INNER JOIN pasantias.solicitudes_enviadas 
-				ON SucursalEnviada.codigo_solicitud =solicitudes_enviadas.codigo_solicitud
-				AND solicitudes_enviadas.table_column='persona.id_persona' ;");
-				return $sql;
+				
+			INNER JOIN pasantias.persona 
+
+			ON persona.id_persona =persona_instituto_especialidad.id_persona 
+
+			) as estudianteSolicitud
+				
+		INNER JOIN pasantias.solicitudes_enviadas 
+				
+			ON estudianteSolicitud.codigo_solicitud = solicitudes_enviadas.codigo_solicitud
+				
+			AND solicitudes_enviadas.table_column='organizacionmunicipio.codigo_sucursal'
+
+		) as SucursalEnviada
+				
+	INNER JOIN pasantias.solicitudes_enviadas 
+				
+		ON SucursalEnviada.codigo_solicitud =solicitudes_enviadas.codigo_solicitud
+				
+		AND solicitudes_enviadas.table_column='persona.id_persona' ;");
+				
+
 	}
+
 
 
 
 
 	function buscarDatosSucursal($codigo_sucursal)
 	{
-		$sql =pg_query("SELECT  organizacion.nombre_organizacion , organizacion.rif ,
-			organizacion.descripcion ,tipo_organizacion.nombre_tipo_organizacion,
-			CASE WHEN organizacion.siglas ='' then 'SIN SIGLAS' ELSE organizacion.siglas END ,
-			organizacionmunicipio.observacion,domicilio, municipio.nombre_municipio
-			,estado.nombre_estado 
+		$sql =pg_query("SELECT  
+
+		organizacion.nombre_organizacion , 
+
+		organizacion.rif ,
+		
+		organizacion.descripcion ,
+
+		tipo_organizacion.nombre_tipo_organizacion,
+
+		CASE WHEN organizacion.siglas ='' then 'SIN SIGLAS' ELSE organizacion.siglas END ,
+		
+		organizacionmunicipio.observacion,
+
+		domicilio, 
+
+		municipio.nombre_municipio,
+
+		estado.nombre_estado 
 			
-			FROM pasantias.organizacionmunicipio 
-			INNER JOIN pasantias.organizacion 
-				ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion 
-				AND organizacionmunicipio.codigo_sucursal= '$codigo_sucursal'
-			INNER JOIN pasantias.tipo_organizacion 
-				ON tipo_organizacion.id_tipo_organizacion = organizacion.id_tipo_organizacion
-			INNER JOIN pasantias.convenio_organizacion 
-				ON convenio_organizacion .id_organizacion = organizacion.id_organizacion
-			INNER JOIN pasantias.persona_organizacion_oficina 
-				ON persona_organizacion_oficina .codigo_sucursal = organizacionmunicipio.codigo_sucursal
-			INNER JOIN pasantias.municipio 
-				ON municipio.id_municipio = organizacionmunicipio.id_municipio 
-			INNER JOIN pasantias.estado 
-				ON estado.id_estado = municipio.id_estado;");
+		FROM pasantias.organizacionmunicipio 
+		
+		INNER JOIN pasantias.organizacion 
+		
+			ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion 
+			
+			AND organizacionmunicipio.codigo_sucursal= '$codigo_sucursal'
+		
+		INNER JOIN pasantias.tipo_organizacion 
+		
+			ON tipo_organizacion.id_tipo_organizacion = organizacion.id_tipo_organizacion
+		
+		INNER JOIN pasantias.convenio_organizacion 
+		
+			ON convenio_organizacion.id_organizacion = organizacion.id_organizacion
+				
+		INNER JOIN pasantias.municipio 
+		
+			ON municipio.id_municipio = organizacionmunicipio.id_municipio 
+		
+		INNER JOIN pasantias.estado 
+		
+			ON estado.id_estado = municipio.id_estado 
+
+
+		;");
 
 		return $sql ;
 	}
@@ -1209,23 +1279,46 @@ class organizacion
 
 	function  colsultarestosparametros($id_organizacionPrincipal , $codigo_sucursal , $codigo_encargado)
 	{
-		$sql = pg_query("SELECT organizacion.nombre_organizacion , organizacion.rif ,organizacion.siglas , 
+		$sql = pg_query("SELECT 
+
+			organizacion.nombre_organizacion , 
+
+			organizacion.rif ,
+
+			organizacion.siglas , 
+			
 			tipo_organizacion.nombre_tipo_organizacion as tipo ,
+			
 			organizacionmunicipio.observacion as sede ,
-			 'Estado'|| ': ' || estado.nombre_estado || ' - ' || 'Municipio'|| ': ' || municipio.nombre_municipio || ' - ' || 'Direccíon'|| ': ' || organizacionmunicipio.domicilio as ubicacion
+
+			'Estado'|| ': ' || estado.nombre_estado || ' - ' || 'Municipio'|| ': ' || municipio.nombre_municipio || ' - ' || 'Direccíon'|| ': ' || organizacionmunicipio.domicilio as ubicacion
+			
 			FROM pasantias.organizacion INNER JOIN pasantias.convenio_organizacion 
+			
 				ON convenio_organizacion.id_organizacion = organizacion.id_organizacion 
+			
 			INNER JOIN pasantias.instituto_principal 
+			
 				ON instituto_principal.id_ip = convenio_organizacion.id_ip 
+			
 				AND instituto_principal.id_ip = $id_organizacionPrincipal
+			
 			INNER join pasantias.organizacionmunicipio
+			
 				ON organizacionmunicipio.id_organizacion = organizacion.id_organizacion
+			
 				AND organizacionmunicipio.codigo_sucursal = '$codigo_sucursal' 
+			
 			INNER JOIN pasantias.tipo_organizacion 
+			
 				On tipo_organizacion.id_tipo_organizacion = organizacion.id_tipo_organizacion
+			
 			INNER JOIN pasantias.municipio 
+			
 				ON municipio.id_municipio = organizacionmunicipio.id_municipio
+			
 			INNER JOIN pasantias.estado 
+			
 				On estado.id_estado = municipio.id_estado ;");
 
 		return $sql ;
@@ -1233,23 +1326,46 @@ class organizacion
 
 	function DepartamentosRegistrados(  $codigo_sucursal )
 	{  
-		$sql = pg_query("SELECT  departamentos.nombre_oficina ,departamentos.id_oficina ,palabraMasLarga.maxlength
+		$sql = pg_query("SELECT  
+
+			departamentos.nombre_oficina ,
+
+			departamentos.id_oficina ,
+
+			palabraMasLarga.maxlength
+
 			FROM ( SELECT cast ( length( nombre_oficina ) as int)  as maxlength
 		FROM pasantias.oficina INNER JOIN pasantias.organizacion_oficina
+		
 			ON oficina.id_oficina =  organizacion_oficina.id_oficina
+		
 		INNER JOIN pasantias.organizacionmunicipio 
+		
 			ON organizacionmunicipio.codigo_sucursal = organizacion_oficina.codigo_sucursal 
+		
 			AND organizacionmunicipio.codigo_sucursal = '$codigo_sucursal' 
 
 			AND organizacion_oficina.codigo_sucursal = organizacionmunicipio.codigo_sucursal
+		
 		WHERE cast ( length( nombre_oficina ) as int) = 
+		
 		(SELECT  MAX(cast ( length( nombre_oficina ) as int)) FROM pasantias.oficina) ) as palabraMasLarga
 		,
-			 ( SELECT nombre_oficina , organizacion_oficina.id_oficina
+			 
+		(SELECT 
+
+		nombre_oficina , 
+
+		organizacion_oficina.id_oficina
+
 		FROM pasantias.oficina INNER JOIN pasantias.organizacion_oficina
+		
 			ON oficina.id_oficina = organizacion_oficina.id_oficina
+		
 		INNER JOIN pasantias.organizacionmunicipio 
+		
 			ON organizacionmunicipio.codigo_sucursal = organizacion_oficina.codigo_sucursal 
+		
 			AND organizacionmunicipio.codigo_sucursal = '$codigo_sucursal'
 
 			AND organizacion_oficina.codigo_sucursal = organizacionmunicipio.codigo_sucursal	) as departamentos 
@@ -1260,10 +1376,18 @@ class organizacion
 
 	function ContarPersonalPoroficina( $codigo_sucursal ,$id_oficina )
 	{
-		$sql =pg_query(" SELECT COUNT(persona_organizacion_oficina.id_persona) 
-		 FROM pasantias.persona_organizacion_oficina WHERE persona_organizacion_oficina.codigo_sucursal= '$codigo_sucursal'
+		$sql =pg_query(" SELECT 
+
+			COUNT(persona_organizacion_oficina.id_persona) 
+
+		 FROM pasantias.persona_organizacion_oficina 
+
+		 WHERE persona_organizacion_oficina.codigo_sucursal= '$codigo_sucursal'
+		 
 		 AND persona_organizacion_oficina.id_oficina='$id_oficina' ;");
+				
 				$row = pg_fetch_array($sql);  if ($row[0]>1) { $row[0]= $row[0].' Personas';}else { $row[0]= $row[0].' Persona'; }
+		
 		return $row[0];
 	}
 }

@@ -546,73 +546,37 @@ function Renderidng_select()
 function MensajeDatosNone()
 {
 
+  $.amaran({
+          content        :{
+          bgcolor        :'#0066CC',
+          color          :'#fff',
+          message        :'Campos Vacios'
+          },
+          theme          :'colorful',
+          position       :'bottom right',
+          cssanimationIn : 'bounceInRight',
+          cssanimationOut: 'bounceOut',
+          clearAll       :  true 
 
-$.amaran({
-        content        :{
-        bgcolor        :'#0066CC',
-        color          :'#fff',
-        message        :'Campos Vacios'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
-
-});
+  });
 }
 
-function MensajeModificarNone()
-{
-
-$.amaran({
-        content        :{
-        bgcolor        :'#3366FF',
-        color          :'#fff',
-        message        :'Modifique alguno de los Campos'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
-
-});
-
-}
-function MensajeModificar()
-{
-
-$.amaran({
-        content        :{
-        bgcolor        :'#3366FF',
-        color          :'#fff',
-        message        :'Modifique Exitosa'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
-
-});
-
-}
 
 function TipoSolicitudExiste(tipoSolicitud)
 {
-        $.amaran({
-                   content        :{
-                   bgcolor        :'#0066CC',
-                   color          :'#fff',
-                   message        :'El tipo de Solicitud :'+tipoSolicitud+' está igual que antes'
-                   },
-                   theme          :'colorful',
+    $.amaran({
+               content        :{
+               bgcolor        :'#0066CC',
+               color          :'#fff',
+               message        :'El tipo de Solicitud :'+tipoSolicitud+' está igual que antes'
+               },
+               theme          :'colorful',
 
-                   cssanimationIn :'bounceInRight',
-                   cssanimationOut:'rollOut',
-                   position       :'bottom right'
-                });
+               cssanimationIn :'bounceInRight',
+               cssanimationOut:'rollOut',
+               position       :'bottom right',
+              clearAll       :  true 
+            });
 }
 
 

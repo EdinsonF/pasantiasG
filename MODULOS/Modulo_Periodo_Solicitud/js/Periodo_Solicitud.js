@@ -189,7 +189,7 @@ $(document).ready(function(){
             });
             
             InitializeLapso();
-
+            
         }
     }
 
@@ -714,133 +714,63 @@ function Renderidng_select()
   $(".selectboxit-container .selectboxit").css({"width": "206px" ,  "height": "35px"});
 }
         
-function MensajeRegistrado()
-{
-        $.amaran({
-        content:{
-        bgcolor:'#0066CC',
-        color:'#fff',
-        message:'Operación Exitosa'
-        },
-        theme:'colorful',
-                   
-        cssanimationIn    :'bounceInRight',
-        cssanimationOut   :'rollOut',
-        position          :'top right'
-                });
 
-}
-
-function MensajeNoRegistrado()
-{
-        $.amaran({
-        content:{
-        bgcolor:'#0066CC',
-        color:'#fff',
-        message:'Periodo De Solicitud No Registrado'
-        },
-        theme:'colorful',
-                   
-        cssanimationIn    :'bounceInRight',
-        cssanimationOut   :'rollOut',
-        position          :'top right'
-                });
-}
-function MensajeModificado()
-{
-        $.amaran({
-        content:{
-        bgcolor:'#0066CC',
-        color:'#fff',
-        message:'Operación Exitosa'
-        },
-        theme:'colorful',
-                   
-        cssanimationIn    :'bounceInRight',
-        cssanimationOut   :'rollOut',
-        position          :'top right'
-        });
-}
-function MensajeNoModificado()
-{
-
-        $.amaran({
-        content:{
-        bgcolor:'#0066CC',
-        color:'#fff',
-        message:'Periodo De Solicitud No Modificado'
-        },
-        theme:'colorful',
-                   
-        cssanimationIn    :'bounceInRight',
-        cssanimationOut   :'rollOut',
-        position          :'top right'
-                });
-}
 
 function MensajeDatosNone()
 {
 
+    $.amaran({
+            content        :{
+            bgcolor        :'#0066CC',
+            color          :'#fff',
+            message        :'Campos Vacios'
+            },
+            theme          :'colorful',
+            position       :'bottom right',        
+            cssanimationIn : 'bounceInRight',
+            cssanimationOut: 'bounceOut',
+            clearAll       : true 
+     
+    });
 
-$.amaran({
-        content        :{
-        bgcolor        :'#0066CC',
-        color          :'#fff',
-        message        :'Campos Vacios'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-        
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
- 
-});
+}
 
-
-
-
- }
-
- function MensajeFecha()
+function MensajeFecha()
 {
 
+    $.amaran({
+            content        :{
+            bgcolor        :'#0066CC',
+            color          :'#fff',
+            message        :'Verificar Fecha De Inicio'
+            },
+            theme          :'colorful',
+            position       :'bottom right',        
+            cssanimationIn : 'bounceInRight',
+            cssanimationOut: 'bounceOut',
+            clearAll       : true 
+     
+    });
 
-$.amaran({
-        content        :{
-        bgcolor        :'#0066CC',
-        color          :'#fff',
-        message        :'Verificar Fecha De Inicio'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-        
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
- 
-});
-
-
-
-
- }
+}
 
 
 function MensajeModificarNone()
 {
 
-$.amaran({
-        content        :{
-        bgcolor        :'#3366FF',
-        color          :'#fff',
-        message        :'Modifique alguno de los  campos'
-        },
-        theme          :'colorful',
-        position       :'bottom right',
-        
-        cssanimationIn : 'swing',
-        cssanimationOut: 'bounceOut'
- 
-});
+    $.amaran({
+            content        :{
+            bgcolor        :'#3366FF',
+            color          :'#fff',
+            message        :'Modifique alguno de los  campos'
+            },
+            theme          :'colorful',
+            position       :'bottom right',        
+            cssanimationIn : 'bounceInRight',
+            cssanimationOut: 'bounceOut',
+            clearAll       : true 
+     
+    });
 
  }
 

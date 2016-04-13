@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   padding-top: 20px;
 }
@@ -25,4 +26,33 @@ a {
 
 pre {
   padding: 0;
+=======
+body {
+  padding-top: 20px;
+}
+
+footer {
+  padding-bottom: 10px;
+}
+
+a {
+  cursor: pointer;
+}
+
+.m-b {
+  margin-bottom: 15px;
+}
+
+.input-group-addon,
+.input-group-btn {
+  width: auto;
+}
+
+.input-group-addon {
+  background-color: white;
+}
+
+pre {
+  padding: 0;
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 }

@@ -1,3 +1,516 @@
+<<<<<<< HEAD
+<?php
+session_start();
+//EDINSON
+if(isset($_SESSION['id_perfil'])){
+$id_perfil=$_SESSION['id_perfil'];
+$nombre_perfil=$_SESSION['nombre_perfil'];
+
+
+$nombre_organizacion =  $_SESSION['codigo_sucursal'];
+$nombre_persona = $_SESSION['persona'];
+
+}else { 
+$id_perfil=1;
+$nombre_perfil="Menu Principal";
+}
+$ID_PERSONA=$_SESSION['id_persona'];
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title> Pasantias </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <title>Pasantias</title>
+
+ <!--   Mensajes-->
+
+    <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
+    <link rel="stylesheet" href="../js/dist/css/animate.min.css">
+
+
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+  
+    <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+ 
+
+      </head>
+  
+  <body style="padding-top: 20px;" id="body">
+
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+    $nombre_organizacion= $persona->buscar_nombre_organizacion($nombre_organizacion);
+
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    { 
+      
+      $persona->menu($id_perfil , $nombre_perfil , $_SESSION['nombre_organizacion'] ,$nombre_persona );
+    }
+
+
+?>
+
+<!-- Fin De MENU-->
+<div align="center">
+        <div style="width:90%">
+	
+                <input type="hidden" id="codigo_sucursal" value="<?php  echo $_SESSION['codigo_sucursal']?>">
+                <input type="hidden" id="ID_PERSONA" value="<?php  echo $_SESSION['id_persona']?>">
+                <!-- DIV GENERAL GENERAL -->
+                 <div class="tabbable" style="margin-bottom: 18px;">
+                      
+
+                      <ul class="nav nav-tabs">
+                        <!-- PESTAÑA 1 -->
+                        <li class="active" data-target="#tab1" data-toggle="tab"><a ><strong>Postulaciones</strong></a>
+                        </li>
+                        <!-- PESTAÑA 2 -->
+                        <li class="" data-target="#tab2" data-toggle="tab"><a ><strong>Postulaciones Aprobadas</strong></a>
+                        </li>
+                        <!-- PESTAÑA 3 -->
+                        <li class="" data-target="#tab3" data-toggle="tab"><a ><strong>Sin Tutores</strong></a>
+                        </li>
+                        
+                        <!-- PESTAÑA 4 -->
+                        <li class="" data-target="#tab4" data-toggle="tab"><a ><strong>Con Tutores</strong></a>
+                        </li>
+
+                        <!-- PESTAÑA 5 -->
+                        <li class="" data-target="#tab5" data-toggle="tab"><a ><strong>Reportes</strong></a>
+                        </li>
+                
+                      </ul>
+
+                      <!-- DIV GENERAL DE LOS PANELES -->
+                      <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                      
+
+                                 
+                                 <div class="tab-pane active" id="tab1" >
+                                        <div align="center">
+                                            <table class="table table-bordered" width="100" >
+                                                <tr  class="well"><td>
+                                                    <h4 align="center">Estudiantes Postulados</h4>
+                                                </td></tr> 
+                                            </table>
+
+                                            <div class="table-responsive">
+                                            <table class="table table-striped table-hover dt-responsive nowrap compact" id="mitavle" cellspacing="0" style="cursor:pointer; width:100%">
+                                    
+                                                <thead><tr>
+                                                <td hidden><center><strong></strong></center></td>
+                                                <td><center><strong>Instituto</strong></center></td>
+                                                <td><center><strong>Estudiante</strong></center></td>
+                                                <td><center><strong>Especialidad</strong></center></td>
+                                                <td><center><strong>Fecha Postulaci&oacute;n</strong></center></td>
+                                                <td width="20"><center><strong>Curriculum</strong></center></td>
+                                                <td width="20"><center><strong>Aprobar</strong></center></td>
+                                                <td hidden><center><strong>codigo</strong></center></td>
+                                                <td hidden><center><strong>codigo</strong></center></td>
+                                               
+                                                </tr></thead> 
+                                            
+                                            </table>
+                                            </div>
+                                        </div>
+                                 <!-- FIN DEL PANEL 1 -->
+                                 </div>
+
+                                 <!-- //////////////////////////////////////////////////////////// -->
+
+
+                                 <!-- PANEL 2 POSTUALCIONES ACEPTADAS-->
+                                <div class="tab-pane " id="tab2">
+                                    <div align="center">
+                                        <table class="table table-bordered" width="100%" >
+                                            <tr  class="well"><td>
+                                                <h4 align="center">Postulaciones Aceptadas</h4>
+                                            </td></tr> 
+                                        </table>
+
+                                        <div class="table-responsive">
+                                        <table class="table table-striped table-hover dt-responsive nowrap compact" id="mitavle2" cellspacing="0" style="cursor:pointer; width:100%">
+                                
+                                            <thead><tr>
+                                            <td hidden><center></center></td>
+                                            <td><center><strong>Instituto</strong></center></td>
+                                            <td><center><strong>Estudiante</strong></center></td>
+                                            <td><center><strong>Especialidad</strong></center></td>
+                                            <td><center><strong>Solicitud Realizada Por</strong></center></td>
+                                            <td><center><strong>Fecha Postulaci&oacute;n</strong></center></td>
+                                            <td width="20"><center><strong>Curriculum</strong></center></td>
+                                            <td hidden><center><strong>codigo</strong></center></td>
+                                           
+                                            
+                                            </tr></thead> 
+                                        
+                                        </table>
+                                        </div>
+                                    </div>
+    
+                                <!-- FIN DEL PANEL 2 -->
+                                </div>
+
+
+
+                                 <!-- //////////////////////////////////////////////////////////// -->
+
+                                 <!-- PANEL 3 ASIGNAR TUTORES-->
+                                <div class="tab-pane " id="tab3">
+                                        <table class="table table-bordered" width="90" >
+                                            <tr  class="well"><td>
+                                                <h4 align="center">Asignar Tutores</h4>
+                                            </td></tr> 
+                                        </table>
+
+                                        <div class="table-responsive">
+                                        <table class="table table-striped table-hover dt-responsive nowrap compact" id="mitavle3" cellspacing="0" style="cursor:pointer; width:100%">
+                                
+                                            <thead><tr>
+                                            <td hidden><center></center></td>
+                                            <td><center><strong>Instituto</strong></center></td>
+                                            <td><center><strong>Estudiante</strong></center></td>
+                                            <td><center><strong>Especialidad</strong></center></td>
+                                            <td><center><strong>Solicitud Realizada Por</strong></center></td>
+                                            <td><center><strong>Fecha Postulaci&oacute;n</strong></center></td>
+                                            <td hidden><center><strong>codigo</strong></center></td>
+                                            
+                                            </tr></thead> 
+                                        
+                                        </table>
+                                        </div>
+                                <!-- FIN DEL PANEL 3 -->
+                                </div>
+
+                                    <!-- //////////////////////////////////////////////////////////// -->
+
+                                 <!-- PANEL 4 TUTORES ASIGNADOS-->
+                                <div class="tab-pane " id="tab4">
+                                        <table class="table table-bordered" width="90" >
+                                            <tr  class="well"><td>
+                                                <h4 align="center">Tutores Asignados</h4>
+                                            </td></tr> 
+                                        </table>
+
+                                        <div class="table-responsive">
+                                        <table class="table table-striped table-hover dt-responsive nowrap compact" id="mitavle4" cellspacing="0" style="cursor:pointer; width:100%">
+                                
+                                            <thead><tr>
+                                                    <td hidden><center></center></td>
+                                                    <td><center><strong>Instituto</strong></center></td>
+                                                    <td><center><strong>Estudiante</strong></center></td>
+                                                    <td><center><strong>Especialidad</strong></center></td>
+                                                    <td><center><strong>Solicitud Realizada Por</strong></center></td>
+                                                    <td ><center><strong>Tutor Empresarial</strong></center></td>
+                                                    <td ><center><strong>Oficina</strong></center></td>
+                                            
+                                            </tr></thead> 
+                                        
+                                        </table>
+                                        </div>
+                                <!-- FIN DEL PANEL 4 -->
+                                </div>
+
+
+
+                                <!-- PANEL 5-->
+                                <div class="tab-pane " id="tab5">
+
+	                                <table class="table table-bordered"  >
+					                      <tr class="well">
+					                      	<td>
+					                       		<h4 align="center"> Gestionar Reportes</h4>
+					                      	</td>
+					                      </tr>
+							          </table>
+
+
+					                    <table rules="rows" frame="vsides"  border="2"  width="70%" cellpadding="10" >
+
+							                    REVISAR LA VISTA, REPORTES DE POSTULADOS
+					                    </table>
+                                        
+                                <!-- FIN DEL PANEL 5 -->
+                                </div>
+
+
+                                 <!-- //////////////////////////////////////////////////////////// -->
+
+                        <!-- FIN DEL DIV DE LAS PANELES GENERALES -->
+                        </div>
+                <!-- FIN DEL DIV GENERAL GENERAL -->
+                </div>
+
+
+           </div>               
+</div >
+
+<!--MODAL DE TUTORES... PARA ASIGNAR-->
+<div id="ModalTutores" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+
+          <div class="modal-dialog">
+            <div class="modal-content">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button> 
+    <h3  align="center">Elije Un Tutor Empresarial<br></h3>
+
+    </div>
+    <div class="modal-body" >
+  
+             
+            <div class="tabbable" style="margin-bottom: 18px;">
+                    <table class="table table-bordered" width="90" >
+                        <tr  class="well">
+                            <td>
+                                <h4 align="center">Tutores</h4>
+                            </td>
+                        </tr> 
+                    </table>
+                    <input type="hidden" id="codigo_estudiante">
+                    <input type="hidden" id="codigo_solicitud">
+
+                    <div class="table-responsive">
+                    <table class="table table-striped table-hover dt-responsive nowrap compact" id="mitavle5" cellspacing="0" style="cursor:pointer; width:100%">
+            
+                        <thead><tr>
+                        <td hidden><center><strong>Codigo</strong></center></td>
+                        <td><center><strong>Nombre</strong></center></td>
+                        <td><center><strong>Oficina</strong></center></td>
+                        <td><center><strong>Descripcion</strong></center></td> 
+                        </tr></thead> 
+                    
+                    </table>
+                    </div>
+
+              
+            </div>
+
+
+
+    </div>  
+    <div class="modal-footer">
+    <button  class="btn" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+    </button>
+  
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- FIN DEL MODAL DE PERSONAS------ --> 
+
+
+    <!--PAGINADOR - T A B L A S-->
+    
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+ <!--PAGINADOR - T A B L A S-->
+    <script>
+		$(document).ready(function(){
+
+			$('#mitavle').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+
+$('#mitavle2').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+
+$('#mitavle3').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+
+
+$('#mitavle4').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+
+$('#mitavle5').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+            
+tablacargar();
+tablacargarPostulacionesAceptadas();
+PostulacionesAceptadas_AsignarTutores();
+tablacargarPostulaciones_ConTutoresEmpresariales();
+
+            
+		});
+
+
+
+	</script>
+	<script type="text/javascript" src="../js/Reportes.js" ></script>
+    <script type="text/javascript" src="../js/solicitudesPostulacion.js" ></script>
+   
+  </body>
+</html>
+=======
 <?php
 session_start();
 //EDINSON
@@ -509,3 +1022,4 @@ tablacargarPostulaciones_ConTutoresEmpresariales();
    
   </body>
 </html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

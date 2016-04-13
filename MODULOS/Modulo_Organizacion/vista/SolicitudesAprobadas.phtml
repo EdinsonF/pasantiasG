@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -182,3 +183,189 @@ $persona= new usuarios();
    
   </body>
 </html>
+=======
+<?php
+session_start();
+
+if(isset($_SESSION['id_perfil'])){
+
+  $id_perfil           = $_SESSION['id_perfil'];
+  $nombre_perfil       = $_SESSION['nombre_perfil'];
+  $nombre_organizacion = $_SESSION['nombre_instituto'];
+  $nombre_persona      = $_SESSION['persona'];
+  $id_instituto        = $_SESSION['ID_INSTITUCION'];
+
+}else {
+
+    $id_perfil     =1;
+    
+    $nombre_perfil ="Menu Principal";
+} 
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title> Pasantias </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <title>Pasantias</title>
+
+ <!--   Mensajes-->
+
+    <link rel="stylesheet" href="../js/dist/css/amaran.min.css">
+    <link rel="stylesheet" href="../js/dist/css/animate.min.css">
+
+
+
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+    <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+ 
+
+      </head>
+  
+  <body style="padding-top: 20px;" id="body">
+
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    { 
+      
+      $persona->menu($id_perfil , $nombre_perfil , $_SESSION['nombre_organizacion'] ,$nombre_persona );
+    }
+?>
+
+
+<!-- Fin De MENU-->
+<div align="center">
+        <div style="width:90%">
+	
+		<table class="table table-bordered" width="90" >
+			<tr  class="well"><td>
+				<h4 align="center">Solicitudes Aprobadas Por Organizaci&oacute;n</h4>
+			</td></tr> 
+		</table>
+<input type="hidden" id="encargado" value="<?php  echo $_SESSION['codigo_encargado']?>">
+
+			<table class="table table-bordered" id="mitavle" style="cursor:pointer">
+
+				<thead><tr class="well">
+                    <td colspan="3" > 
+                        <center><strong>
+                        <img src="../../../img/Ico-master/PNG/64px/0004-office.png" alt=Ginger class=left width=20 >
+                        Organizaci&oacute;n Convenio
+                        </strong></center>
+                    </td>
+                   
+                    <td colspan="5"><center>
+                        <strong>
+                        <img src="../../../img/Ico-master/PNG/64px/0118-user-check.png" alt=Ginger class=left width=20 >
+                        Estudiante
+                        </strong></center>
+                    </td>
+                </tr class="well">
+                <tr>
+                    <td><center><strong>Nombre</strong></center></td>
+                    <td><center><strong>Persona Contacto</strong></center></td>
+    				<td width="80"><center><strong>Ver Sede</strong></center></td>
+                   
+                    
+                    <td><center><strong> Cédula</strong></center></td>
+                    <td><center><strong> Nombre  Apellido</strong></center></td>
+                    <td><center><strong> N° Tel&eacute;fono</strong></center></td>
+                    <td><center><strong> Correo</strong></center></td>
+                    <td><center><strong> Aprobar</strong></center></td>
+				
+                <td style="display:none"><center><strong>Solicitud</strong></center></td>
+				</tr>
+				</thead> 
+			
+		    </table>
+
+	
+
+
+           </div>               
+</div >
+
+     <!--PAGINADOR-->
+         <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+
+    <script>
+		$(document).ready(function(){
+			$('#mitavle').dataTable({  
+        
+            "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    'Mostrando _MENU_ Registros',
+        "sZeroRecords":   "No se encontraron Resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "Primero",
+            "sLast":    "Último",
+            "sNext":    "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+        }
+        });
+            
+            
+		});
+	</script>
+
+    <script src='../js/SolicitudesAprobadas.js'></script>
+   
+  </body>
+</html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

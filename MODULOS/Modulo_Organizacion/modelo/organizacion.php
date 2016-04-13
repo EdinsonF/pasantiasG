@@ -1051,6 +1051,65 @@ class organizacion
 	}
 
 
+<<<<<<< HEAD
+
+	//-------AQUIII POSTULACION DIRECTA--->>>>
+	//----LLEGO EDINSON--->>>
+	function Aprobarsolicitud_EstudiantesPostuladosAempresas($CodigoSolicitud , $sucursal, $id_persona)
+	{
+
+		 $tutores=$this->Consulto_RequeriemientoTutores($CodigoSolicitud);
+		 if($tutores=='true'){
+		 		$sql =pg_query("UPDATE pasantias.solicitudes_recibidas SET estatus='APROBADO ORGANIZACION' 
+		 		WHERE codigo_solicitud='$CodigoSolicitud' AND valor='$sucursal' ;");
+				 $registro = pg_affected_rows($sql);
+		                       
+
+		            //----INSERTOOOO---->>>>
+		         $insert=pg_query("INSERT INTO pasantias.responsables (codigo_solicitud, table_column, valor, estatus)VALUES('$CodigoSolicitud','persona.id_persona','$id_persona','REALIZADO' )"); 
+		         $registro = pg_affected_rows($insert);
+				 return $registro;
+
+		 }else{
+
+		 		 $sql =pg_query("UPDATE pasantias.solicitudes_recibidas SET estatus='APROBADO' 
+		 		 WHERE codigo_solicitud='$CodigoSolicitud' AND valor='$sucursal' ;");
+				 $registro = pg_affected_rows($sql);
+		                       
+
+		            //----INSERTOOOO---->>>>
+		         $insert=pg_query("INSERT INTO pasantias.responsables (codigo_solicitud, table_column, valor, estatus)VALUES('$CodigoSolicitud','persona.id_persona','$id_persona','REALIZADO' )"); 
+		         $registro = pg_affected_rows($insert);
+				 return $registro;
+
+		 }
+
+		 
+
+
+	}
+
+
+	function Consulto_RequeriemientoTutores($CodigoSolicitud){
+
+		$sql=pg_query("SELECT tipo_solicitud.nombre_tipo_solicitud, temporadas_especialidad.codigo_temporada_especialidad, encargado_tipo_solicitud.descripcion
+           FROM pasantias.solicitud 
+           INNER JOIN pasantias.temporadas_especialidad 
+           		   ON temporadas_especialidad.codigo_temporada_especialidad = solicitud.codigo_temporada_especialidad
+                  AND solicitud.codigo_solicitud='$CodigoSolicitud'   
+           INNER JOIN pasantias.temporadas_solicitud
+                   ON temporadas_solicitud.codigo_temporada=temporadas_especialidad.codigo_temporada
+               INNER JOIN pasantias.tipo_solicitud 
+                   ON tipo_solicitud.id_tipo_solicitud = temporadas_solicitud.id_tipo_solicitud
+           INNER JOIN pasantias.encargado_tipo_solicitud
+			       ON encargado_tipo_solicitud.id_tipo_solicitud=tipo_solicitud.id_tipo_solicitud 
+			      AND encargado_tipo_solicitud.codigo_encargado=temporadas_solicitud.codigo_encargado");
+
+		$reg=pg_fetch_array($sql);
+		$tutores=$reg['descripcion'];
+
+		return $tutores;
+=======
 	//-------AQUIII POSTULACION DIRECTA--->>>>
 	function Aprobarsolicitud_EstudiantesPostuladosAempresas($CodigoSolicitud , $sucursal, $id_persona)
 	{
@@ -1065,6 +1124,7 @@ class organizacion
 		return $registro;
 
 
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 	}
 
 	function cargarSolicitudesAprobadasOrganizacion($codigo_encargado)

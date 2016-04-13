@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -185,3 +186,192 @@ $persona= new usuarios();    if($id_perfil== 1){
 
   
 </body></html>
+=======
+<?php
+session_start();
+
+    if(isset($_SESSION['id_perfil'])){
+        $id_perfil=$_SESSION['id_perfil'];
+        $nombre_perfil=$_SESSION['nombre_perfil'];
+        $nombre_organizacion =  $_SESSION['nombre_instituto'];
+        $nombre_persona = $_SESSION['persona'];
+        $ID_ORGANIZACION_PRINCIPAL=$_SESSION['ID_ORGANIZACION'];
+    }else 
+    {
+        
+      $id_perfil=1;
+      $nombre_perfil="Menu Principal";
+    }
+
+?>
+
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Estudiante</title>
+
+
+      <!--    MENU CUERPO-->
+  
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+ 
+
+  <script language='javascript' src="../js/validaciones.js"></script> 
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#hide").click(function(){
+    $("#element").hide();
+  });
+  $("#show").click(function(){
+    $("#element").show();
+  });
+});
+</script>
+<script type="text/javascript">
+
+    function ConsultaUsuarios(strr){
+    var xmlhttp;
+    if (strr.length==0) {
+    document.getElementById('usuario').innerHTML="";
+    return;
+    }
+    // Version moderna de navegadores...
+    if(window.XMLHttpRequest){
+    xmlhttp =new XMLHttpRequest();
+    }else{
+    //----version antigua....
+    xmlhttp =new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    //---COMPROVAMOS CONEXION...
+    xmlhttp.onreadystatechange=function(){
+    if(xmlhttp.readyState==4 && xmlhttp.status==200){
+    document.getElementById('usuario').innerHTML=xmlhttp.responseText;
+    }
+    }
+    xmlhttp.open("GET", "../../Modulo_Usuario/modelo/ConsultaUser.php?V="+strr, true);
+    xmlhttp.send();
+    }
+    </script>
+
+
+
+  </head>
+
+  <body style="padding-top: 20px;">
+
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+<!-- Fin De MENU-->
+
+
+<div align="center">
+        <div style="width:60%">
+        <table class="table table-bordered">
+          <tr class="well">
+              <td><h4 align="center">Gestion De Tutor Academico </h4></td>
+            </tr>
+          <tr>
+            <td>
+                  <center>
+                <form name="form" action="../controlador/ctr_tutor_empresarial.php" method="post" onsubmit="return validar_registro_estudiante()" >
+                          
+                            <div class="row-fluid">
+                              <div class="span6">
+                                    <?php echo ' <input type="hidden" id="" name="id_persona" value="'.$_SESSION['id_persona'].'">'?>
+                                    <?php echo ' <input type="hidden" id="" name="id_usuario" value="'.$_SESSION['id_usuario'].'">'?>
+                                    <strong>C&oacute;digo:</strong><br>
+                                    <?php echo '<input type="text" id="expediente" name="espediante" value="'.$_SESSION['codigo'].'" autocomplete="off" required >'?><br>    
+                                    <strong>Cedula:</strong><br>
+                                    <?php echo '<input type="text" id="cedula" name="cedula" value="'.$_SESSION['cedula_persona'].'" autocomplete="off" required > '?> <br>  
+                                    <strong>Nombre:</strong><br>
+                                    <?php echo '<input type="text" id="nombre" name="nombre" value="'.$_SESSION['nombre_persona'].'" autocomplete="off" required >'?><br>
+                                    <strong>Apellido:</strong><br>
+                                    <?php echo '<input type="text" id="apellido" name="apellido" value="'.$_SESSION['apellido_persona'].'" autocomplete="off" >'?><br>
+                                    <strong>Seleccione la Oficina a la que Pertenece</strong><br>
+
+                                    <select name="oficina" id="oficina" onchange="showselect(this.value)"  required>   
+                                    <option value="" >SELECCIONE...</option>
+                                    <?php
+
+                           
+                                    include('../modelo/mod_tutor_empresarial.php');
+
+                                    $classe=new tutor_empresarial();
+                                    $classe->llenarselectoficinas( $id_organizacion);                                    
+                                    ?>
+                                    </select><br>
+                                 </div>
+                              <div class="span6">
+                                    <strong>Telefono:</strong><br> <span="telf">
+                                    <?php echo '<input type="text" id="telefono"  name="telefono" onkeypress="return numeros(event);"  value="'.$_SESSION['telefono'].'" autocomplete="off">'?><br> 
+                                 </span>
+                                    <strong>Correo:</strong><br>  <span="email">
+                                    <?php echo '<input type="email" name="correo" id"correo" onkeyup="this.value=this.value.toUpperCase()"  value="'.$_SESSION['correo'].'" autocomplete="off">'?><br>  
+                                 </span>
+                                    <strong>Usuario:</strong><br>
+                                    <?php echo '<input type="text" name="usuario" id="usuario" onkeyup="ConsultaUsuarios(this.value)" onkeyup="this.value=this.value.toUpperCase()"  value="'.$_SESSION['usuario'].'" autocomplete="off" required>'?>  
+                                    <div id="usuario"></div>
+                                  </span>
+                                    <strong>Contraseña:</strong><br>  <span="clave">
+                                    <?php echo '<input type="password" name="contrasena_a" id="contrasena_a" onkeypress="return numeros(event);" maxlength="15" value="'.$_SESSION['contrasena'].'" autocomplete="off" required>'?><br>
+                                  </span>
+                                    <strong>Repita Contraseña:</strong><br>  <span="r_clave">
+                                    <?php echo '<input type="password" name="contrasena_b" id="contrasena_b"  onkeypress="return numeros(event);"  maxlength="15" value="'.$_SESSION['contrasena'].'" autocomplete="off" required>'?><br>
+                                    
+                                </div>
+                            </div><br>
+                            <center> 
+                            <?php echo ' <input  name="botRegistrar" type="submit" value="Registrar" class="btn btn-primary btn-large" style="'.$_SESSION['ocultar_r'].'"> '?>
+                               <?php echo ' <input  name="botModificar" type="submit" value="Modificar" class="btn btn-primary btn-large"  style="'.$_SESSION['ocultar_m'].'">'?>
+                           </center>
+                                <div align="right">
+                              <a href="consultar_tutor_empresarial.phtml"><input type="button" value="Atras"class="btn btn-primary btn-large"></a>
+                               </div>
+                        </form>
+                    </center>
+                </td>
+          </tr>
+        </table>
+    </div></div>
+      
+
+  
+
+  
+</body></html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

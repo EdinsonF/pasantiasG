@@ -154,6 +154,7 @@ class Postulacion{
           }
 
 
+<<<<<<< HEAD
   ///------EDINSON--->>>>>
           function BuscarMis_Postulaciones($codigo_estudiante)
           {
@@ -535,6 +536,8 @@ function BuscarMisPostulaciones_tutor($tutores, $codTem_especialidad, $codigo_es
           /////////////////
 
 
+=======
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
           function cargarorganizacinesEncargado( $combo =array())
           { 
             $id_ip = $combo['id_ip'];

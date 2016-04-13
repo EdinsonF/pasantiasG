@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -420,3 +421,427 @@ $persona= new usuarios();
     <script src='../js/AprobarInstituto.js'></script>
   </body>
 </html>
+=======
+<?php
+session_start();
+
+if(isset($_SESSION['id_perfil'])){
+
+$id_perfil           =$_SESSION['id_perfil'];
+
+$nombre_perfil       =$_SESSION['nombre_perfil'];
+
+$nombre_organizacion =  $_SESSION['nombre_instituto'];
+
+$nombre_persona      = $_SESSION['persona'];
+
+$id_instituto        = $_SESSION['ID_INSTITUCION'];
+
+}else {
+
+      $id_perfil      = 1;
+      $nombre_perfil  = "Menú Principal";
+
+} 
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title> Pasantias </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    
+
+      <!--    MENU CUERPO-->
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+  
+  <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+  <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+   <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+      </head>
+  
+  <body  style="padding-top: 20px;" >
+
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();
+
+         
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+
+    } 
+    else
+    {echo '<input type=hidden id=id_ip value='.$id_instituto.' >';
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+<!-- Fin De MENU-->
+
+<div align="center">
+	<table width="90%">
+	  <tr>
+		<td>
+        	
+			<table class="table table-bordered">
+			  	<tr class="well">
+					<td>
+                    	<h4><center>Aprobaci&oacute;n de Usuario Organizaci&oacute;n Convenio</center></h4>
+					</td>
+			  	</tr>
+			</table>
+
+<div class="alert alert-warning alert-dismissable" style="display:none">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>¡Cuidado!</strong> Es muy importante que leas este mensaje de alerta.
+</div>
+         
+            <?php 
+            $act_usu1='active';$act_usu2='';$act_usu3='';
+			     ?>
+            <div class="tabbable" style="margin-bottom: 18px;">
+	            <ul class="nav nav-tabs nav-justified">
+
+      		        <li class="active" data-target="#tab1" data-toggle="tab">
+
+                  <a ><strong>Solicitudes Pendientes <span id="CantidadP" class="badge"></span></strong></a></li>
+              		
+                  <li data-target="#tab2" data-toggle="tab">
+
+                  <a ><strong>Solicitudes Aprobadas <span  id="CantidadA" class="badge"></span></strong></a></li>
+
+                  <li data-target="#tab3" data-toggle="tab">
+
+                  <a ><strong>Solicitudes Rechazadas <span id="CantidadR" class="badge"></span></strong></a></li>
+
+        	    </ul>
+            	
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+            	<div class="tab-pane <?php echo $act_usu1; ?>" id="tab1">
+                    	   <div class="row-fluid">
+                               
+                        <br> <!--TABLA CATALAGO-->
+                        
+                       
+                        <table class="table table-striped table-hover dt-responsive nowrap compact" id="Pendienet" style="cursor : pointer ; width: 99% ">
+                        <thead>
+                            <tr >
+
+                       <th colspan="3" >
+                        <img src="../../../img/Ico-master/PNG/64px/0004-office.png" alt=Ginger class=left width=20 >
+                          Datos Organizaci&oacute;n Convenio
+                        </th>
+          
+                        <th colspan="3" >
+                        <img src="../../../img/Ico-master/PNG/64px/0114-user.png" alt=Ginger class=left width=20 >
+                        Persona Contacto
+                        </th>
+
+                              
+                              <th >Solicitud</th> 
+                              <th  >Operaciones</th>
+
+                            </tr>
+
+                              <tr   >
+                              <th colspan="" >
+                              Nombre
+                              </th>
+                
+                              <th colspan="" >Nro. Tel&eacute;fono
+                              </th>
+
+                              <th>
+                              Correo
+                              </th>
+                              <th colspan="" >
+                              Nombre - Apellido
+                              </th>
+        
+
+                              <th>
+                              Nro. Tel&eacute;fono 
+                              </th>   
+                              <th>
+                               Correo
+                              </th>                           
+                                                           
+                              <th >Fecha
+                              </th> 
+                              <th >Aprobar / Rechazar
+                              <th hidden style="display:none">codigo</th>
+                              </th> 
+
+                            </tr>
+                        </thead>
+
+                        </table>
+                        
+
+
+                            </div>
+			            
+            		</div>
+		            <div class="tab-pane <?php echo $act_usu2; ?>" id="tab2">
+        				
+							<br>
+                          <table class="table table-striped table-hover dt-responsive nowrap compact" id="Aprobad" style="cursor:pointer ; width: 99%">
+                      <thead>
+                            <tr  >
+                              <th colspan="3" >
+                              
+                              <img src="../../../img/Ico-master/PNG/64px/0004-office.png" alt=Ginger class=left width=20 >
+
+                              Datos Organizaci&oacute;n Convenio
+                              </th>
+                
+                              <th colspan="3" >
+                              <img src="../../../img/Ico-master/PNG/64px/0114-user.png" alt=Ginger class=left width=20 >
+                              Persona Contacto
+                              </th>
+
+                              <th >Aprobaci&oacute;n
+                              </th> 
+                             <th rowspan="2" >
+                             <BR>Operaciones
+                             </th>
+
+                            </tr>
+
+                              <tr  >
+                              <th colspan="" >
+                             Nombre
+                              </th>
+                
+                              <th colspan="" >Nro. Tel&eacute;fono
+                              </th>
+
+                              <th>
+                              Correo
+                              </th>
+                              <th colspan="" >
+                              Nombre - Apellido
+                              </th>
+       
+                              <th>
+                              Nro. Tel&eacute;fono
+                              </th>                              
+       
+                              <th>
+                              Correo
+                              </th>  
+                                                            
+                              <th >Fecha
+                              </th>
+                              <th hidden style="display:none">codigo</th> 
+                            </tr>
+                        </thead>
+
+                        </table>
+                       
+		            </div>
+
+
+
+                <div class="tab-pane <?php echo $act_usu3; ?>" id="tab3">
+            <br>
+              <div class="table-responsive">
+              <table class="table table-striped table-hover dt-responsive nowrap compact" id="Rechazad" style="cursor:pointer ; width: 99%">
+              <thead>
+							<tr  >
+                              <th colspan="3" >
+                              
+                              <img src="../../../img/Ico-master/PNG/64px/0004-office.png" alt=Ginger class=left width=20 >
+
+                              Datos Organizaci&oacute;n Convenio
+                              </th>
+                
+                              <th colspan="3" >
+                              <img src="../../../img/Ico-master/PNG/64px/0114-user.png" alt=Ginger class=left width=20 >
+                              Persona Contacto
+                              </th>
+
+                              <th >Rechazo
+                              </th> 
+                             <th rowspan="2" >
+                             <BR>Operaciones
+                             </th>
+
+                            </tr>
+
+                              <tr>
+                              <th colspan="" >
+                              Nombre
+                              </th>
+                
+                              <th colspan="" >Nro. Tel&eacute;fono
+                              </th>
+
+                              <th>
+                              Correo
+                              </th>
+                              <th colspan="" >
+                              Nombre - Apellido
+                              </th>
+
+
+                              <th>
+                              Nro. Tel&eacute;fono 
+                              </th>        
+
+                              <th>
+                               Correo
+                              </th>  
+
+                              </th>                              
+                              <th >Fecha
+                              </th> 
+                              <th hidden style="display:none">codigo</th>
+                            </tr>
+                        </thead>
+           
+                        </table>
+                </div>
+                    </div>
+
+
+        	    </div>
+            </div>
+
+
+                          
+</div >
+        
+
+
+    <div id="modal_rechazar_empresa" class="modal  fade" >
+           <div class="modal-dialog">
+            <div class="modal-content">
+    
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title" align="center">Detalles de Solicitud a Rechazar<br></h4>
+
+    </div>
+    <div class="modal-body" align="center">
+    <table width="100%">
+    <tr>
+    <td> 
+
+          <center>
+          <div class="row-fluid">
+          <div class="span6">     
+          <strong> Persona </strong>   <br>           
+          <input type="text" id="nombre_persona" value=""  disabled="true">    <br>
+
+          <strong> Nro. Telefono </strong>   <br> 
+          <input type="text" id="telefono" value="" disabled="true">           <br>
+          <strong> Correo Electr&oacute;nico</strong>   <br> 
+          <input type="text" id="correo" value="" disabled="true"><br> 
+          <strong> Descripci&oacute;n </strong>
+          <br>
+          <textarea id="descipcion_Registro" value="" required autocompleted="off" disabled="true"></textarea>
+          <br> 
+          <strong> Perfil que Solicita </strong>
+          <br>
+          <textarea id="perfil" value="" required autocompleted="off" disabled="true"></textarea>
+          <br> 
+                   
+          </div>
+          <div class="span6">                 
+          <input type="hidden" id="id_persona_oficina" value="" >  
+          <strong>Nombre Organizaci&oacute;n </strong>   <br> 
+          <input type="text" id="nombre_oganizacion" value="" disabled="true">    <br>
+          <strong>Departamento </strong>   <br> 
+          <input type="text" id="nombre_oficina" value="" disabled="true">      <br>
+
+          
+          <strong>Fecha Solicitud </strong>   <br> 
+          <input type="date" id="fecha_solicitud" value="" disabled="true">        
+          <br>
+          <strong> Fecha de Rechazo </strong>
+          <br>
+          <input type="Date" id="fecha_rechazo"  value="" required autocomplete="off" >          
+          <br>
+          <strong> Observaci&oacute;n </strong>
+          <br>
+          <textarea id="descipcion_Rechazo" value="" required autocompleted="off"></textarea>
+          <br>
+        
+                   
+          </div>
+          </div>
+          </center>
+    </td>
+    </tr>
+    </table>
+
+    </div>  
+
+    <div class="modal-footer">
+    <button  class="btn btn-default" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+    <button  class="btn btn-primary" id="Ver" >Rechazar</button>
+    </button>
+  
+    </div> 
+    </div>
+    </div>
+    </div>
+
+     
+  <!-- Estilo De Selects Very Good -->
+
+<link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-select/css/jquery.selectBoxIt.css">
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery-ui-1.8.23.custom.min.js" defer=""></script> 
+<script src="../../../Menus/bootstrap/bootstrap-select/js/jquery.selectBoxIt.min.js" defer=""></script>
+
+  <!-- Estilo De Selects Very Good -->
+    
+       <!--PAGINADOR-->
+
+
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.bootstrap.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/dataTables.responsive.min.js"></script> 
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/responsive.bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="../../../Menus/bootstrap/css/selectBien.css">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/responsive.bootstrap.min.css" rel="stylesheet"> 
+
+
+
+
+    <script src='../js/AprobarInstituto.js'></script>
+  </body>
+</html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

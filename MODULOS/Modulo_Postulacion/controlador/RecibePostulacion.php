@@ -39,6 +39,7 @@
 			$varialbe = $modeloThis->HacerResumenOrganizacionesAsociadasA( $_POST['id_ip']  );
 
 			echo json_encode($varialbe);
+<<<<<<< HEAD
 
 	}else if(isset($_POST['MisPostulaciones']))
 	{//----EDINSON--->>
@@ -54,6 +55,8 @@
 			$result = $clase->CargarInfo_Modal($_POST);
 			echo json_encode($result);
 	
+=======
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 	}
 
 

@@ -1051,6 +1051,7 @@ class organizacion
 	}
 
 
+<<<<<<< HEAD
 
 	//-------AQUIII POSTULACION DIRECTA--->>>>
 	//----LLEGO EDINSON--->>>
@@ -1108,6 +1109,22 @@ class organizacion
 		$tutores=$reg['descripcion'];
 
 		return $tutores;
+=======
+	//-------AQUIII POSTULACION DIRECTA--->>>>
+	function Aprobarsolicitud_EstudiantesPostuladosAempresas($CodigoSolicitud , $sucursal, $id_persona)
+	{
+		 $sql =pg_query("UPDATE pasantias.solicitudes_recibidas SET estatus='APROBADO ORGANIZACION' 
+		 	WHERE codigo_solicitud='$CodigoSolicitud' AND valor='$sucursal' ;");
+		              $registro = pg_affected_rows($sql);
+                       
+
+            //----INSERTOOOO---->>>>
+            $insert=pg_query("INSERT INTO pasantias.responsables (codigo_solicitud, table_column, valor, estatus)VALUES('$CodigoSolicitud','persona.id_persona','$id_persona','REALIZADO' )"); 
+            $registro = pg_affected_rows($insert);
+		return $registro;
+
+
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 	}
 
 	function cargarSolicitudesAprobadasOrganizacion($codigo_encargado)

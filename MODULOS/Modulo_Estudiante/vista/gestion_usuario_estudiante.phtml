@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -371,3 +372,378 @@ echo '
    <script src="../js/estudiante_usuario.js"></script>
    </div>
 </body></html>
+=======
+<?php
+session_start();
+
+if(isset($_SESSION['id_perfil'])){
+$id_perfil=$_SESSION['id_perfil'];
+$nombre_perfil=$_SESSION['nombre_perfil'];
+$ID_INSTITUCION=$_SESSION['ID_INSTITUCION'];
+$nombre_organizacion =  $_SESSION['nombre_instituto'];
+$nombre_persona = $_SESSION['persona'];
+}else { 
+$id_perfil=1;
+$nombre_perfil="Menu Principal";
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title> Pasantias </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    
+
+  <!--    MENU CUERPO-->
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+  
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+  
+  <!-- Placed at the end of the document so the pages load faster -->
+
+<!-- MESNAJES CALIDA OPERACIONES -->
+    <link rel="stylesheet" href="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.css">
+    <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.js"></script>
+    <script type="text/javascript" src="../../Modulo_Estado/js/sweetalert-master/lib/sweet-alert.min.js"></script>
+   <!-- MESNAJES CALIDA OPERACIONES-->
+
+   <script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+  
+<script  src="../js/validaciones.js"></script> 
+
+  </head>
+
+  <body style="padding-top: 20px;" id="body">
+
+    
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+<!-- Fin De MENU-->
+
+ <?php 
+  if($id_perfil==6){
+   echo ' <input type="hidden" name="id_instituto" id="id_institutoo" value="'.$ID_INSTITUCION.'"> ';
+   }else{
+   echo ' <input type="hidden" name="id_instituto" id="id_institutoo" value="">';
+   }
+  ?>
+
+<div align="center" id="div_consulta_usuario_estudiante">
+        <div style="width:70%">
+        <table class="table table-bordered">
+          <tr class="well">
+              <td><h4 align="center">Gesti&oacute;n De Usuario Estudiante de la
+              Institución  <label id="nombre_ii"></label></h4></td>
+            </tr> 
+          <tr>
+            <td>
+                  <center>
+                         
+                            
+                            
+                            <?php if($id_perfil!=6){echo '<input type="button" class="btn btn-primary btn-large" id="mostrar_modal" neme="" value="Instituciones">';}?>
+                            
+                            <div class="row-fluid">
+                             
+                              <div class="span6"><br>
+                                <strong>C&eacute;dula:</strong><br>
+                                <input type="text" id="cedula_c"  name="cedula" onkeyup='busqueda_cedula()' onkeypress="return numeros(event);"  maxlength="8" autocomplete="off" value=""><br>    
+                                   
+                                </div>
+                              <div class="span6"><br>
+                                <strong>Expediente:</strong><br>
+                                <input type="text" id="expediente_c" name="expediente" onkeyup='busqueda_expediente()' onkeypress="return numeros(event);"  value="" maxlength="5" autocomplete="off" >
+                               
+                               
+                                <input id="botConsultar"  name="botConsultar" type="button" class="btn btn-primary btn-large" value="Consultar">
+                                </div>
+                                    
+                               
+
+
+                            </div>
+                           
+                            
+                      
+                    </center>
+                </td>
+          </tr>
+        </table>
+    </div></div>
+      
+
+
+   
+
+
+<?php
+include('../modelo/mod_estudiante.php');
+$classe= new estudiante();
+if($id_perfil==1){   echo '
+ 
+ <script>
+    $(document).ready(function(){
+      $("#tabla_modal").modal("show");
+    });
+  </script>';
+}else{
+echo '
+<div align="center" id="div_catalogo_estudiante">
+  <table width="70%">
+    <tr>
+    <td>
+          
+      <table class="table table-bordered"  >
+          <tr class="well">
+          <td>
+                      <center><strong>Estudiantes Registrados</strong></center>
+          </td>
+          </tr>
+      </table>
+            
+           
+          
+            
+            <!--TABLA DE LOS REGISTROS-->
+            <table class="display dataTable" id="Table" width="100%">
+               
+              '; 
+
+            		
+                 $classe->cargarcatalogoestudiantes($ID_INSTITUCION);
+               
+
+               
+     echo '
+
+            </table>
+    </td>
+    </tr>
+  </table>
+</div>
+'; }
+?>
+
+<!-- - TABLA MODAL registro estudiantes  -->
+
+    <div id="modal_registro_usuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >  
+        <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+    
+    <h3  align="center">Gestion De Usuarios Estudiante</h3>
+
+    </div>
+    <div class="modal-body" align="center">
+  
+     
+        
+              
+                  <!-- USUARIO ESTUDIANTE-->
+
+<div align="center" id="div_usuario_estudiante">
+        <div style="width:100%">
+      
+                  <center>
+     
+                             <div class="row-fluid">
+                              <div class="span6">
+                                <input type="hidden" id="id_persona" name="id_persona" value="">
+                                <input type="hidden" id="id_usuario" name="id_usuario" value="">
+                              
+                                    <strong>Expediante:</strong><br>
+                                    <input type="text" id="expediente" name="expediante" value="" autocomplete="off" required disabled>
+                                    <font color="red" size="4">*</font><br>   
+                                    <strong>Cedula:</strong><br>
+                                   <input type="text" id="cedula" name="cedula" value="" autocomplete="off" required disabled> 
+                                    <font color="red" size="4">*</font><br>  
+                                    <strong>Nombre:</strong><br>
+                                    <input type="text" id="nombre" name="nombre" value="" autocomplete="off" required disabled>
+                                    <font color="red" size="4">*</font><br>
+                                    <strong>Apellido:</strong><br>
+                                   <input type="text" id="apellido" name="apellido" value="" autocomplete="off" disabled>
+                                    <font color="red" size="4">*</font><br>
+                                    <strong>Especialidad:</strong><br>
+                                    <input type="text" id="especialidad" name="angle" value="" autocomplete="off" disabled>
+                                    <font color="red" size="4">*</font><br>  
+                                     <strong>Telefono:</strong><br> 
+                                    <input type="text" id="telefono"  name="telefono" onkeypress="return numeros(event);" maxlength="11" value="" autocomplete="off" >
+                                    <font color="red" size="4">*</font><br> 
+                                 
+                                    <strong>Correo:</strong><br>  
+                                    <input type="email" name="correo" id="correo" onkeyup="this.value=this.value.toUpperCase()"  value="" autocomplete="off" >
+                                    <font color="red" size="4">*</font><br> 
+                                </div>
+                              <div class="span6">
+
+                                    <strong>Fecha de Asignación:</strong> &nbsp;<br>
+                       <input type="Date" id="fecha_solicitud" name="fecha" value="" autocomplete="off"  required onkeyup="this.value=this.value.toUpperCase()">
+                                    <font color="red" size="4">*</font> 
+                          <br>
+                                    
+                                
+                                    <strong>Usuario:</strong><br>
+                                 <input type="text" name="usuario" id="usuario" onkeyup="ConsultaUsuarios(this.value)" onkeyup="this.value=this.value.toUpperCase()"  value="" autocomplete="off">
+                                    <font color="red" size="4">*</font>  
+                                    
+                                 
+                                    <strong>Contraseña:</strong><br>  
+                                    <input type="password" name="contrasena_a" id="contrasena_a" onkeypress="return numeros(event);" maxlength="15" value="" autocomplete="off" >
+                                    <font color="red" size="4">*</font>
+                                    <br>
+                                 
+                                    <strong>Repita Contraseña:</strong><br>  
+                                   <input type="password" name="contrasena_b" id="contrasena_b"  onkeypress="return numeros(event);"  maxlength="15" value="" autocomplete="off" >
+                                      <font color="red" size="4">*</font>
+                                    <br>
+
+                                    <strong>Pregunta</strong><br>
+                                     <select id="pregunta" name="pregunta" required>
+                                              
+                                              <option value=""  >SELECCIONE...</option>
+                                               <option value="Nombre de tus Abuelos"  >Nombre de tus Abuelos</option>
+                                                <option value="Nombre de tu Primera Mascota"  >Nombre de tu Primera Mascota</option>
+                                                 <option value="Nombre de tu Primeira Novi@"  >Nombre de tu Primeira Novi@</option>
+                                                  <option value="Nombre del Liceo Donde Estudiaste"  >Nombre del Liceo Donde Estudiaste</option>
+                                                   
+                                            </select>
+                                            <font color="red" size="4">*</font> 
+                                    <br>
+                                 <br>
+                                    <strong>Respuesta:</strong><br>  
+                                   <input type="text" name="respuesta" id="respuesta"  onkeypress="return letras(event);"  maxlength="15" value="" autocomplete="off" >
+                                      <font color="red" size="4">*</font>
+                                </div>
+                            </div>
+                       
+                        <font color="red" size="2">(*) </font><font color="red" size="1">Campos Obligatorios... </font>
+                    </center>
+       
+    </div></div>
+                       
+                
+
+
+
+
+
+    </div>  
+   <div class="modal-footer">          
+          <input type="button" id="botRegistrar" name="botRegistrar"  value="Registrar" class="btn btn-primary btn-large"> 
+          <input type="button" id="botModificar" name="botModificar"  value="Modificar" class="btn btn-primary btn-large">
+           <input type="button" id="Cancelar" value="Cancelar" class="btn" data-dismiss="modal">
+          </div>
+    </div>
+    </div>
+    </div>      
+
+<!-- fin del modal -->
+
+
+
+<!-- - TABLA MODAL DEPARTAMENTOS  -->
+
+    <div id="tabla_instituciones" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >  
+        <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+    
+    <h3  align="center">Elije La Institución a la que Perteneces<br></h3>
+
+    </div>
+    <div class="modal-body" align="center">
+  
+     
+        
+              
+                        <table class="display dataTable" id="TableInstituto" whidth="100%">
+                        <thead>
+                        <tr>
+                        <td><strong><center>N°</center></strong></td>
+                        <td><strong><center>SIGLÁS</center></strong></td>
+                        <td><strong ><center>NOMBRE</center></strong></td>
+                        <td><strong><center>TELÉFONO</center></strong></td>
+                        </tr>
+                        </thead> 
+
+                        </table>
+                       
+                
+
+
+
+
+
+    </div>  
+    <div class="modal-footer">          
+          <button  class="btn" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+          </button>
+          </div>
+    </div>
+    </div>
+    </div>      
+
+<!-- fin del modal -->
+
+  
+<!--PAGINADOR-->
+       <script>
+    $(document).ready(function(){
+      $('#TableInstituto').dataTable();
+      $('#Table').dataTable();
+
+    });
+  </script>
+     <!--PAGINADOR - T A B L A S-->
+    
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.js"></script>
+    <script src="../../Modulo_tipoOrganizacion/js/js_tabla/media/js/jquery.dataTables.min.js"></script>
+
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../../Modulo_tipoOrganizacion/js/js_tabla/media/css/jquery.dataTables_themeroller.css" rel="stylesheet">
+
+ <!--PAGINADOR - T A B L A S-->
+           
+           <!--   Mensajes-->
+ <script src="../js/dist/js/jquery.amaran.min.js"></script>
+ <script src="../js/dist/js/jquery.amaran.js"></script>
+   <!--  FIN  Mensajes-->
+   <div id="js">
+   <script src="../js/estudiante_usuario.js"></script>
+   </div>
+</body></html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

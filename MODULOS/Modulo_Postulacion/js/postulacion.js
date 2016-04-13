@@ -336,7 +336,11 @@ function SeleccioneUnaTemporada()
 
 
 //agregarPestanas(  ); // pestanas , contenido
+<<<<<<< HEAD
 function agregarPestanas(html)
+=======
+function agregarPestanas(html )
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 {
 
 
@@ -344,7 +348,10 @@ $("#pestana").html(html);
 	
 					
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905
 function agregarcontenidotab(html , tablas , botonselectedorganizacion , autoclicked)
 {
 	

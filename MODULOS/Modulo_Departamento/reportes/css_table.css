@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .tabla {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size:12px;
@@ -23,3 +24,30 @@ font-family: “Trebuchet MS”, Arial;
 text-transform: uppercase;
 }
 
+=======
+.tabla {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+text-align: right;
+width: 600px;
+
+}
+
+.tabla th {
+padding: 5px;
+font-size: 16px;
+background-color: #83aec0;
+background-image: url(fondo_th.png);
+background-repeat: repeat-x;
+color: #FFFFFF;
+border-right-width: 1px;
+border-bottom-width: 1px;
+border-right-style: solid;
+border-bottom-style: solid;
+border-right-color: #558FA6;
+border-bottom-color: #558FA6;
+font-family: “Trebuchet MS”, Arial;
+text-transform: uppercase;
+}
+
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

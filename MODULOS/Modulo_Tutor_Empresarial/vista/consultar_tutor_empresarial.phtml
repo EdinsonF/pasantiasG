@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 session_start();
 
@@ -252,3 +253,259 @@ $persona= new usuarios();
      
   
 </body></html>
+=======
+<?php
+session_start();
+
+
+    if(isset($_SESSION['id_perfil'])){
+        $id_perfil=$_SESSION['id_perfil'];
+        $nombre_perfil=$_SESSION['nombre_perfil'];
+        $nombre_organizacion =  $_SESSION['nombre_instituto'];
+        $nombre_persona = $_SESSION['persona'];
+        $ID_ORGANIZACION_PRINCIPAL=$_SESSION['ID_ORGANIZACION'];
+    }else {
+
+
+    }
+
+?>
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://vadikom.github.io/smartmenus/src/demo/bootstrap-navbar.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión Estudiante</title>
+
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap.min22.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/bootstrap-responsive.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/css/sticky-footer-navbar.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/bootstrap-submenu.min.css">
+  <link rel="stylesheet" href="../../../Menus/bootstrap/bootstrap-menu/dist/css/docs.css">
+
+  <!-- Bootstrap JS -->
+<script src="../../../Menus/bootstrap/js/jquery-1.11.3.min.js" ></script>
+ 
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/highlight.min.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/bootstrap-submenu.js" defer=""></script>
+  <script src="../../../Menus/bootstrap/bootstrap-menu/dist/js/docs.js" defer=""></script>
+
+  </head>
+
+  <body style="padding-top: 20px;">
+
+    
+<!--inicio del menu -->
+
+<?php
+
+include("../../../BASE_DATOS/Conect.php");
+$conexionBD = new Conexion();
+$conexionBD->Conectar();
+include("../../Modulo_Usuario/modelo/mod_usuario.php");
+$persona= new usuarios();    
+
+    if($id_perfil== 1){
+      $persona->menu($id_perfil , $nombre_perfil , '','' );
+    }
+    else
+    {
+      $persona->menu($id_perfil , $nombre_perfil , $nombre_organizacion ,$nombre_persona );
+    }
+?>
+
+<!-- Fin De MENU-->
+
+
+
+<div align="center">
+        <div style="width:70%">
+        <table class="table table-bordered">
+          <tr class="well">
+              <td><h4 align="center">Gesti&oacute;n De Tutor Academico<br>Organización: 
+              <?php //echo $_SESSION['nombre_o'];
+                    //echo $_SESSION['nombre_a'];?></h4></td>
+            </tr>
+          <tr>
+            <td>
+                  <center>
+                        <form name="form" action="../controlador/ctr_tutor_empresarial.php" method="post" onsubmit="return validar_tutor()" >
+                           <input type='hidden' name='id_empresa' id='id_empresa' autocomplete='off' value='<?php echo $_SESSION['id_instituto'];?>'>
+                               <input type='hidden' name='id_instituto' id='id_instituto' autocomplete='off' value='<?php echo $_SESSION['id_empresa']; ?>'>
+                                <input type='hidden' name='id_organizacion' id='id_organizacion' autocomplete='off' value='<?php echo $_SESSION['id_organizacion']; ?>'>
+                               
+    <?php if($id_perfil==6){echo' <strong>Seleccionar Organización:</strong> <a href="#tabla_organizaciones" role="button" class="btn btn-primary" data-toggle="modal">+</a>';}?>
+
+                            <div class="row-fluid">
+
+                             
+                              <div class="span6"><br>
+                                <strong>C&eacute;dula:</strong><br><span id="ced">
+                                <input type="text" name="cedula" id="cedula" onkeyup='busqueda_cedula()' onkeypress="return numeros(event);" value="" maxlength="8" autocomplete="off" ><br>    
+                                   </span>
+                                </div>
+                              <div class="span6"><br>
+                                <strong>C&oacute;digo:</strong><br><span id="exp">
+                                <input type="text" name="codigo" id="codigo" onkeyup='busqueda_expediente()' onkeypress="return numeros(event);"  value="" maxlength="6" autocomplete="off">
+                                </span>
+                               
+                                <input  name="botConsultar" type="submit" class="btn btn-primary btn-large" value="Consultar">
+                                </div>
+                                    
+                               
+
+
+                            </div>
+                           
+                            
+                        </form>
+                    </center>
+                </td>
+          </tr>
+        </table>
+    </div></div>
+
+
+
+<div align="center">
+  <table width="70%">
+    <tr>
+    <td>
+          
+      <table class="table table-bordered"  >
+          <tr class="well">
+          <td>
+                      <center><strong>Tutores Aademicos Registrados</strong></center>
+          </td>
+          </tr>
+      </table>
+            
+           
+          
+            
+            <!--TABLA DE LOS REGISTROS-->
+            <table class="table table-bordered" id="Table" width="100%">
+
+            	<?php 
+
+                  include('../modelo/mod_tutor_empresarial.php');
+
+                  
+                  $classe= new tutor_empresarial();
+
+                  $classe->cargarcatalogo($id_organizacion);
+                ?>
+
+              
+
+
+            </table>
+    </td>
+    </tr>
+  </table>
+</div>
+  
+
+<script type="text/javascript" src="../js/tutor_empresarial.js"></script>
+  
+
+
+
+
+<!-- - TABLA MODAL DEPARTAMENTOS  -->
+
+    <div id="tabla" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button> 
+    <h3  align="center">Elije una Organización<br></h3>
+
+    </div>
+    <div class="modal-body" align="center">
+  
+     
+            <!--TABLA DE LOS REGISTROS A ASIGNAR-->
+
+             <?php 
+            $act_usu1='active';$act_usu2='';
+             ?>
+            <div class="tabbable" style="margin-bottom: 18px;">
+              <ul class="nav nav-tabs">
+                <li class="<?php echo $act_usu1; ?>"><a href="#tab1" data-toggle="tab"><strong>Empresas</strong></a></li>
+                <li class="<?php echo $act_usu2; ?>"><a href="#tab2" data-toggle="tab"><strong>Instituciones</strong></a></li>
+                    
+              </ul>
+              <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+                <div class="tab-pane <?php echo $act_usu1; ?>" id="tab1">
+                         <div class="row-fluid">
+                               
+                               <br> <!--TABLA CATALAGO-->
+                        <table class="table table-bordered" id="Table1" whidth="100%">
+                          
+                        <?php 
+             
+
+                  $classe->CargarEmpresa();
+                ?>
+                        </table>
+
+                            </div>
+                  
+                </div>
+                <div class="tab-pane <?php echo $act_usu2; ?>" id="tab2">
+                
+              <br>
+                        <table class="table table-bordered" id="Table2" whidth="100%">
+                        <?php
+                        $classe->CargarInstituto();
+                        ?>  
+                        </table>
+                       
+                </div>
+
+
+
+             
+
+
+              </div>
+            </div>
+
+
+
+    </div>  
+    <div class="modal-footer">
+    <button  class="btn" data-dismiss="modal" aria-hidden="true"><strong>Cerrar</strong>
+    </button>
+  
+    </div>
+    </div>      
+
+
+
+
+
+<!--PAGINADOR-->
+<script src="../js/js_tabla/jquery.dataTables.js"></script>
+<link href="../js/js_tabla/jquery.dataTables.css" rel="stylesheet">
+    <script>
+    $(document).ready(function(){
+   $('#Table').dataTable();
+    $('#Table1').dataTable();
+  $('#Table2').dataTable();
+    });
+  </script>
+    <script src='../js/js_tabla/tablesort.min.js'></script>
+
+  <script>
+      new Tablesort(document.getElementById('table-id'));
+    </script>
+     
+  
+</body></html>
+>>>>>>> 5c2d1cc2998a4740e76c5d5ccb12eccefda7e905

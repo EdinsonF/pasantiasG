@@ -255,7 +255,7 @@ if (isset($_POST['selectperiodo'])) {
 		
 		$data        = array();
 		
-		while ($fila = pg_fetch_assoc($value)) :  $data[] = $fila; endwhile;
+		while ($fila = pg_fetch_assoc($value)) : $data[] = $fila; endwhile;
 	
 	echo json_encode($data);
 

@@ -1020,57 +1020,53 @@ END as calculo_tiempo ,
 	}
 
 	function VerificarNoPostulados($codigo_temporada_especialidad) {
-		$sql = pg_query("SELECT solicitudes_recibidas.valor
-			FROM (
-	SELECT estudiante.codigo_estudiante
+		$sql = pg_query("SELECT true
 
 		FROM pasantias.estudiante
 
-	INNER JOIN pasantias.temporadas_estudiantes
+	INNER JOIN pasantias.temporadas_estudiantes tem_st
 
-		ON temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante
+		ON  ( tem_st.codigo_estudiante = estudiante.codigo_estudiante )
 
-	INNER JOIN pasantias.temporadas_especialidad
+	INNER JOIN pasantias.temporadas_especialidad tem_sp
 
-		ON temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad
+		ON  ( tem_sp.codigo_temporada_especialidad = tem_st.codigo_temporada_especialidad )
 
-		AND temporadas_especialidad.codigo_temporada_especialidad='$codigo_temporada_especialidad'
+		AND ( tem_sp.codigo_temporada_especialidad='$codigo_temporada_especialidad' )
 
-	INNER JOIN pasantias.persona_instituto_especialidad
+	INNER JOIN pasantias.persona_instituto_especialidad p_i_e
 
-		ON persona_instituto_especialidad.id_persona = estudiante.id_persona
+		ON  ( p_i_e.id_persona = estudiante.id_persona )
 
-		AND  persona_instituto_especialidad.id_ip = estudiante.id_ip
+		AND ( p_i_e.id_ip = estudiante.id_ip )
 
-		AND  persona_instituto_especialidad.id_especialidad = estudiante.id_especialidad
+		AND ( p_i_e.id_especialidad = estudiante.id_especialidad )
 
-		AND  persona_instituto_especialidad.id_perfil = estudiante.id_perfil
+		AND ( p_i_e.id_perfil = estudiante.id_perfil )
 
-	INNER JOIN pasantias.especialidad_instituto_principal
+	INNER JOIN pasantias.especialidad_instituto_principal e_i_p
 
-		ON especialidad_instituto_principal.id_ip = persona_instituto_especialidad.id_ip
+		ON   ( e_i_p.id_ip = p_i_e.id_ip )
 
-		AND especialidad_instituto_principal.id_especialidad = persona_instituto_especialidad.id_especialidad
+		AND  ( e_i_p.id_especialidad = p_i_e.id_especialidad )
 
 	INNER JOIN pasantias.especialidad
 
-		ON especialidad.id_especialidad = especialidad_instituto_principal.id_especialidad
+		ON  ( especialidad.id_especialidad = e_i_p.id_especialidad )
 
-		AND especialidad.id_especialidad = temporadas_especialidad.id_especialidad
+		AND ( especialidad.id_especialidad = tem_sp.id_especialidad )
 
-	LEFT JOIN pasantias.solicitudes_enviadas
+	LEFT JOIN pasantias.solicitud
 
-		ON solicitudes_enviadas.valor = estudiante.codigo_estudiante
+		ON  ( solicitud.codigo_estudiante = estudiante.codigo_estudiante )
 
-	WHERE solicitudes_enviadas.valor IS NULL
+		And ( solicitud.codigo_temporada_especialidad = tem_st.codigo_temporada_especialidad )
 
-	) as recibidas
+	WHERE solicitud.codigo_estudiante Is Null
 
-	LEFT JOIN pasantias.solicitudes_recibidas 
+	and solicitud.codigo_temporada_especialidad Is Null
 
-		ON recibidas.codigo_estudiante = solicitudes_recibidas.valor
-
-	WHERE solicitudes_recibidas.valor is null;");
+	and tem_sp.codigo_temporada_especialidad Is Not Null ;");
 
 	return pg_num_rows($sql);
 
@@ -1575,59 +1571,59 @@ END as calculo_tiempo ,
 
 		FROM ( SELECT 
 
-			et.id_entregable ,
+		et.id_entregable ,
 
-			tm_sp.codigo_temporada_especialidad, 
+		tm_sp.codigo_temporada_especialidad, 
 
-			Count(et.id_entregable) as cantidadGeneral
+		Count(et.id_entregable) as cantidadGeneral
 
-			FROM pasantias.temporadas_solicitud tm_so 
+		FROM pasantias.temporadas_solicitud tm_so 
 
-			Inner Join pasantias.temporadas_especialidad tm_sp
+		Inner Join pasantias.temporadas_especialidad tm_sp
 
-				On ( tm_sp.codigo_temporada = tm_so.codigo_temporada )
+			On ( tm_sp.codigo_temporada = tm_so.codigo_temporada )
 
-				And ( tm_sp.codigo_temporada_especialidad = '$codigo' )
-			
-			Inner Join pasantias.entregable_temporada et_tm
-
-				On ( et_tm.codigo_temporada = tm_so.codigo_temporada )
-
-			Inner Join pasantias.entregable et 
-
-				On ( et.id_entregable = et_tm.id_entregable )
-
-			Where tm_sp.codigo_temporada_especialidad Is Not Null
-
-			Group By 
-
-			et.id_entregable ,
-
-			tm_sp.codigo_temporada_especialidad ) sql_entregables
+			And ( tm_sp.codigo_temporada_especialidad = '$codigo' )
 		
-		Inner Join pasantias.estudiantes_entregables st_et 
+		Inner Join pasantias.entregable_temporada et_tm
 
-			On ( st_et.id_entregable = sql_entregables.id_entregable )
+			On ( et_tm.codigo_temporada = tm_so.codigo_temporada )
 
-			And ( st_et.codigo_temporada_especialidad = sql_entregables.codigo_temporada_especialidad )
+		Inner Join pasantias.entregable et 
 
-		Inner join pasantias.estudiante st 
+			On ( et.id_entregable = et_tm.id_entregable )
 
-			On ( st.codigo_estudiante = st_et.codigo_estudiante )
+		Where tm_sp.codigo_temporada_especialidad Is Not Null
 
-		Inner Join pasantias.temporadas_estudiantes tm_st
-
-			On ( tm_st.codigo_estudiante = st.codigo_estudiante ) 
-
-		Where st_et.id_entregable Is Not Null
-		
 		Group By 
 
-			st_et.codigo_estudiante 
+		et.id_entregable ,
 
-		having 
+		tm_sp.codigo_temporada_especialidad ) sql_entregables
+	
+	Inner Join pasantias.estudiantes_entregables st_et 
 
-		Count(st_et.id_entregable) = sum(sql_entregables.cantidadGeneral) ;");
+		On ( st_et.id_entregable = sql_entregables.id_entregable )
+
+		And ( st_et.codigo_temporada_especialidad = sql_entregables.codigo_temporada_especialidad )
+
+	Inner join pasantias.estudiante st 
+
+		On ( st.codigo_estudiante = st_et.codigo_estudiante )
+
+	Inner Join pasantias.temporadas_estudiantes tm_st
+
+		On ( tm_st.codigo_estudiante = st.codigo_estudiante ) 
+
+	Where st_et.id_entregable Is Not Null
+	
+	Group By 
+
+	st_et.codigo_estudiante 
+
+	having 
+
+	Count(st_et.id_entregable) = sum(sql_entregables.cantidadGeneral) ;");
 
 
 		return pg_num_rows($sql);
@@ -1693,15 +1689,15 @@ END as calculo_tiempo ,
 
 	FROM pasantias.estudiante 
 
-	INNER JOIN pasantias.temporadas_estudiantes
+	INNER JOIN pasantias.temporadas_estudiantes tem_st
 
-		ON ( temporadas_estudiantes.codigo_estudiante = estudiante.codigo_estudiante )
+		ON ( tem_st.codigo_estudiante = estudiante.codigo_estudiante )
 
-	INNER JOIN pasantias.temporadas_especialidad
+	INNER JOIN pasantias.temporadas_especialidad tem_sp
 
-		ON  (temporadas_especialidad.codigo_temporada_especialidad = temporadas_estudiantes.codigo_temporada_especialidad)
+		ON  ( tem_sp.codigo_temporada_especialidad = tem_st.codigo_temporada_especialidad )
 
-		AND temporadas_especialidad.codigo_temporada_especialidad='$codigo_temporada_especialidad'
+		AND tem_sp.codigo_temporada_especialidad='$codigo_temporada_especialidad'
 
 	INNER JOIN pasantias.persona_instituto_especialidad p_i_e
 
@@ -1721,83 +1717,25 @@ END as calculo_tiempo ,
 
 	INNER JOIN pasantias.especialidad
 
-		ON ( especialidad.id_especialidad = e_i_p.id_especialidad                  )
+		ON ( especialidad.id_especialidad = e_i_p.id_especialidad )
 
-		AND( especialidad.id_especialidad = temporadas_especialidad.id_especialidad)
-
-	INNER JOIN pasantias.persona
-
-		ON ( persona.id_persona = p_i_e.id_persona)
-
-	Left Join pasantias.solicitudes_enviadas
-
-		ON ( solicitudes_enviadas.valor = estudiante.codigo_estudiante)
-
-		WHERE  
-		
-		solicitudes_enviadas.valor IS NULL 	
-
-Union 
-
-	SELECT 		 
-
-	estudiante.expediente , 
-
-	persona.nombre ||'  '|| persona.apellido as estudiante,
-
-	persona.cedula , 
-	
-	persona.correo ,  
-	
-	persona.telefono ,
-	
-	estudiante.codigo_estudiante
-
-	FROM pasantias.estudiante 
-
-	INNER JOIN pasantias.temporadas_estudiantes tem_est
-
-		ON ( tem_est.codigo_estudiante = estudiante.codigo_estudiante )
-
-	INNER JOIN pasantias.temporadas_especialidad tem_esp
-
-		ON  (tem_esp.codigo_temporada_especialidad = tem_est.codigo_temporada_especialidad)
-
-		AND tem_esp.codigo_temporada_especialidad='$codigo_temporada_especialidad'
-
-	INNER JOIN pasantias.persona_instituto_especialidad p_i_e
-
-		ON 	( p_i_e.id_persona = estudiante.id_persona           )
-
-		AND ( p_i_e.id_ip = estudiante.id_ip                     )
-
-		AND ( p_i_e.id_especialidad = estudiante.id_especialidad )
-
-		AND ( p_i_e.id_perfil = estudiante.id_perfil             )
-
-	INNER JOIN pasantias.especialidad_instituto_principal e_i_p
-
-		ON  ( e_i_p.id_ip = p_i_e.id_ip                     )
-
-		AND ( e_i_p.id_especialidad = p_i_e.id_especialidad )
-
-	INNER JOIN pasantias.especialidad
-
-		ON  ( especialidad.id_especialidad = e_i_p.id_especialidad 	 )
-
-		AND ( especialidad.id_especialidad = tem_esp.id_especialidad )
+		AND( especialidad.id_especialidad = tem_sp.id_especialidad)
 
 	INNER JOIN pasantias.persona
 
 		ON ( persona.id_persona = p_i_e.id_persona )
 
-	Left JOIN pasantias.solicitudes_recibidas 
+	Left join pasantias.solicitud 
 
-		ON ( solicitudes_recibidas.valor = estudiante.codigo_estudiante )
+		ON ( solicitud.codigo_estudiante = estudiante.codigo_estudiante )
 
-		WHERE solicitudes_recibidas.valor is null 
+		And( solicitud.codigo_temporada_especialidad = tem_st.codigo_temporada_especialidad )
 
-		 ;");
+	WHERE   solicitud.codigo_estudiante Is Null
+
+		AND solicitud.codigo_temporada_especialidad Is Null
+		
+		AND tem_sp.codigo_temporada_especialidad Is Not Null ;");
 
 	}
 	function BuscarEstudiantesPostulados($codigo_temporada_especialidad) {

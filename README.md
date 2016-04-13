@@ -29,3 +29,7 @@
 	eso causa que cuando se cierre el panel de una especialidad ,
 
 	sea mas rapido que antes Pronto haré el merge
+
+	// Estudiando http://www.cristalab.com/tutoriales/uso-de-modulos-en-javascript-con-ecmascript-6-c114342l/
+
+## 

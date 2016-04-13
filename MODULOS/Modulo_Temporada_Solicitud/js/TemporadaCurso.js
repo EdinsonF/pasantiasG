@@ -125,7 +125,7 @@ function BuscarEspecialidadesTemporada( codigo_temporada){
 
   Paneles+="<div class='panel panel-info'>"+
 
-  "<div class='panel-heading collapsed' role=tab id=Especialicollapse"+index+" data-toggle=collapse data-parent=#accordion aria-expanded='false' aria-controls=EspecialidadOpenm"+index+" data-target=#EspecialidadOpenm"+index+" style='cursor:pointer ; width:99%'>"+
+  "<div class='panel-heading collapsed' role=tab id=Especialicollapse"+index+" data-toggle=collapse data-parent=#accordion aria-expanded='false' aria-controls=EspecialidadOpenm"+index+" data-target=#EspecialidadOpenm"+index+" style='cursor:pointer'>"+
                   
   "<h4 class=panel-title ><span >"+value['especialidad']+"</span> <span class=badge id='with"+index+"'>Total Estudiantes ( "+value['cantidadestudiantes']+" )</span></h4><label class=codigo_temporada_especialidad hidden style=display:none>"+value['codigo_temporada_especialidad']+"</label> </div>"+
   
@@ -196,7 +196,7 @@ function buscarEstatemporada(codigo , pestañasEspecialidades , ids)
                                  
                                  '<label >Lapso Acad&eacute;mico   : </label> '+varia['lapsoacademico']+'<br> </pre>'; 
                                  
-                                 html+='<button onClick="CerrarTemporadaEvento(this)" class="btn btn-lg btn-primary btn-block" ><strong><span class="glyphicon glyphicon-level-up" ></span> Cerrar Temporada</strong><label class=codigo_cerrar hidden style=display:none>'+codigo+'</label></button>';
+                    html+='<button onClick="CerrarTemporadaEvento(this)" class="btn btn-lg btn-primary btn-block" ><strong><span class="glyphicon glyphicon-level-up" ></span> Cerrar Temporada</strong><label class=codigo_cerrar hidden style=display:none>'+codigo+'</label></button>';
                     
                     if(varia['colore']=='warning') 
                     {
@@ -261,8 +261,7 @@ function BuscarInformacionPanel( panel )
 
 function CerrarTemporadaEvento( button )
 { 
-
-CerrarTemporada($(button).find('.codigo_cerrar').html());
+    CerrarTemporada($(button).find('.codigo_cerrar').html());
 }
 
 function BuscarEstudiantesEsepcialidadTemporada(codigo_temporada_especialidad , imprimir_info)
@@ -364,9 +363,9 @@ function BuscarEstudiantesNoPostulados ( donde_imprimir ,codigo_temporada_especi
            
            var html='';
 
-                  html += '<div class=tab-pane id=NoPostulados><br><div class="table-responsive">'; 
+              html += '<div class=tab-pane id=NoPostulados><br><div class="table-responsive">'; 
            
-                  html +='<table class="table table-striped table-hover dt-responsive nowrap compact" id=tableNoPostulados style='+'"cursor:pointer ; width:99%"'+'>'+
+              html +='<table class="table table-striped table-hover dt-responsive nowrap compact" id=tableNoPostulados style='+'"cursor:pointer ; width:99%"'+'>'+
                     
                     '<thead><tr>'+
                       
@@ -400,10 +399,12 @@ function BuscarEstudiantesNoPostulados ( donde_imprimir ,codigo_temporada_especi
                   BuscarEstudiantesNoPostulados:codigo_temporada_especialidad
                 },
                 success: function (data){
+                      
                       var saltoslast   ='<br>';   
                       var boton_Reporte='';
                       var Variable     = JSON.parse(data);
-                     $.each(Variable, function(index, value){
+
+              $.each(Variable, function(index, value){
               
               html+='<tr>'+
 
@@ -419,14 +420,16 @@ function BuscarEstudiantesNoPostulados ( donde_imprimir ,codigo_temporada_especi
               
               '<td hidden>'+value['codigo_estudiante']+'</td></tr>';
               
-              //saltoslast +='<>';
               boton_Reporte = '<button id=ReporteNoPostulado class="btn btn-primary btn-block" ><strong><span class="glyphicon glyphicon-download-alt"></span> Reporte ('+ parseInt( 1+index ) +') Estudiantes</strong>  <label hidden class="codigo_temporada_reportar" >'+codigo_temporada_especialidad+'</label></button>';
-                       });
+              
+              });
+
               html +='</table></div>'+saltoslast+ boton_Reporte+'</div>';
                     li    += pestañasEstudiantes;
                     div   += html;
                     ids_tablas[yo]  = '#tableNoPostulados';
                     id_boton_reportes[yo] = {id_boton : "#ReporteNoPostulado" , descripcion : REPORTE_NO_POSTULADOS };
+                     
                      if( yo ==  ultimo)
                      {
                        PestanasEstudiantes(donde_imprimir ,li , div , ids_tablas , id_boton_reportes);
@@ -488,15 +491,17 @@ function BuscarEstudiantesPostulados ( donde_imprimir ,codigo_temporada_especial
                 },
                 success: function (data){
                   
-            var saltoslast=''; 
-            var boton_Reporte='';                 
-                    var Variable = JSON.parse(data);
-                     $.each(Variable, function(index, value){
-                          html+='<tr>'+
+                    var saltoslast    =''; 
+                    var boton_Reporte ='';                 
+                    var Variable      = JSON.parse(data);
+
+              $.each(Variable, function(index, value){
+                          
+              html+='<tr>'+
               
               '<td>'+value['nombre_organizacion']+'</td>'+
               
-              '<td><img src=../../../img/Ico-master/PNG/64px/0135-search.png alt=Ginger class=left width=20 ./>'+
+              '<td><i class="fa fa-search" aria-hidden="true"></i>'+
               
               '<label hidden class=sucursal>'+value['sucursal']+'</label></td>'+
               
@@ -527,7 +532,6 @@ function BuscarEstudiantesPostulados ( donde_imprimir ,codigo_temporada_especial
                     id_boton_reportes[yo] = {id_boton : "#ReportePostulado" , descripcion : REPORTE_POSTULADOS };
                    
                      if( yo ==  ultimo)
-                   
                      {
                    
                        PestanasEstudiantes(donde_imprimir ,li , div , ids_tablas , id_boton_reportes);
@@ -593,16 +597,19 @@ function BuscarEstudiantesAprobados ( donde_imprimir ,codigo_temporada_especiali
                   BuscarEstudiantesAprobadosOrganizacion:codigo_temporada_especialidad
                 },
                 success: function (data){
+
                   	var boton_Reporte='';                 
 
-                    var saltoslast='';                  
+                    var saltoslast='';    
+
                     var Variable = JSON.parse(data);
-                     $.each(Variable, function(index, value){
+
+              $.each(Variable, function(index, value){
                           html+='<tr>'+
               
               '<td>'+value['nombre_organizacion']+'</td>'+
               
-              '<td><img src=../../../img/Ico-master/PNG/64px/0135-search.png alt=Ginger class=left width=20 ./>'+
+              '<td><i class="fa fa-search" aria-hidden="true"></i>'+
               
               '<label hidden style=display:none class=sucursal>'+value['sucursal']+'</label></td>'+
               
@@ -680,33 +687,35 @@ function BuscarEstudiantesSinTutores ( donde_imprimir ,codigo_temporada_especial
 
     var boton_asignar_tutor = '<button type=reset id=Asignacion_estudiante class="btn btn-success btn-block" disabled ><span class="glyphicon glyphicon-check"></span><strong> Asignar Tutor Académico </strong> </button>';
                 
-      $.ajax({
+    $.ajax({
                 
-                async   : true, 
-                
-                cache   : false,
-                
-                type    : "POST",
-                
-                url     : "../controlador/recibeTemporada.php",
-                
-                dataType: "html",
-                
-                data    : {  BuscarEstudiantesSinTutores:codigo_temporada_especialidad },
+            async   : true, 
+            
+            cache   : false,
+            
+            type    : "POST",
+            
+            url     : "../controlador/recibeTemporada.php",
+            
+            dataType: "html",
+            
+            data    : {  BuscarEstudiantesSinTutores:codigo_temporada_especialidad },
 
-                success: function (data){
-                  	var boton_Reporte='';                 
+            success : function (data){
+                  	
+                    var boton_Reporte='';                 
 
                     var saltoslast='';                  
+                    
                     var Variable = JSON.parse(data);
-                    //alert(data);
-                     $.each(Variable, function(index, value){
+                
+              $.each(Variable, function(index, value){
 
               html+='<tr>'+
 
               '<td>'+value['nombre_organizacion']+'</td>'+
               
-              '<td><img src=../../../img/Ico-master/PNG/64px/0135-search.png alt=Ginger class=left width=20 ./>'+
+              '<td><i class="fa fa-search" aria-hidden="true"></i>'+
               
               '<label hidden style=display:none class=sucursal>'+value['sucursal']+'</label></td>'+
               
@@ -784,26 +793,25 @@ function BuscarEstudiantesConTutores ( donde_imprimir ,codigo_temporada_especial
  
       $.ajax({
                
-                async   : true, 
-               
-                cache   : false,
-               
-                type    : "POST",
-               
-                url     : "../controlador/recibeTemporada.php",
-               
-                dataType: "html",
-               
-                data    : {
-                 
-                  BuscarEstudiantesConTutores:codigo_temporada_especialidad
-                },
-                success: function (data){
+              async   : true, 
+             
+              cache   : false,
+             
+              type    : "POST",
+             
+              url     : "../controlador/recibeTemporada.php",
+             
+              dataType: "html",
+             
+              data    : { BuscarEstudiantesConTutores:codigo_temporada_especialidad },
+
+              success : function (data){
+                    
                     var boton_Reporte ='';
                     var saltoslast    ='';                  
                     var Variable      = JSON.parse(data);
                     
-                     $.each(Variable, function(index, value){
+              $.each(Variable, function(index, value){
                           html+='<tr>'+
               
               '<td>'+value['nombre_organizacion']+'</td>'+
@@ -849,7 +857,7 @@ function BuscarEstudiantesConTutores ( donde_imprimir ,codigo_temporada_especial
 function BuscarEstudiantesNoSolventes( donde_imprimir ,codigo_temporada_especialidad , siguiente ,yo,  ultimo )
 {
 
-  var  pestañasEstudiantes ='<li data-target=#Estudiantes_no_Solventes data-toggle=tab><a >'+
+  var  pestañasEstudiantes ='<li data-target=#Estudiantes_no_Solventes data-toggle=tab style="float: right" ><a >'+
                             '<strong>No Solventes</strong></a></li>';
   var html='';
       
@@ -873,24 +881,21 @@ function BuscarEstudiantesNoSolventes( donde_imprimir ,codigo_temporada_especial
                                         
                     '</tr></thead>';
  
-        $.ajax({
+  $.ajax({
 
-                 async   : true, 
+         async   : true, 
 
-                 cache   : false,
+         cache   : false,
 
-                 type    : "POST",
+         type    : "POST",
 
-                 url     : "../controlador/recibeTemporada.php",
+         url     : "../controlador/recibeTemporada.php",
 
-                 dataType: "html",
+         dataType: "html",
 
-                 data    : {
+         data    : { BuscarEstudiantesNoSolventes:codigo_temporada_especialidad },
 
-                 
-                   BuscarEstudiantesNoSolventes:codigo_temporada_especialidad
-                 },
-                 success: function (data){
+         success : function (data){
                   
                     var boton_Reporte ='';
                     var saltoslast    ='';                  
@@ -953,7 +958,7 @@ function BuscarEstudiantesNoSolventes( donde_imprimir ,codigo_temporada_especial
 function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialidad , siguiente ,yo,  ultimo )
 {
 
-  var  pestañasEstudiantes ='<li data-target=#Estudiantes_Solventes data-toggle=tab><a >'+
+  var  pestañasEstudiantes ='<li data-target=#Estudiantes_Solventes data-toggle=tab style="float: right"><a >'+
                             '<strong>Solventes</strong></a></li>';
   var html='';
       
@@ -985,14 +990,12 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
 
            dataType: "html",
 
-           data    :
-           {                 
-             BuscarEstudiantesSolventes:codigo_temporada_especialidad
-           },
-           success: function (data){
+           data    : { BuscarEstudiantesSolventes:codigo_temporada_especialidad },
+
+           success : function (data){
                   
-                    var boton_Reporte , saltoslast , conteo_total_entregables ;               
-                    var Variable      = JSON.parse(data); 
+                var boton_Reporte , saltoslast , conteo_total_entregables ;               
+                var Variable      = JSON.parse(data); 
                     
                $.each(Variable, function(index, value){
 
@@ -1030,7 +1033,6 @@ function BuscarEstudiantesSolventes( donde_imprimir ,codigo_temporada_especialid
                      //id_boton_reportes[yo] = {id_boton : "#ReporteNoSolventes" , descripcion : REPORTE_ESTUDIANTES_TUTORES };
                      
                      if( yo ==  ultimo)
-                     
                      {
                      
                        PestanasEstudiantes(donde_imprimir ,li , div , ids_tablas , id_boton_reportes);
@@ -1115,10 +1117,10 @@ function Activarevento_asignarTutor()
 
     if(codigo_solicituid!=false)
     {
-       BuscarTutoresSegunsolicitudAprobada(codigo_solicituid);
+      BuscarTutoresSegunsolicitudAprobada(codigo_solicituid);
     }else 
     {
-        swal( 'Importante' , 'Es necesario tener un una de las filas de esta tabla seleccionada' , 'info' );
+      swal( 'Importante' , 'Es necesario tener un una de las filas de esta tabla seleccionada' , 'info' );
     }
     
   });
@@ -1134,7 +1136,9 @@ function Activar_evento_entregables()
   $("#Asignar_entregable").click(function(){
 
     $('.estudiantegable:checked').each(function(index) {
+    
     var tr = $(this).parent().parent();
+    
     codigo=$(this).parent().parent().find(".codigo_estudiante").html(); //.parent().find(.buscar_codigo_para_los_Tutores)
         
     });
@@ -1168,12 +1172,8 @@ $.ajax({
       
       dataType: "html",
       
-      data    : 
-      {
-      
-        buscarDatosSucursal:codigo_sucursal
+      data    : { buscarDatosSucursal:codigo_sucursal },
 
-      },
       success: function (data) {
       		  
       		var Variable = JSON.parse(data);
@@ -1230,20 +1230,22 @@ function agregareventodelistgroup()
 
 
 function aprobarsolicitudEncargado(codigo_solicitud ,codigo_estudiante , sucursal)
-{
-      $.ajax({
+{ 
+
+
+$.ajax({
               
-              async   : true, 
-              
-              cache   : false,
-              
-              type    : "POST",
-              
-              url     : "../controlador/recibeTemporada.php",
-              
-              dataType: "html",
-              
-              data    : {
+    async   : true, 
+    
+    cache   : false,
+    
+    type    : "POST",
+    
+    url     : "../controlador/recibeTemporada.php",
+    
+    dataType: "html",
+    
+    data    : {
 
               estudiantecaleta         : codigo_estudiante,
               
@@ -1251,11 +1253,11 @@ function aprobarsolicitudEncargado(codigo_solicitud ,codigo_estudiante , sucursa
               
               codigo_sucursal          : sucursal,
               
-              aprobarsolicitudEncargado:codigo_solicitud
-        },
-        success: function (data) {
+              aprobarsolicitudEncargado: codigo_solicitud
+              },
+
+    success: function (data) {
           
-        	
           	if(data==1)
           	{
           		swal('Bien','El Estudiante Fué Aprobado','success');
@@ -1272,25 +1274,26 @@ function BuscarTutoresSegunsolicitudAprobada(codigo_solicitud)
 {
   
   $("#codigocaleta").val(codigo_solicitud);
-       $.ajax({
 
-              async   : true, 
-             
-              cache   : false,
-             
-              type    : "POST",
-             
-              url     : "../controlador/recibeTemporada.php",
-             
-              dataType: "html",
-             
-              data    : {
-        
-          buscarTutoresParaEsteEstudiante:codigo_solicitud
-        },
-        success: function (data) {
+  $.ajax({
+          async   : true, 
+         
+          cache   : false,
+         
+          type    : "POST",
+         
+          url     : "../controlador/recibeTemporada.php",
+         
+          dataType: "html",
+         
+          data    : { buscarTutoresParaEsteEstudiante:codigo_solicitud },
+          
+          success : function (data) {
+          
           var Arr = JSON.parse(data);
+          
           var html ='';
+          
           $.each(Arr , function(index , valor){
 
             html +='<tr>'+
@@ -1571,10 +1574,8 @@ function informaciondeTutoresAcademicosSegunEspecialidadTemporada( donde_imprimi
             
             dataType: "html",
             
-            data    : {
-        
-          InformacionTutoresEspecifico:codigo_temporada_especialidad
-        },
+            data    : { InformacionTutoresEspecifico:codigo_temporada_especialidad },
+
         success: function (data) {
               //alert(data);
              if(data > 0)
@@ -1617,10 +1618,8 @@ function verTutoresResumen(codigo_temporada_especialidad)
           
           dataType: "html",
           
-          data    : {
-        
-          buscarTutoresResumen:codigo_temporada_especialidad
-        },
+          data    : { buscarTutoresResumen:codigo_temporada_especialidad },
+
         success: function (data) {
           
           var Arr  = JSON.parse(data);
@@ -1674,10 +1673,8 @@ function VerificandoEcistenciaDelTutor(CodigoTutor_sospechoso)
               
               dataType: "html",
               
-              data    : {
+              data    : { verificaCodigoTutor:CodigoTutor_sospechoso },
         
-          verificaCodigoTutor:CodigoTutor_sospechoso
-        },
         success : function (data){
           
           if (data !=1) swal('Atención','Este Codigo no Existe en la Base de Datos','warning'); 
@@ -1910,10 +1907,10 @@ function CrearEventoforliSeleccionableSimulandoTablasconLi(etiqueta_a , codigo_e
 {
               $('.toggle-demo-check').bootstrapToggle({
 
-                on:  '<span class="glyphicon glyphicon-thumbs-up"></span>',
-
-                off: '<span class="glyphicon glyphicon-thumbs-down"></span>',
-
+                on      :  '<span class="glyphicon glyphicon-thumbs-up"></span>',
+                
+                off     : '<span class="glyphicon glyphicon-thumbs-down"></span>',
+                
                 offstyle:'danger'
 
               });
@@ -1959,7 +1956,7 @@ $(".codigo_estudiante_para_entregableAsignacion").html(codigo_estudiante);
 
 
 
-function ActivarCheckbox(id)
+function ActivarCheckbox ( id )
 {
       $(".toggle-demo-check").off('change');
 
@@ -2045,10 +2042,13 @@ function AsignarEstosEntregables_a_estudiantes( idsEntregables, codigo_estudiant
               //var dec = JSON.parse(data);
               //alert(data +'  -  -  -  ' + idsEntregables.length);
            if(data==idsEntregables.length && data > 1){ swal('Bien','Entregables Asignados Correctamente','success'); }
+           
            else if (data==idsEntregables.length && data == 1) { swal('Bien','Entregable Asignado Correctamente','success'); }  else { swal('Mal','algo no Anda bien con estos datos','error'); }
 
           Buscar_entregables_este_estudiante(codigo_estudiante ,  
+            
             $(".codigo_temporada_especialidad_estudiante_entregable").html() ,
+            
             $("#Asignar_entregable").find(".total_deentregables_this_temporada").html() );
 
           }
@@ -2064,15 +2064,12 @@ function CrearCampoinline(num , input , Entregable)
 
   '<div class="form-inline">'+
 
-      //'<div class="form-group">'+
           '<input type="checkbox" class=toggle-demo-check data-size="mini" >'+
 
           '    <label>#'+num+'</label> - '+Entregable+
           
           input+
                 
-      //'</div>'+
-
   '</div>';
 return str;
 }
